@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+//linea añadida para uso básico de Permission
+use Spatie\Permission\Traits\HasRoles;
+//linea añadida para uso básico de Permission
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -20,7 +23,9 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    //linea añadida para uso básico de Permission
 
+    //use HasRoles;
     /**
      * The attributes that are mass assignable.
      *
