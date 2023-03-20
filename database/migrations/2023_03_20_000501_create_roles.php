@@ -23,6 +23,8 @@ return new class extends Migration
        //buscamos el usuario
        $user =  User::find(1);
        $user->assignRole($role1);
+       $user1 =  User::find(2);
+       $user1->assignRole($role2);
     }
 
     /**
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        
     }
 };
