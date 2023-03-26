@@ -8,6 +8,16 @@
 
 @section('content')
     <p>Welcome to this beautiful admin panel.</p>
+
+    @role('super')
+        <p>Hola SuperAdministrador</p>
+    @endrole
+    @role('admin')
+        <p>Hola Administrador</p>
+    @endrole
+    @role('usuario')
+        <p>Hola Usuario</p>
+    @endrole
 @stop
 
 @section('css')

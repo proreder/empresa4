@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'EMPRESA',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'public/vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>EMPRESA</b>',
+    'logo_img' => 'public/vendor/adminlte/dist/img/truck.webp',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,11 +86,11 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'public/vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'public/vendor/adminlte/dist/img/truck.webp',
             'alt' => 'Auth Logo',
             'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'width' => 60,
+            'height' => 60,
         ],
     ],
 
@@ -109,7 +109,7 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'public/vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'public/vendor/adminlte/dist/img/truck.webp',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -289,11 +289,12 @@ return [
     |
     */
 
+    //Configuración del menú lateral del dashboard
     'menu' => [
         // Navbar items:
         [
             'type'         => 'navbar-search',
-            'text'         => 'search',
+            'text'         => 'búqueda',
             'topnav_right' => true,
         ],
         [
@@ -304,7 +305,7 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Buscar',
         ],
         [
             'text' => 'blog',
@@ -312,11 +313,30 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
+            'text'        => 'Empleados',
+            'url'         => 'admin/empleados',
+            'icon'        => 'far fa-fw fa-user',
             'label'       => 4,
             'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Vehículos',
+            'url'         => 'admin/vehiculos',
+            'icon'        => 'fas fa-fw fa-car',
+            'label'       => 4,
+            'label_color' => 'success',
+            'submenu' => [
+                [
+                    'text' => 'Activos',
+                    'url'  => '#',
+                    'icon'        => 'fas fa-caret-up fa-rotate-90',
+                ],
+                [
+                    'text' => 'Listado',
+                    'url'  => '#',
+                    'icon'        => 'fas fa-caret-up fa-rotate-90',
+                ],
+            ],
         ],
         ['header' => 'account_settings'],
         [

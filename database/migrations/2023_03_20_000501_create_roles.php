@@ -25,6 +25,10 @@ return new class extends Migration
        $user->assignRole($role1);
        $user1 =  User::find(2);
        $user1->assignRole($role2);
+
+       $user2 =  User::find(3);
+       $user2->assignRole($role3);
+       
     }
 
     /**
