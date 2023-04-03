@@ -314,7 +314,7 @@ return [
         ],
         [
             'text'        => 'Empleados',
-            'url'         => 'admin/empleados',
+            'url'         => 'empleados/index',
             'icon'        => 'far fa-fw fa-user',
             'label'       => 4,
             'label_color' => 'success',
