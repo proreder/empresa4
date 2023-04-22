@@ -7,17 +7,20 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
-
-    @role('super')
-        <p>Hola SuperAdministrador</p>
-    @endrole
-    @role('admin')
-        <p>Hola Administrador</p>
-    @endrole
-    @role('usuario')
-        <p>Hola Usuario</p>
-    @endrole
+    <div class="container">
+        <a href="{{ url('empleados/create') }}">Alta de Empleado</a>
+        <!--<p>Welcome to this beautiful admin panel.</p>-->
+        <!--Mostramos el ROL de usuario que se ha conectado-->
+        @role('super')
+            <p>Hola SuperAdministrador</p>
+        @endrole
+        @role('admin')
+            <p>Hola Administrador</p>
+        @endrole
+        @role('usuario')
+            <p>Hola Usuario</p>
+        @endrole
+    </div>
 @stop
 
 @section('css')

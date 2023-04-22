@@ -31,3 +31,7 @@ Route::middleware([
 Route::get('/empleados/index', function () {
     return view('layouts.empleados.index');
 });
+
+Route::get('/conductores/index', function () {
+    return view('layouts.conductores.index');
+});

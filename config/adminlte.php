@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -315,6 +315,13 @@ return [
         [
             'text'        => 'Empleados',
             'url'         => 'empleados/index',
+            'icon'        => 'far fa-fw fa-user',
+            'label'       => 4,
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Conductores',
+            'url'         => 'conductores/index',
             'icon'        => 'far fa-fw fa-user',
             'label'       => 4,
             'label_color' => 'success',
