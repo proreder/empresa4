@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,9 +29,16 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/empleados/index', function () {
-    return view('layouts.empleados.index');
-});
+//vista para listar los empleados
+//Route::get('/empleados/index', function () {
+//    return view('layouts.empleados.index');
+//});
+
+//vista para listar los empleados
+Route::get("/empleados/index", "App\Http\Controllers\EmpleadosController@read");
+
+
+
 
 Route::get('/conductores/index', function () {
     return view('layouts.conductores.index');

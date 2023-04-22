@@ -20,6 +20,44 @@
         @role('usuario')
             <p>Hola Usuario</p>
         @endrole
+
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th>Fotografía</th>
+                    <th>NIF/NIE</th>
+                    <th>Número SS</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Tipo Via</th>
+                    <th>Nombre via</th>
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+                @forelse ($empleados as $empleado)
+                    <tr>
+                        <td>{{ $empleado->foto }}</td>
+                        <td>{{ $empleado->nifnie}}</td>
+                        <td>{{ $empleado->nss}}</td>
+                        <td>{{ $empleado->nombre}}</td>
+                        <td>{{ $empleado->apellidos}}</td>
+                        <td>{{ $empleado->tipo_via}}</td>
+                        <td>{{ $empleado->nombre_via}}</td>
+                        <td> Editar | 
+                            <form action="{{ url('/empleado.index'.$empleado->nifnie)}}" method="post">
+                                @csrf
+                                <input type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar">  
+                            </form>   
+                        </td>
+                    </tr>
+                @empty
+                    
+                @endforelse
+            </tbody>
+        </table>
     </div>
 @stop
 
