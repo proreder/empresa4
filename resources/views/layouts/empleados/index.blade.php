@@ -47,8 +47,9 @@
                         <td>{{ $empleado->tipo_via}}</td>
                         <td>{{ $empleado->nombre_via}}</td>
                         <td> Editar | 
-                            <form action="{{ url('/empleado.index'.$empleado->nifnie)}}" method="post">
+                            <form action="{{ url('/empleados/index'.$empleado->nifnie)}}" method="post">
                                 @csrf
+                                {{method_field('DELETE)')}}
                                 <input type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar">  
                             </form>   
                         </td>

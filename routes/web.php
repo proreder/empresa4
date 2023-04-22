@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//Agregamos UsuariosControlles
+use App\Http\Controllers\EmpleadosController;
 
 
 /*
@@ -37,7 +39,8 @@ Route::middleware([
 //vista para listar los empleados
 Route::get("/empleados/index", "App\Http\Controllers\EmpleadosController@read");
 
-
+//Ruta para la creación de un nuevo empleado
+route::get('/empleados/create', [EmpleadosController::class, 'create']);
 
 
 Route::get('/conductores/index', function () {

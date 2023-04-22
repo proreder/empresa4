@@ -15,6 +15,11 @@ class EmpleadosController extends Controller
         return view('layouts.empleados.index', ['empleados'=> $empleados]);
         
     }
+
+    public function create(){
+        return view('layouts.empleados.create');
+    }
+
     //Se borra el registro indicado en el parámetro que recibe como argumento
     public function destroy($nifnie){
 
