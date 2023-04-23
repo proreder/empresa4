@@ -37,11 +37,13 @@ Route::middleware([
 //});
 
 //vista para listar los empleados
-Route::get("/empleados/index", "App\Http\Controllers\EmpleadosController@read");
+Route::get("/empleados/index", [EmpleadosController::class, 'read']);
 
 //Ruta para la creación de un nuevo empleado
 route::get('/empleados/create', [EmpleadosController::class, 'create']);
 
+//Obtenemos las rutas de los metodos de empleadoController
+Route::resource('/empleados', EmpleadosController::class);
 
 Route::get('/conductores/index', function () {
     return view('layouts.conductores.index');

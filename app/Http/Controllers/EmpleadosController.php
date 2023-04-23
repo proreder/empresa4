@@ -20,6 +20,12 @@ class EmpleadosController extends Controller
         return view('layouts.empleados.create');
     }
 
+    public function store(Request $request){
+        //obtenemos los enviados por el formulario de empleado nuevo eliminamo el valor del token
+        $datosEmpleado=$request->except('_token');
+        return response()->json($datosEmpleado);
+    }
+
     //Se borra el registro indicado en el parámetro que recibe como argumento
     public function destroy($nifnie){
 
