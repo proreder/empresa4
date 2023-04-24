@@ -11,7 +11,7 @@ class EmpleadosController extends Controller
     //listamos todos los registros de la tabla empleados
     public function read(Request $request){
         //obtenemos todos los registros de la tabla Empleado
-        $empleados=EmpleadosModel::paginate(3);
+        $empleados=EmpleadosModel::paginate(10);
         return view('layouts.empleados.index', ['empleados'=> $empleados]);
         
     }
