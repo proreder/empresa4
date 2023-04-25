@@ -20,7 +20,7 @@
         @role('usuario')
             <p>Hola Usuario</p>
         @endrole
-
+        
         <table class="table table-light">
             <thead class="thead-light">
                 <tr>
@@ -39,7 +39,12 @@
             <tbody>
                 @forelse ($empleados as $empleado)
                     <tr>
-                        <td>{{ $empleado->foto }}</td>
+                        <td><img src="data:image/png;base64,
+                            <?php 
+                                 echo base64_encode($empleado->foto); 
+                            ?>" alt="" width="40">
+                        </td>
+                        <!-- <td></td> -->
                         <td>{{ $empleado->nifnie}}</td>
                         <td>{{ $empleado->nss}}</td>
                         <td>{{ $empleado->nombre}}</td>
