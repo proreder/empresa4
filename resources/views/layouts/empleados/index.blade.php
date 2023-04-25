@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container">
-        <a href="{{ url('empleados/create') }}">Alta de Empleado</a>
+        
         <!--<p>Welcome to this beautiful admin panel.</p>-->
         <!--Mostramos el ROL de usuario que se ha conectado-->
         @role('super')
@@ -20,7 +20,8 @@
         @role('usuario')
             <p>Hola Usuario</p>
         @endrole
-        
+        <a href="{{ url('empleados/create') }}" class="btn btn-success">Alta de Empleado</a>
+        <br><br>
         <table class="table table-light">
             <thead class="thead-light">
                 <tr>
