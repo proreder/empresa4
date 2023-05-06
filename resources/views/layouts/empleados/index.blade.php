@@ -55,7 +55,7 @@
                         <td> Editar | 
                             <form action="{{ url('/empleados/index'.$empleado->nifnie)}}" method="post">
                                 @csrf
-                                {{method_field('DELETE)')}}
+                                {{method_field('DELETE')}}
                                 <input type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar">  
                             </form>   
                         </td>

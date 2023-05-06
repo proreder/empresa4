@@ -1,135 +1,209 @@
-Vista para crear un nuevo empleado
-<br>
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h1>Alta empleado</h1>
+@stop
+
+@section('content')
+    <p>Welcome to this beautiful admin panel.</p>
+
+    @role('super')
+        <p>Hola SuperAdministrador</p>
+    @endrole
+    @role('admin')
+        <p>Hola Administrador</p>
+    @endrole
+    @role('usuario')
+        <p>Hola Usuario</p>
+    @endrole
 
 
 
-    <form action="{{ url('/empleados')}}" method="post" enctype="multipart/form-data">
+
+
+    <form class="form-horizontal" action="{{ url('/empleados')}}" method="post" enctype="multipart/form-data">
         @csrf
-        <table>
-        <tr>
-            <td>
-                <label for="nifnie">NifNie: </label>
-                <input type="text" name="nifnie">
-            </td>
-            <td>
-                <label for="nss">Número SS: </label>
-                <input type="text" name="nss">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="nombre">Nombre: </label>
-                <input type="text" name="nombre">
-            </td>
-            <td>
-                <label for="apellidos">Apellidos: </label>
-                <input type="text" name="apellidos">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="fecha_nacimiento">Fecha nacimiento:</label>
-                <input type="text" name="fecha_nacimiento">
-            </td>
-            <td>
+        <div class="container-fluid">
+            <div class="row mb-4">
+                <div class="col-2 form-group row">
+                        <label class="col-3 col-form-label" for="tipo">
+                                    Tipo
+                        </label>
+                        <div class="col-5">
+                            <select id="select" name="selectNifNie" class="form-control">
+                                <option value="nif">NIF</option>
+                                <option value="nie">NIE</option>
+                            
+                            </select>
+                        </div>
+                </div>
+
+                
+                    <div class="col-2 form-group row">
+                            <label class="col-5 col-form-label" for="nifnie">
+                               Documento
+                            </label>
+                            <div class="col-6">
+                                <input type="text" class="form-control" name="nifnie">
+                            </div>
+                    </div>
+                
+                
+                    <div class="col-3 form-group row">
+                        <label class="col-sm-4 col-form-label" for="nss">Número SS: </label>
+                        <div class="col-5">
+                                <input type="text"class="form-control" name="nss">
+                        </div>
+                    </div>
+                
+                
+                    <div class="col-4 form-group row" >
+                    
+                        <label class="col-4 col-form-label" for="fecha_nacimiento">Fecha Nacimiento</label>
+                        <div class="col-5">
+                            <input type="date" class="form-control" name="fecha_nacimiento">
+                        </div>
+                    </div>
+                
+
+           
+            </div>
+            <div class="row mb-4">
+                <div class="col-3 form-group row">
+                                <label  class="col-sm-4 col-form-label" for="nombre" >Nombre: </label>
+                                <div class="col-6">
+                                    <input class="form-control" type="text" name="nombre">
+                                </div>
+                            
+                 </div>
+                <div class="col-3 form-group row" style="border: solid green">
+                        <label class="col-sm-4 col-form-label" for="apellidos" >Apellidos: </label>
+                        <div class="col-6">
+                            <input class="form-control" type="text" name="apellidos">
+                        </div>
+                
+                </div>
+
+                <div class="col-2 form-group row" style="border: solid green">
+                        <label class="col-sm-3 col-form-label" for="sexo" >Sexo: </label>
+                        <select id="select" name="selectNifNie" class="col-sm-6 form-control">
+                                <option value="H">Hombre</option>
+                                <option value="M">Mujer</option>
+                                <option value="X">X</option>
+                            </select>
+
+                
+                </div>
+            </div>
+        
+        <div class="row mb-4 col-10">
+            <div class="col-3 form-group row">
+                     <label  class="col-sm-4 col-form-label" for="tipo_via">Tipo de via: </label>
+                     <div class="col-5">
+                        <input class="form-control" type="text" name="tipo_via">
+                    </div>
+            </div>
+            <div class="col-3 form-group row">
+                     <label  class="col-sm-4 col-form-label" for="nombre_via">Nombre via: </label>
+                     <div class="col-7">
+                        <input class="form-control" type="text" name="nombre_via">
+                    </div>
+            </div>
+            <div class="col-2 form-group row">
+                <label class="col-sm-4 col-form-label" for="numero">Número: </label>
+                    <div class="col-2">
+                        <input class="form-control" type="text" name="numero">
+                    </div>
+            </div>
+            <div class="col-2 form-group row">
+                <label class="col-form-label" for="planta">Planta: </label>
+                    <div class="col-1">
+                        <input class="form-control" type="text" name="planta">
+                    </div>
+            </div>
+            <div class="col-2 form-group row">
+                <label class="col-form-label" for="puerta">Puerta: </label>
+                    <div class="col-2">
+                        <input class="form-control" type="text" name="puerta">
+                    </div>
+            </div>
+            </div>
+        </div> 
+        <!--
+                    
+                       </div>
+                
+            </div>
+            
+</div>
+        <div class="mb-3">
                 <label for="tipo_via">Tipo de via: </label>
                 <input type="text" name="tipo_via">
-            </td>
-        </tr>
-        <tr>
-            <td>
+          
                 <label for="nombre_via">Nombre via: </label>
                 <input type="text" name="nombre_via">
-            </td>
-            <td>
+            
                 <label for="numero">Número: </label>
                 <input type="text" name="numero">
-            </td>
-        </tr>
-        <tr>
-            <td>
+          
                 <label for="planta">planta: </label>
                 <input type="text" name="planta">
-            </td>
-            <td>    
+               
         
                 <label for="puerta">Puerta: </label>
                 <input type="text" name="puerta">
-            </td>
-        </tr>
-        <tr>
-            <td>
+        </div>   
                 <label for="municipio">Municipio: </label>
                 <input type="text" name="municipio">
-            </td>
-            <td>
+            
                 <label for="provincia">Provincia: </label>
                 <input type="text" name="provincia">
-            </td>
-        </tr>
-        <tr>
-            <td>
+           
                 <label for="cp">C.P: </label>
                 <input type="text" name="cp">
-            </td>
-            <td>
+            
                 <label for="telefono_fijo">Teléfono fijo: </label>
                 <input type="text" name="telefono_fijo">
-            </td>
-        </tr>
-        <tr>
-            <td>
+          
                 <label for="telefono_movil">Teléfono móvil: </label>
                 <input type="text" name="teléfono_movil">
-            </td>
-            <td><br>
-
                 <label for="email">Email: </label>
                 <input type="text" name="email">
-            </td>
-        </tr>
-        <tr>
-            <td>
+        
                 
                 <label for="puesto">Puesto: </label>
                 <input type="text" name="puesto">
-            </td>
-            <td>
+         
                 <label for="tipo_puesto">Puesto trabajo: </label>
                 <input type="text" name="tipo_puesto">
-            </td>
-        </tr>
-        <tr>
-            <td>
+           
                 <label for="fecha_alta">Fecha Alta: </label>
                 <input type="text" name="fecha_alta">
-            </td>
-            <td>
+           
         
                 <label for="fecha_baja">Fecha Baja: </label>
                 <input type="text" name="fecha_baja">
-            </td>
-        </tr>
-        <tr>
-            <td>
+           
                 <label for="motivo_baja">Motivo baja: </label>
                 <textarea name="textarea" rows="3" cols="50"></textarea>
 
-            </td>
-            
-        </tr>
-        <tr>
-            <td><br>
+          
                 <label for="foto">Fotografia: </label>
                 <input type="file" name="foto">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <br>
+-->
+
                 <input type="submit" value="Enviar">
-            </td>
-        </tr>
-    </table>
+          
+</div>            
     
 </form>
+@stop
+@section('css')
+    <link rel="stylesheet" href=".public/vendor/adminlte/dist/css/adminlte.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
