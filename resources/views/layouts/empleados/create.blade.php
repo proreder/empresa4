@@ -26,179 +26,137 @@
     <form class="form-horizontal" action="{{ url('/empleados')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="container-fluid">
-            <div class="row mb-4">
-                <div class="col-2 form-group row">
-                        <label class="col-3 col-form-label" for="tipo">
-                                    Tipo
-                        </label>
-                        <div class="col-5">
-                            <select id="select" name="selectNifNie" class="form-control">
+            
+            <div class="row">
+                <div class="col-md-4">
+                     <div class="form-group">
+                       <label for="nss">NºSS:</label>
+                       <div class="col-4 col-md-4 col-lg-4">
+                            <input type="text" class="form-control" size="15" id="nss" name="nss" required>
+                       </div>
+                     </div>
+                     <div class="form-group">
+                       <label for="nombre">Nombre:</label>
+                    
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                       
+                     </div>
+                     <div class="form-group">
+                       <label for="email">Email:</label>
+                       <input type="email" class="form-control" id="email" name="email" required>
+                     </div>
+               </div> 
+         
+               <div class="col-md-4">
+                 <div class="form-group">
+                     <label for="select">Tipo documento:</label>
+                     <div class="col-3 col-md-3 col-lg-3">
+                            <select id="select" name="select" class="form-control">
                                 <option value="nif">NIF</option>
                                 <option value="nie">NIE</option>
-                            
                             </select>
-                        </div>
-                </div>
-
-                
-                    <div class="col-2 form-group row">
-                            <label class="col-5 col-form-label" for="nifnie">
-                               Documento
-                            </label>
-                            <div class="col-6">
-                                <input type="text" class="form-control" name="nifnie">
-                            </div>
-                    </div>
-                
-                
-                    <div class="col-3 form-group row">
-                        <label class="col-sm-4 col-form-label" for="nss">Número SS: </label>
-                        <div class="col-5">
-                                <input type="text"class="form-control" name="nss">
-                        </div>
-                    </div>
-                
-                
-                    <div class="col-4 form-group row" >
-                    
-                        <label class="col-4 col-form-label" for="fecha_nacimiento">Fecha Nacimiento</label>
-                        <div class="col-5">
-                            <input type="date" class="form-control" name="fecha_nacimiento">
-                        </div>
-                    </div>
-                
-
-           
-            </div>
-            <div class="row mb-4">
-                <div class="col-3 form-group row">
-                                <label  class="col-sm-4 col-form-label" for="nombre" >Nombre: </label>
-                                <div class="col-6">
-                                    <input class="form-control" type="text" name="nombre">
-                                </div>
-                            
+                     </div>
                  </div>
-                <div class="col-3 form-group row" style="border: solid green">
-                        <label class="col-sm-4 col-form-label" for="apellidos" >Apellidos: </label>
-                        <div class="col-6">
-                            <input class="form-control" type="text" name="apellidos">
-                        </div>
-                
-                </div>
-
-                <div class="col-2 form-group row" style="border: solid green">
-                        <label class="col-sm-3 col-form-label" for="sexo" >Sexo: </label>
-                        <select id="select" name="selectNifNie" class="col-sm-6 form-control">
-                                <option value="H">Hombre</option>
-                                <option value="M">Mujer</option>
-                                <option value="X">X</option>
-                            </select>
-
-                
-                </div>
-            </div>
-        
-        <div class="row mb-4 col-10">
-            <div class="col-3 form-group row">
-                     <label  class="col-sm-4 col-form-label" for="tipo_via">Tipo de via: </label>
-                     <div class="col-5">
-                        <input class="form-control" type="text" name="tipo_via">
-                    </div>
-            </div>
-            <div class="col-3 form-group row">
-                     <label  class="col-sm-4 col-form-label" for="nombre_via">Nombre via: </label>
-                     <div class="col-7">
-                        <input class="form-control" type="text" name="nombre_via">
-                    </div>
-            </div>
-            <div class="col-2 form-group row">
-                <label class="col-sm-4 col-form-label" for="numero">Número: </label>
-                    <div class="col-2">
-                        <input class="form-control" type="text" name="numero">
-                    </div>
-            </div>
-            <div class="col-2 form-group row">
-                <label class="col-form-label" for="planta">Planta: </label>
-                    <div class="col-1">
-                        <input class="form-control" type="text" name="planta">
-                    </div>
-            </div>
-            <div class="col-2 form-group row">
-                <label class="col-form-label" for="puerta">Puerta: </label>
-                    <div class="col-2">
-                        <input class="form-control" type="text" name="puerta">
-                    </div>
-            </div>
-            </div>
-        </div> 
-        <!--
-                    
-                       </div>
-                
-            </div>
-            
-</div>
-        <div class="mb-3">
-                <label for="tipo_via">Tipo de via: </label>
-                <input type="text" name="tipo_via">
-          
-                <label for="nombre_via">Nombre via: </label>
-                <input type="text" name="nombre_via">
-            
-                <label for="numero">Número: </label>
-                <input type="text" name="numero">
-          
-                <label for="planta">planta: </label>
-                <input type="text" name="planta">
-               
-        
-                <label for="puerta">Puerta: </label>
-                <input type="text" name="puerta">
-        </div>   
-                <label for="municipio">Municipio: </label>
-                <input type="text" name="municipio">
-            
-                <label for="provincia">Provincia: </label>
-                <input type="text" name="provincia">
-           
-                <label for="cp">C.P: </label>
-                <input type="text" name="cp">
-            
-                <label for="telefono_fijo">Teléfono fijo: </label>
-                <input type="text" name="telefono_fijo">
-          
-                <label for="telefono_movil">Teléfono móvil: </label>
-                <input type="text" name="teléfono_movil">
-                <label for="email">Email: </label>
-                <input type="text" name="email">
-        
-                
-                <label for="puesto">Puesto: </label>
-                <input type="text" name="puesto">
+                 <div class="form-group">
+                   <label for="telefono">Apellidos:</label>
+                   <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="telefono">Teléfono:</label>
+                   <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                 </div>
+               </div>
          
-                <label for="tipo_puesto">Puesto trabajo: </label>
-                <input type="text" name="tipo_puesto">
-           
-                <label for="fecha_alta">Fecha Alta: </label>
-                <input type="text" name="fecha_alta">
-           
-        
-                <label for="fecha_baja">Fecha Baja: </label>
-                <input type="text" name="fecha_baja">
-           
-                <label for="motivo_baja">Motivo baja: </label>
-                <textarea name="textarea" rows="3" cols="50"></textarea>
+                 <div class="col-md-4">
+                 <div class="form-group">
+                     <label for="numero_dni_nie">Número:</label>
+                     <div class="col-4 col-md-4 col-lg-4">
+                            <input type="text" class="form-control" id="numero_dni_nie" name="numero_dni_nie" required>
+                     </div>
+                 </div>
+                 <div class="form-group">
+                     <label for="select">Sexo:</label>
+                     <div class="col-3 col-md-3 col-lg-3">
+                            <select id="select" name="select" class="form-control">
+                                <option value="hombre">Hombre</option>
+                                <option value="mujer">Mujer</option>
+                                <option value="x">X</option>
+                            </select>
+                     </div>
+                   
+                 </div>
+                 <div class="form-group">
+                   <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                   <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                 </div>
+               </div>
+         
+               <div class="col-md-4">
+                 <div class="form-group">
+                     <label for="tipo_via">Tipo via:</label>
+                   <input type="text" class="form-control" id="tipo_via" name="tipo_via" required>
+                 </div>
+                 <div class="form-group">
+                   <label for="apellidos">Apellidos:</label>
+                   <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                 </div>
+                 <div class="form-group">
+                   <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                   <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                 </div>
+               </div>
+               <div class="col-md-4">
+                 <div class="form-group">
+                     <label for="direccion">Dirección:</label>
+                     <input type="text" class="form-control" id="direccion" name="direccion" required>
+                    
+                 </div>
+                 <div class="form-group">
+                   <label for="telefono">Teléfono:</label>
+                   <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                 </div>
+                 <div class="form-group">
+                   <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                   <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                 </div>
+               </div>
+               <div class="col-md-4">
+                 <div class="form-group">
+                     <label for="direccion">Dirección:</label>
+                     <input type="text" class="form-control" id="direccion" name="direccion" required>
+                    
+                 </div>
+                 <div class="form-group">
+                   <label for="telefono">Teléfono:</label>
+                   <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                 </div>
+                 <div class="form-group">
+                   <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                   <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                 </div>
+               </div>
+               <div class="col-md-4">
+                     <div class="form-group">
+                         <label for="direccion">Dirección:</label>
+                         <input type="text" class="form-control" id="direccion" name="direccion" required>
+                        
+                     </div>
+                     <div class="form-group">
+                       <label for="telefono">Teléfono:</label>
+                       <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                     </div>
+                     <div class="form-group">
+                       <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                       <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                     </div>
+               </div>
+             </div>
 
+            <input type="submit" value="Enviar">
           
-                <label for="foto">Fotografia: </label>
-                <input type="file" name="foto">
--->
-
-                <input type="submit" value="Enviar">
-          
-</div>            
+        </div>            
     
-</form>
+    </form>
 @stop
 @section('css')
     <link rel="stylesheet" href=".public/vendor/adminlte/dist/css/adminlte.css">
