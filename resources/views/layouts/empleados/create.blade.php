@@ -7,7 +7,6 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
 
     @role('super')
         <p>Hola SuperAdministrador</p>

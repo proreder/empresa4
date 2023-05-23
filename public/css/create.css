@@ -1,0 +1,31 @@
+.top10{
+            margin-top: 10px;
+        }
+        .top15{
+            margin-top: 15px;
+        }
+        .top20{
+            margin-top: 20px;
+        }
+        .top25{
+            margin-top: 25px;
+        }
+        .margin_left{
+            margin-left: 25px;
+        }
+        .margin_left_15{
+            margin-left: 15px;
+        }
+        
+        .margin_left_25{
+            margin-left: 25px;
+        }
+        .pad_left {
+            padding-left: 15px;
+        }
+        .borde{
+            border: solid 1px red;
+        }
+        .borde_ccc{
+            border: solid 1px #ccc;
+        }
