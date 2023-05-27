@@ -2,8 +2,11 @@
 
 @section('title', 'Dashboard')
 
+@section('sidebar')
+<p>Alta empleados</p>
+@stop
 @section('content_header')
-    <h1>Alta empleado</h1>
+    <h4>Alta empleado</h4>
 @stop
 
 @section('content')
@@ -27,16 +30,16 @@
           
         <div class="row">
         
-          <div class="col-md-3">
+          <div class="col-md-2">
                <div class="form-group">
-                   <div class="col-8 col-md-6 col-lg-6">
+                   <div class="col-8 col-md-6 col-lg-7">
                          <label for="nss">NSS:</label>
                                    <input type="text" class="form-control" id="nss" name="nss" required>
                    </div>
               
                </div>
                <div class="form-group">
-                      <div class="col-8 col-md-6 col-lg-6">
+                      <div class="col-12 col-md-12 col-lg-12">
                           <label for="nombre">Nombre:</label>
                       
                          <input type="text" class="form-control" id="nombre" name="nombre" required>
