@@ -23,6 +23,7 @@ class EmpleadosController extends Controller
     public function store(Request $request){
         //obtenemos los enviados por el formulario de empleado nuevo eliminamo el valor del token
         $datosEmpleado=$request->except('_token');
+        dd($datosEmpleado);
         return response()->json($datosEmpleado);
     }
 
