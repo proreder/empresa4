@@ -47,71 +47,90 @@
                </div>
                <div class="form-group">
                    <div class="col-8 col-md-7">
-                      <label for="email">Email:</label>
+                      <label for="fijo">Telefono:</label>
                    
-                      <input type="email" class="form-control" id="email" name="email" required>
+                      <input type="text" class="form-control" id="fijo" name="fijo" required>
                    </div>
                </div>
          </div> 
   
-         <div class="col-md-4 border">
-           <div class="form-group">
-                <div class="col-6 col-md-5 col-lg-4">
-                      <label for="select">Tipo documento:</label>
-               
-                      <select id="select" name="select" class="form-control">
-                          <option value="nif">NIF</option>
-                          <option value="nie">NIE</option>
-                      </select>
-               </div>
-           </div>
-           <div class="form-group">
-                <div class="col-8 col-md-6 col-lg-6">
-                      <label for="apellidos">Apellidos:</label>
-               
-                      <input type="text" class="form-control" id="apellidos" name="apellidos" required>
-               </div>
-           </div>
-           <div class="form-row pad_left">
-               <div class="col-4 col-md-4 col-lg-3">
-                      <label for="telefono_fijo">Teléfono fijo:</label>
-                      <input type="text" class="form-control" id="telefono_fijo" name="telefono_fijo" required>
-               </div>
-               <div class="col-4 col-md-4 col-lg-3 margin_left ">
-                      <label for="telefono_movil">Móvil:</label>
-                      <input type="text" class="form-control" id="telefono_movil" name="telefono_movil" required>
-               </div>
-           </div>
+         <div class="col-md-7 border">
+          <div class="row">
+            <div class="col-8 border border-warning">
+                        
+                            <div class="row col-12">
+                                
+                                      <div class="col-6 col-md-7 col-lg-2">
+                                        <div class="form-group">
+                                            <label for="select">Tipo:</label>
+                                    
+                                            <select id="select" name="select" class="form-control">
+                                                <option value="nif">NIF</option>
+                                                <option value="nie">NIE</option>
+                                            </select>
+                                        </div>
+                                      </div>
+                                
+                                  <div class="col-4 col-lg-3 mx-4">
+                                      <div class="form-group">
+                                          <label for="numero_dni_nie">Número:</label>
+                                    
+                                          <input type="text" class="form-control" id="numero_dni_nie" name="numero_dni_nie" required>
+                                      </div>
+                                  </div>
+                                  
+                                  
+
+                                    <div class="col-6 col-md-4 col-lg-3 mx-5">
+                                          <div class="form-group">
+                                              <label for="select">Sexo:</label>
+                                        
+                                              <select id="select" name="select" class="form-control">
+                                                  <option value="hombre">Hombre</option>
+                                                  <option value="mujer">Mujer</option>
+                                                  <option value="x">X</option>
+                                              </select>
+                                          </div>
+
+                                    </div>
+
+
+                            </div> <!--fin row-->
+
+                            <div class="row col-12">
+                                <div class="col-8 col-md-6 col-lg-6 mr-5">  
+                                    <div class="form-group">
+                                        <label for="apellidos">Apellidos:</label>
+                                        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-8 col-md-6 col-lg-4">
+                                      <div class="form-group">
+                                          <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                                          <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                                     </div>
+                                </div>
+
+                            </div>
+                        <div class="form-row pad_left">
+                            <div class="col-4 col-md-4 col-lg-3">
+                                    <label for="telefono_fijo">Teléfono fijo:</label>
+                                    <input type="text" class="form-control" id="telefono_fijo" name="telefono_fijo" required>
+                            </div>
+                            <div class="col-4 col-md-4 col-lg-3 margin_left ">
+                                    <label for="telefono_movil">Móvil:</label>
+                                    <input type="text" class="form-control" id="telefono_movil" name="telefono_movil" required>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-6">
+                          
+                </div><!--fin col-->
+             </div><!--fin row -->
          </div>
    
-           <div class="col-md-4 border border-danger">
-               <div class="form-group">
-                   <div class="col-4 col-md-4 col-lg-4">
-                          <label for="numero_dni_nie">Número:</label>
-                   
-                          <input type="text" class="form-control" id="numero_dni_nie" name="numero_dni_nie" required>
-                   </div>
-               </div>
-               <div class="form-group">
-                   <div class="col-6 col-md-4 col-lg-4">
-                          <label for="select">Sexo:</label>
-                   
-                          <select id="select" name="select" class="form-control">
-                              <option value="hombre">Hombre</option>
-                              <option value="mujer">Mujer</option>
-                              <option value="x">X</option>
-                          </select>
-                   </div>
-
-               </div>
-               <div class="form-group">
-                    <div class="col-8 col-md-6 col-lg-5">
-                          <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                   
-                          <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                   </div>
-               </div>
-         </div>
+           
 <!--Datos de dirección-->
          <div class="col-md-12">
            <div class="form-row pad_left col-md-10">
@@ -178,10 +197,10 @@
              <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
            </div>
            <div>
-             <textarea class="col-12 col-md-12 col-lg-11 top20 margin_left_15" name="motivo_baja" rows="3"   placeholder="Motivo de la baja"></textarea>
+             <textarea class="col-12 col-lg-11 top20 margin_left_15" name="motivo_baja" rows="3"   placeholder="Motivo de la baja"></textarea>
            </div>
          </div>
-          <div class="col-md-3 top25">
+          <div class="col-md-3 top25 border border-primary">
                  <div class="col-md-7">
                        <label for="imagen">Selecciona una imagen:</label>
                       <input class="borde_ccc" type="file" name="imagen" id="imagen" accept="image/*" required onchange="mostrarImagen(event)">
