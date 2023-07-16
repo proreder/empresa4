@@ -30,7 +30,7 @@
           
         <div class="row">
         
-          <div class="col-md-2">
+          <div class="col-md-2 border">
                <div class="form-group">
                    <div class="col-8 col-md-6 col-lg-7">
                          <label for="nss">NSS:</label>
@@ -39,14 +39,14 @@
               
                </div>
                <div class="form-group">
-                      <div class="col-12 col-md-12 col-lg-12">
+                      <div class="col-12">
                           <label for="nombre">Nombre:</label>
                       
                          <input type="text" class="form-control" id="nombre" name="nombre" required>
                       </div>
                </div>
                <div class="form-group">
-                   <div class="col-8 col-md-7 col-lg-7">
+                   <div class="col-8 col-md-7">
                       <label for="email">Email:</label>
                    
                       <input type="email" class="form-control" id="email" name="email" required>
@@ -54,7 +54,7 @@
                </div>
          </div> 
   
-         <div class="col-md-4">
+         <div class="col-md-4 border">
            <div class="form-group">
                 <div class="col-6 col-md-5 col-lg-4">
                       <label for="select">Tipo documento:</label>
@@ -84,7 +84,7 @@
            </div>
          </div>
    
-           <div class="col-md-4">
+           <div class="col-md-4 border border-danger">
                <div class="form-group">
                    <div class="col-4 col-md-4 col-lg-4">
                           <label for="numero_dni_nie">Número:</label>

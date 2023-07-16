@@ -43,7 +43,7 @@
                         <td><img src="data:image/png;base64,
                             <?php 
                                  echo base64_encode($empleado->foto); 
-                            ?>" alt="" width="40">
+                            ?>"  alt="" width="40">
                         </td>
                         <!-- <td></td> -->
                         <td>{{ $empleado->nifnie}}</td>
