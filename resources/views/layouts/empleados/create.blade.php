@@ -170,13 +170,13 @@
             </div>
           </div>
 
-        <div class="col-12">
-          <div class="form_group">
-              <label for="comentarios">Comentarios:</label>
-              <textarea class="col-12" name="motivo_baja" rows="3"   placeholder="Motivo de la baja"></textarea>
-        
+          <div class="col-12">
+            <div class="form_group">
+                <label for="comentarios">Comentarios:</label>
+                <textarea class="col-12" name="motivo_baja" rows="3"   placeholder="Motivo de la baja"></textarea>
+          
+            </div>
           </div>
-        </div>
 
           <div class="col-6">
             <div class="form_group">
@@ -192,7 +192,7 @@
               </div>
           </div>
 
-          <div class="col-12 mt-3 border border-danger ">
+          <div class="col-12 my-4 border border-danger">
             
                 <div class="form_group">
                     <label for="imagen">Selecciona una imagen:</label>
@@ -204,27 +204,26 @@
                  <img id="imagenSeleccionada" src="#" alt="" style="width: 100px;height: 156px;">
              </div>
           </div>
-
-</div>                  
-
-             
-         
-      
-       
-          
-  
-     <!--     
-        
-         
            
-         </div>
-          
-      </div>
-      
-    -->   
-  <button type="submit" class="btn btn-primary">Enviar</button>            
-    
+      </div> 
+
+      <div class="container">
+          <div class="row col-12 border border-primary">
+            
+                  <div class="col-6 border border-danger ">
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                  </div>
+                  
+                  <div class="col-6 pl-4">
+                  
+                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                  </div>
+            </div> 
+           
+        </div>  
     </form>
+   
 @stop
 @section('css')
     <link rel="stylesheet" href="../public/vendor/adminlte/dist/css/adminlte.css">
