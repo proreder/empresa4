@@ -43,7 +43,7 @@
                         <td><img src="data:image/png;base64,
                             <?php 
                                  echo base64_encode($empleado->foto); 
-                            ?>"  alt="" width="40">
+                            ?>"  alt="" width="35">
                         </td>
                         <!-- <td></td> -->
                         <td>{{ $empleado->nifnie}}</td>
@@ -52,12 +52,20 @@
                         <td>{{ $empleado->apellidos}}</td>
                         <td>{{ $empleado->tipo_via}}</td>
                         <td>{{ $empleado->nombre_via}}</td>
-                        <td> Editar | 
-                            <form action="{{ url('/empleados/index'.$empleado->nifnie)}}" method="post">
-                                @csrf
-                                {{method_field('DELETE')}}
-                                <input type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar">  
-                            </form>   
+                        <td>
+                            <div class="col-12 border border-danger"> 
+                                <form action="{{ url('/empleados/index'.$empleado->nifnie)}}" method="post">
+                                    @csrf
+                                    {{method_field('EDITAR')}}
+                                    <button class="btn btn-info  btn-sm px-0 py-0" type="button" onclick="return confirm('¿Quieres Editar?')">Editar</button>  
+                                </form>  
+                                
+                                <form action="{{ url('/empleados/index'.$empleado->nifnie)}}" method="post">
+                                    @csrf
+                                    {{method_field('DELETE')}}
+                                    <button class="btn btn-warning  btn-sm px-0 py-0" type="button" onclick="return confirm('¿Quieres borrar?')">Borrar</button>  
+                                </form>
+                            </div>   
                         </td>
                     </tr>
                 @empty
