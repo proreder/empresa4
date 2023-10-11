@@ -22,17 +22,17 @@
         @endrole
         <a href="{{ url('empleados/create') }}" class="btn btn-success">Alta de Empleado</a>
         <br><br>
-        <table class="table table-light">
+        <table id="empleados" class="table table-striped">
             <thead class="thead-light">
                 <tr>
                     <th>Fotografía</th>
                     <th>NIF/NIE</th>
                     <th>Número SS</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Tipo Via</th>
-                    <th>Nombre via</th>
-                    <th>Acciones</th>
+                    <th width="200px">Nombre</th>
+                    <th width="200px">Apellidos</th>
+                    <th width="120px">Tipo Via</th>
+                    <th width="200px">Nombre via</th>
+                    <th width="130px">Acciones</th>
 
                 </tr>
 
@@ -43,7 +43,7 @@
                         <td><img src="data:image/png;base64,
                             <?php 
                                  echo base64_encode($empleado->foto); 
-                            ?>"  alt="" width="35">
+                            ?>"  alt="" width="40">
                         </td>
                         <!-- <td></td> -->
                         <td>{{ $empleado->nifnie}}</td>
@@ -53,19 +53,12 @@
                         <td>{{ $empleado->tipo_via}}</td>
                         <td>{{ $empleado->nombre_via}}</td>
                         <td>
-                            <div class="col-12 border border-danger"> 
-                                <form action="{{ url('/empleados/index'.$empleado->nifnie)}}" method="post">
-                                    @csrf
-                                    {{method_field('EDITAR')}}
-                                    <button class="btn btn-info  btn-sm px-0 py-0" type="button" onclick="return confirm('¿Quieres Editar?')">Editar</button>  
-                                </form>  
-                                
-                                <form action="{{ url('/empleados/index'.$empleado->nifnie)}}" method="post">
-                                    @csrf
-                                    {{method_field('DELETE')}}
-                                    <button class="btn btn-warning  btn-sm px-0 py-0" type="button" onclick="return confirm('¿Quieres borrar?')">Borrar</button>  
-                                </form>
-                            </div>   
+                            <form action="{{ url('empleados/index'.$empleado->nifnie)}}" method="post">
+                                <a href="#" class="btn btn-primary btn-sm py-0">Editar</a> 
+                                @csrf
+                                {{method_field('DELETE')}}
+                                <input type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar" class="btn btn-danger btn-sm py-0">  
+                            </form>   
                         </td>
                     </tr>
                 @empty
@@ -78,8 +71,29 @@
 
 @section('css')
     <link rel="stylesheet" href="./vendor/adminlte/dist/css/adminlte.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#empleados').DataTable({
+            "language" : {
+                "search" :          "Buscar",
+                "lengthMenu" :      "Mostrar _MENU_ registros por página",
+                "info"  :           "Página _PAGE_ de _PAGES_",
+                "paginate" :        {
+                                        "previous"  :  "Anterior",
+                                        "next":       "Siguiente",
+                                        "first":       "Primero",
+                                        "last":        "último"
+                }   
+            }  
+            });
+        
+        });
+    </script>
 @stop
