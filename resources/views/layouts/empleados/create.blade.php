@@ -47,14 +47,14 @@
                     </select>
                 </div>
               </div>
-              <div class="col-3 col-md-2 col-lg-2 col-xl-2">
+              <div class="col-3 col-md-2 col-lg-2 col-xl-1">
                 <div class="form-group">
                     <label for="numero_dni_nie">Número:</label>
                     <input type="text" class="form-control" id="numero_dni_nie" name="numero_dni_nie" required>
                 </div>
               </div>
 
-                <div class="col-3 col-md-2 col-lg-2 col-xl-2">
+                <div class="col-3 col-md-2 col-lg-2 col-xl-1">
                   <div class="form-group">
                     <label for="select">Sexo:</label>
                     <select id="select" name="select" class="form-control">
@@ -65,30 +65,30 @@
                   </div>
                 </div>
 
-                <div class="col-2 col-md-2 col-lg-2 col-xl-5"></div>
+                <div class="col-2 col-md-2 col-lg-2 col-xl-7"></div>
 
-              <div class="col-12 col-md-6">
+              <div class="col-12 col-md-6 col-lg-5 col-xl-4">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" required>
                 </div>
               </div>
               
-              <div class="col-12 col-md-6">  
+              <div class="col-12 col-md-6 col-lg-5 col-xl-4">  
                 <div class="form-group">
                     <label for="apellidos">Apellidos:</label>
                     <input type="text" class="form-control" id="apellidos" name="apellidos" required>
                 </div>
             </div>
             
-            <div class="col-5 col-md-3">
+            <div class="col-5 col-md-3 col-lg-5 col-xl-2">
                 <div class="form-group">
                     <label for="fecha_nacimiento">Fecha de nacimiento:</label>
                     <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
                 </div>
             </div>
 
-            <div class="col-7 col-md-9"></div>
+            <div class="col-7 col-md-9 col-lg-2 col-xl-2"></div>
 
 
            <div class="col-8 col-md-5">
@@ -187,14 +187,14 @@
             </div>
           </div>
 
-          <div class="col-6 col-md-3">
+          <div class="col-6 col-md-3 col-lg-3 col-xl-2">
             <div class="form_group">
               <label for="fecha_alta">Fecha de Alta:</label>
               <input type="date" class="form-control" id="fecha_alta" name="fecha_alta" required>
             </div>
           </div>
 
-          <div class="col-6 col-md-3">
+          <div class="col-6 col-md-3 col-lg-3 col-xl-2">
               <div class="form_group">
                   <label for="fecha_nacimiento">Fecha de Baja:</label>
                   <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
@@ -216,15 +216,15 @@
            
       </div> 
 
-      <div class="container">
-          <div class="row col-12 border border-primary">
+      <div class="container my-5">
+          <div class="row  col-12 border border-primary ">
             
-                  <div class="col-6 border border-danger ">
+                  <div class="mx-auto col-6 col-md-4 col-lg-4 col-xl-2 border border-danger ">
                     
                     <button type="submit" class="btn btn-primary btn-block">Enviar</button>
                   </div>
                   
-                  <div class="col-6 pl-4">
+                  <div class="mx-auto col-6 col-md-4 col-lg-3 col-xl-2 pl-4">
                   
                     <button type="submit" class="btn btn-danger">Cancelar</button>
                   </div>
