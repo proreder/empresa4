@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('empleado', function (Blueprint $table) {
+            $table->id();
             $table->comment('tabla de empleados');
-            $table->string('nifnie', 11)->primary()->comment('Clave primaria');
+            $table->string('nifnie', 11)->unique();
             $table->string('nss', 14)->comment('Número de la seguridad social');
             $table->date('fecha_nacimiento')->comment('FECHA DE NACIMIENTO DEL EMPLEADOO');
             $table->string('nombre', 50)->comment('nombre empleado');
@@ -38,6 +39,7 @@ return new class extends Migration
             $table->date('fecha_baja')->nullable();
             $table->string('motivo_baja', 200)->nullable();
             $table->binary('foto')->nullable();
+            $table->timestamps();
         });
     }
 

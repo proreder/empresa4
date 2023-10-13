@@ -11,7 +11,7 @@ class empleadosModel extends Model
     //importamos la tabla Empleado
     protected $table="empleado";
     //no enviamos datos de tiempo
-    public $timestamps=false;
+    public $timestamps=true;
     use HasFactory;
 
 }

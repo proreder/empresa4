@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <div class="container">
+    <div class="container-flex">
         
         <!--<p>Welcome to this beautiful admin panel.</p>-->
         <!--Mostramos el ROL de usuario que se ha conectado-->
@@ -20,12 +20,13 @@
         @role('usuario')
             <p>Hola Usuario</p>
         @endrole
+        
         <a href="{{ url('empleados/create') }}" class="btn btn-success">Alta de Empleado</a>
         <br><br>
         <table id="empleados" class="table table-striped">
             <thead class="thead-light">
                 <tr>
-                    <th>Fotografía</th>
+                    <th width="80px">Fotografía</th>
                     <th>NIF/NIE</th>
                     <th>Número SS</th>
                     <th width="200px">Nombre</th>
@@ -53,7 +54,7 @@
                         <td>{{ $empleado->tipo_via}}</td>
                         <td>{{ $empleado->nombre_via}}</td>
                         <td>
-                            <form action="{{ url('empleados/index'.$empleado->nifnie)}}" method="post">
+                            <form action="{{ url('/empleados/'.$empleado->id)}}" method="post">
                                 <a href="#" class="btn btn-primary btn-sm py-0">Editar</a> 
                                 @csrf
                                 {{method_field('DELETE')}}
@@ -85,6 +86,8 @@
                 "search" :          "Buscar",
                 "lengthMenu" :      "Mostrar _MENU_ registros por página",
                 "info"  :           "Página _PAGE_ de _PAGES_",
+                "zeroRecords" :    "No hay registros",
+                "infoEmpty" :     "",
                 "paginate" :        {
                                         "previous"  :  "Anterior",
                                         "next":       "Siguiente",

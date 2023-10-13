@@ -9,7 +9,7 @@ class EmpleadosController extends Controller
 {
     
     //listamos todos los registros de la tabla empleados
-    public function read(Request $request){
+    public function show(Request $request){
         //obtenemos todos los registros de la tabla Empleado
         $empleados=EmpleadosModel::paginate(10);
         return view('layouts.empleados.index', ['empleados'=> $empleados]);
@@ -28,9 +28,11 @@ class EmpleadosController extends Controller
     }
 
     //Se borra el registro indicado en el parámetro que recibe como argumento
-    public function destroy($nifnie){
+    public function destroy($id){
 
-        EmpleadosModel::destroy($nifnie);
+        $empleado= EmpleadosModel::find($id);
+        $empleado->delete();
+        //EmpleadosModel::destroy($id);
         return redirect('empleados/index');
     }
 }
