@@ -23,7 +23,7 @@
         
         <a href="{{ url('empleados/create') }}" class="btn btn-success">Alta de Empleado</a>
         <br><br>
-        <table id="empleados" class="table table-striped">
+        <table id="empleados" class="table table-striped border">
             <thead class="thead-light">
                 <tr>
                     <th width="80px">Fotografía</th>
