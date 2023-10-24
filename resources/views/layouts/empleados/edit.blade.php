@@ -1,12 +1,12 @@
 @extends('adminlte::page')
 
-@section('title', 'Alta de empleado')
+@section('title', 'Editar empleado')
 
 @section('sidebar')
 
 @stop
 @section('content_header')
-    <h4>Alta empleado</h4>
+    <h4>Editar empleado</h4>
 @stop
 
 @section('content')
@@ -31,13 +31,13 @@
         <div class="container-fluid">
           <div class="row border border-danger">
             
-              <div class="col-4 col-md-3 col-lg-3 col-xl-2 col-xxl-1 border">
+              <div class="col-4 col-md-3 col-lg-3 col-xl-2 border">
                   <div class="form-group">
                     <label for="nss">NSS.:</label>
                     <input type="text" class="form-control" id="nss" name="nss">
                   </div>        
               </div> 
-              <div class="col-2 col-md-2 col-lg-1 col-xl-1 col-xxl-1">
+              <div class="col-2 col-md-2 col-lg-1 col-xl-1">
                 <div class="form-group">
                     <label for="select">Tipo:</label>
             
@@ -47,14 +47,14 @@
                     </select>
                 </div>
               </div>
-              <div class="col-3 col-md-2 col-lg-2 col-xl-2 col-xxl-1">
+              <div class="col-3 col-md-2 col-lg-2 col-xl-1">
                 <div class="form-group">
                     <label for="numero_dni_nie">Número:</label>
                     <input type="text" class="form-control" id="numero_dni_nie" name="numero_dni_nie">
                 </div>
               </div>
 
-                <div class="col-3 col-md-2 col-lg-2 col-xl-2 col-xxl-1">
+                <div class="col-3 col-md-2 col-lg-2 col-xl-1">
                   <div class="form-group">
                     <label for="select">Sexo:</label>
                     <select id="select" name="select" class="form-control">
@@ -65,14 +65,7 @@
                   </div>
                 </div>
 
-                <div class="col-5 col-md-3 col-lg-3 col-xl-3 col-xxl-1">
-                    <div class="form-group">
-                        <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                        <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
-                    </div>
-                </div>
-               <!-- Fin Primera fila--> 
-               <div class=" col-lg-1 col-xl-4 col-xxl-7"></div>
+                <div class="col-2 col-md-2 col-lg-2 col-xl-7"></div>
 
               <div class="col-12 col-md-6 col-lg-5 col-xl-4">
                 <div class="form-group">
@@ -88,7 +81,12 @@
                 </div>
             </div>
             
-            
+            <div class="col-5 col-md-3 col-lg-5 col-xl-2">
+                <div class="form-group">
+                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
+                </div>
+            </div>
 
             <div class="col-7 col-md-9 col-lg-2 col-xl-2"></div>
 

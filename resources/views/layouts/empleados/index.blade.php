@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Listado de empleados')
 
 @section('content_header')
-    <h1>Listado de empleados</h1>
+    
 @stop
 
 @section('content')
@@ -55,7 +55,7 @@
                         <td>{{ $empleado->nombre_via}}</td>
                         <td>
                             <form action="{{ url('/empleados/'.$empleado->id)}}" method="post">
-                                <a href="#" class="btn btn-primary btn-sm py-0">Editar</a> 
+                                <a href="{{route('empleados.edit',$empleado)}}" class="btn btn-primary btn-sm py-0">Editar</a> 
                                 @csrf
                                 {{method_field('DELETE')}}
                                 <input type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar" class="btn btn-danger btn-sm py-0">  
