@@ -15,14 +15,28 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <div class="input-group mt-4">
+                <div class="input-group-text bg-info">
+                    <img
+                        src="public/vendor/adminlte/dist/img/username-icon.svg"
+                        alt="username-icon"
+                        style="height: 1rem"
+                    />
+                </div>
+               <!-- <x-label for="email" value="{{ __('Email') }}" />-->
+                <input id="email" class="form-control bg-light" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" placeholder="Email"/>
             </div>
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+            <div class="input-group mt-4">
+                <!-- <x-label for="password" value="{{ __('Password') }}" />-->
+                <div class="input-group-text bg-info">
+                    <img
+                        src="public/vendor/adminlte/dist/img/password-icon.svg"
+                        alt="username-icon"
+                        style="height: 1rem"
+                    />
+                </div>
+                <x-input id="password" class="form-control bg-light" type="password" name="password" required autocomplete="current-password" placeholder="password"  />
             </div>
 
             <div class="block mt-4">

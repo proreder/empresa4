@@ -1,9 +1,12 @@
-<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-    <div>
-        {{ $logo }}
-    </div>
+<div class="container-fluid d-flex justify-content-center align-items-center" style="height:100vh; overflow:hidden; border: 2px solid red">
+    <div class="row d-flex mx-auto vh-50 bg-info p-5 rounded-5 justify-content-center align-items-center vh-50 font-sans text-gray-900 antialiased" style="width: 25rem">
+        
+            <div class="d-flex  justify-content-center">
+                {{ $logo }}
+            </div>
 
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-        {{ $slot }}
+            <div class="d-flex justify-content-center">
+                {{ $slot }}
+            </div>
     </div>
 </div>

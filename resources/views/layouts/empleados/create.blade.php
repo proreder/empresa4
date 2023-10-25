@@ -54,7 +54,7 @@
                 </div>
               </div>
 
-                <div class="col-3 col-md-2 col-lg-2 col-xl-2 col-xxl-1">
+                <div class="col-3 col-md-2 col-xxl-1">
                   <div class="form-group">
                     <label for="select">Sexo:</label>
                     <select id="select" name="select" class="form-control">
@@ -65,23 +65,23 @@
                   </div>
                 </div>
 
-                <div class="col-5 col-md-3 col-lg-3 col-xl-3 col-xxl-1">
+                <div class="col-5 col-md-3  col-xxl-1">
                     <div class="form-group">
                         <label for="fecha_nacimiento">Fecha de nacimiento:</label>
                         <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
                     </div>
                 </div>
                <!-- Fin Primera fila--> 
-               <div class=" col-lg-1 col-xl-4 col-xxl-7"></div>
+               <div class=" col-lg-1 col-xl-2"></div>
 
-              <div class="col-12 col-md-6 col-lg-5 col-xl-4">
+              <div class="col-12 col-md-5 col-xl-4">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" class="form-control" id="nombre" name="nombre">
                 </div>
               </div>
               
-              <div class="col-12 col-md-6 col-lg-5 col-xl-4">  
+              <div class="col-12 col-md-5 col-xl-4">  
                 <div class="form-group">
                     <label for="apellidos">Apellidos:</label>
                     <input type="text" class="form-control" id="apellidos" name="apellidos">
@@ -90,40 +90,46 @@
             
             
 
-            <div class="col-7 col-md-9 col-lg-2 col-xl-2"></div>
+            <div class="col-7 col-md-1 col-lg-2 col-xl-4"></div>
 
 
-           <div class="col-8 col-md-5">
+           <div class="col-8 col-md-2">
                 <div class="form-group">
                   <label for="tipo_via">Tipo via:</label>
                   <input type="text" class="form-control" id="tipo_via" name="tipo_via">
                 </div>
            </div>
 
-           <div class="col-7 col-md-7"></div>
+           
 
-           <div class="col-10 col-md-5">
+           <div class="col-10 col-md-5 col-lg-4">
               <div class="form-group">
                   <label for="nombre_via">Nombre via:</label>
                   <input type="text" class="form-control" id="nombre_via" name="nombre_via">
               </div>
            </div>
+           <div class="col-1">
+            <div class="form-group">
+              <label for="numero">Número:</label>
+              <input type="text" class="form-control" id="numero" name="numero">
+            </div>
+          </div>
 
-           <div class="col-11 col-md-7">
+           <div class="col-11 col-md-5 col-lg-4">
               <div class="form-group">
                 <label for="municipio">Municipio:</label>
                 <input type="text" class="form-control" id="municipio" name="municipio">
               </div>
            </div>
 
-           <div class="col-3 col-md-2">
+           <div class="col-3 col-md-2 col-lg-2 col-xl-1">
             <div class="form-group">
               <label for="cp">CP:</label>
               <input type="text" class="form-control" id="cp" name="cp">
             </div>
           </div>
 
-           <div class="col-11 col-md-7">
+           <div class="col-11 col-md-7 col-lg-5 col-xl-4">
               <div class="form-group">
                 <label for="provincia">Provincia:</label>
                 <input type="text" class="form-control" id="provincia" name="provincia">
