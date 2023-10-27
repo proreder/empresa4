@@ -20,17 +20,9 @@ class EmpleadosController extends Controller
         return view('layouts.empleados.create');
     }
 
-    //Medodo para editar un registro de empleado
-    public function edit($id){
-        return view('layouts.empleados.edit');
-
-    }
-
-    //Método para guardar los datos del formulario en la tabla de la BD
     public function store(Request $request){
         //obtenemos los enviados por el formulario de empleado nuevo eliminamo el valor del token
         $datosEmpleado=$request->except('_token');
-        echo "Estore";
         dd($datosEmpleado);
         return response()->json($datosEmpleado);
     }
