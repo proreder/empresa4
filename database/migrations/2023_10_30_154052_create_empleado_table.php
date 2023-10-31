@@ -8,16 +8,16 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('empleado', function (Blueprint $table) {
             $table->id();
             $table->comment('tabla de empleados');
             $table->string('nifnie', 11)->unique();
+            $table->string('tipo_doc',10);
             $table->string('nss', 14)->comment('Número de la seguridad social');
+            $table->string('sexo', 10);
             $table->date('fecha_nacimiento')->comment('FECHA DE NACIMIENTO DEL EMPLEADOO');
             $table->string('nombre', 50)->comment('nombre empleado');
             $table->string('apellidos', 100)->comment('Apellidos empleado');
@@ -45,10 +45,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('empleado');
     }

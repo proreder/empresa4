@@ -27,6 +27,15 @@ class EmpleadosController extends Controller
         return response()->json($datosEmpleado);
     }
 
+    //editamos el empleado
+
+    public function edit($id){
+        
+        $empleado= EmpleadosModel::findOrFail($id);
+        //dd($empleado);
+        return view('layouts.empleados.edit', compact('empleado'));
+    }
+
     //Se borra el registro indicado en el parámetro que recibe como argumento
     public function destroy($id){
 

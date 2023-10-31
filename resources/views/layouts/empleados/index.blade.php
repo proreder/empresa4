@@ -55,7 +55,8 @@
                         <td>{{ $empleado->nombre_via}}</td>
                         <td>
                             <form action="{{ url('/empleados/'.$empleado->id)}}" method="post">
-                                <a href="#" class="btn btn-primary btn-sm py-0">Editar</a> 
+                                {{method_field('EDIT')}}
+                                <a href="{{ url('/empleados/'.$empleado->id.'/edit/')}}" class="btn btn-primary btn-sm py-0">Editar</a> 
                                 @csrf
                                 {{method_field('DELETE')}}
                                 <input type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar" class="btn btn-danger btn-sm py-0">  
