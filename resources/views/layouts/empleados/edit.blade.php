@@ -1,4 +1,4 @@
-+@extends('adminlte::page')
+@extends('adminlte::page')
 
 @section('title', 'Editar empleado')
 
@@ -38,7 +38,7 @@
                     <input type="text" class="form-control" id="nss" name="nss" value="{{$empleado->nss}}">
                   </div>        
               </div> 
-              <div class="col-2 col-md-2 col-lg-1 col-xl-1">
+              <div class="col-2 col-md-2 col-lg-2 col-xl-1">
                 <div class="form-group">
                     <label for="select">Tipo:</label>
             
@@ -48,14 +48,14 @@
                     </select>
                 </div>
               </div>
-              <div class="col-3 col-md-2 col-lg-2 col-xl-1">
+              <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                 <div class="form-group">
                     <label for="numero_dni_nie">Número:</label>
                     <input type="text" class="form-control" id="numero_dni_nie" name="numero_dni_nie" value="{{$empleado->nifnie}}">
                 </div>
               </div>
 
-                <div class="col-3 col-md-2 col-lg-2 col-xl-1">
+                <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                   <div class="form-group">
                     <label for="select">Sexo:</label>
                     <select id="select" name="select" class="form-control">
@@ -66,7 +66,14 @@
                   </div>
                 </div>
 
-                <div class="col-2 col-md-2 col-lg-2 col-xl-7"></div>
+                <div class="col-5 col-md-3 col-lg-5 col-xl-2">
+                  <div class="form-group">
+                      <label for="fecha_nacimiento">Nacimiento:</label>
+                      <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{$empleado->fecha_nacimiento}}">
+                  </div>
+                </div>
+
+               <!-- <div class="col-2 col-md-2 col-lg-2 col-xl-2"></div> -->
 
               <div class="col-12 col-md-5 col-xl-4">
                 <div class="form-group">
@@ -82,14 +89,9 @@
                 </div>
             </div>
             
-            <div class="col-5 col-md-3 col-lg-5 col-xl-2">
-                <div class="form-group">
-                    <label for="fecha_nacimiento">Nacimiento:</label>
-                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{$empleado->fecha_nacimiento}}">
-                </div>
-            </div>
+            
 
-            <div class="col-7 col-md-1 col-lg-2 col-xl-2"></div>
+            <div class="col-xl-4"></div>
 
 
            <div class="col-8 col-md-2 col-lg-2 col-xl-1">
@@ -101,114 +103,115 @@
 
            
 
-           <div class="col-10 col-md-5 col-lg-4">
+           <div class="col-9 col-md-5 col-lg-4">
               <div class="form-group">
                   <label for="nombre_via">Nombre via:</label>
-                  <input type="text" class="form-control" id="nombre_via" name="nombre_via"value="{{$empleado->nombre_via}}">
+                  <input type="text" class="form-control" id="nombre_via" name="nombre_via" value="{{$empleado->nombre_via}}">
               </div>
            </div>
-           <div class="col-1">
+           <div class="col-2 col-xl-1">
             <div class="form-group">
               <label for="numero">Número:</label>
-              <input type="text" class="form-control" id="numero" name="numero">
+              <input type="text" class="form-control" id="numero" name="numero" value="{{$empleado->numero}}">
+            </div>
+          </div>
+
+          <div class="col-3 col-md-3 col-lg-1">
+            <div class="form-group">
+                <label for="planta">Planta:</label>
+                <input type="text" class="form-control" id="planta" name="planta" value="{{$empleado->planta}}">
+            </div>
+         </div>
+
+          <div class="col-3 col-md-2 col-lg-1">
+            <div class="form-group">
+              <label for="puerta">Puerta:</label>
+              <input type="text" class="form-control" id="puerta" name="puerta" value="{{$empleado->puerta}}">
             </div>
           </div>
 
            <div class="col-11 col-md-5 col-lg-4">
               <div class="form-group">
                 <label for="municipio">Municipio:</label>
-                <input type="text" class="form-control" id="municipio" name="municipio" required>
+                <input type="text" class="form-control" id="municipio" name="municipio" value="{{$empleado->municipio}}">
               </div>
            </div>
 
            <div class="col-3 col-md-2 col-lg-2 col-xl-1">
             <div class="form-group">
               <label for="cp">CP:</label>
-              <input type="text" class="form-control" id="cp" name="cp" required>
+              <input type="text" class="form-control" id="cp" name="cp" value="{{$empleado->cp}}">
             </div>
           </div>
 
-           <div class="col-11 col-md-7 col-lg-5 col-xl-4">
+           <div class="col-11 col-md-5 col-lg-4 col-xl-4">
               <div class="form-group">
                 <label for="provincia">Provincia:</label>
-                <input type="text" class="form-control" id="provincia" name="provincia" required>
+                <input type="text" class="form-control" id="provincia" name="provincia" value="{{$empleado->provincia}}">
               </div>
            </div>
 
         
-  
-         <div class="col-4 col-md-2">
-            <div class="form-group">
-                <label for="planta">Planta:</label>
-                <input type="text" class="form-control" id="planta" name="planta" required>
-            </div>
-         </div>
-
-          <div class="col-4 col-md-2">
-            <div class="form-group">
-              <label for="puerta">Puerta:</label>
-              <input type="text" class="form-control" id="puerta" name="puerta" required>
-            </div>
-          </div>
-
-          <div class="col-6 col-md-2">
+          <div class="col-3 col-md-2">
             <div class="form-group">
                <label for="fijo">Telefono:</label>
-               <input type="text" class="form-control" id="fijo" name="fijo" required>
+               <input type="text" class="form-control" id="fijo" name="fijo" value="{{$empleado->telefono_fijo}}">
             </div>
           </div>
 
-          <div class="col-6 col-md-2">
+          <div class="col-3 col-md-2">
             <div class="form-group">
                 <label for="telefono_movil">Móvil:</label>
-                <input type="text" class="form-control" id="telefono_movil" name="telefono_movil" required>
+                <input type="text" class="form-control" id="telefono_movil" name="telefono_movil" value="{{$empleado->telefono_movil}}">
             </div>
           </div>
-
-          <div class="col-12">
+          <div class="col-1 col-md-1 col-lg-2 col-xl-2 col-xxl-2"></div>
+          <div class="col-12 col-md-6">
             <div class="form-group">
               <label for="puesto">Puesto:</label>
-              <input type="text" class="form-control" id="puesto" name="puesto" required>
+              <input type="text" class="form-control" id="puesto" name="puesto" value="{{$empleado->puesto}}">
             </div>
           </div>
 
-          <div class="col-12">
+          <div class="col-12 col-md-6">
             <div class="form-group">
               <label for="tipo">Tipo:</label>
-              <input type="text" class="form-control" id="tipo" name="tipo" required>
+              <input type="text" class="form-control" id="tipo" name="tipo" value="{{$empleado->tipo}}">
             </div>
           </div>
 
-          <div class="col-12">
+          <div class="col-12 col-md-5">
             <div class="form_group">
                 <label for="situacio_laboral">Estado laboral:</label>
-                <input type="text" class="form-control" id="situacio_laboral" name="Estado laboral" required>
-            </div>
-          </div>
-
-          <div class="col-12">
-            <div class="form_group">
-                <label for="comentarios">Comentarios:</label>
-                <textarea class="col-12" name="motivo_baja" rows="3"   placeholder="Motivo de la baja"></textarea>
-          
+                <input type="text" class="form-control" id="situacion_laboral" name="Estadon laboral" value="{{$empleado->situacion_laboral}}">
             </div>
           </div>
 
           <div class="col-6 col-md-3 col-lg-3 col-xl-2">
             <div class="form_group">
               <label for="fecha_alta">Fecha de Alta:</label>
-              <input type="date" class="form-control" id="fecha_alta" name="fecha_alta" required>
+              <input type="date" class="form-control" id="fecha_alta" name="fecha_alta" value="{{$empleado->fecha_alta}}">
             </div>
           </div>
 
           <div class="col-6 col-md-3 col-lg-3 col-xl-2">
               <div class="form_group">
                   <label for="fecha_nacimiento">Fecha de Baja:</label>
-                  <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                  <input type="date" class="form-control" id="fecha_baja" name="fecha_baja" value="{{$empleado->fecha_baja}}">
               </div>
           </div>
 
-          <div class="col-12 my-4 border border-danger">
+          <div class="col-12 col-md-7">
+            <div class="form_group">
+                <label for="comentarios">Comentarios:</label>
+                <textarea class="col-12" name="motivo_baja" rows="2"   placeholder="{{$empleado->comentarios}}" value="{{$empleado->comentarios}}"></textarea>
+          
+            </div>
+          </div>
+
+          
+
+          <div class="col-12 col-md-6 my-4 border border-danger">
             
                 <div class="form_group">
                     <label for="imagen">Selecciona una imagen:</label>
@@ -216,8 +219,12 @@
                       <br><br>
                 </div>
             
-             <div class="col-4 mx-auto borde_ccc">
-                 <img id="imagenSeleccionada" src="#" alt="" style="width: 100px;height: 156px;">
+             <div class="col-2 mx-auto borde_ccc">
+                            <img id="imagenSeleccionada" src="data:image/png;base64,
+                            <?php 
+                                 echo base64_encode($empleado->foto); 
+                            ?>"  alt="" style="width: 100px;height: 156px;"> 
+                 <!--<img id="imagenSeleccionada" src="#" alt="" style="width: 100px;height: 156px;">-->
              </div>
           </div>
            
@@ -242,11 +249,12 @@
    
 @stop
 @section('css')
-    <link rel="stylesheet" href="../public/vendor/adminlte/dist/css/adminlte.css">
-    <link rel="stylesheet" href="../public/css/create.css">
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @stop
 
 @section('js')
+    
     <script> console.log('Hi!'); </script>
     <script>
       function mostrarImagen(event) {

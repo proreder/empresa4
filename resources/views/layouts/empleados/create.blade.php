@@ -47,14 +47,14 @@
                     </select>
                 </div>
               </div>
-              <div class="col-3 col-md-2 col-lg-2 col-xl-1">
+              <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                 <div class="form-group">
                     <label for="numero_dni_nie">Número:</label>
                     <input type="text" class="form-control" id="numero_dni_nie" name="numero_dni_nie" required>
                 </div>
               </div>
 
-                <div class="col-3 col-md-2 col-lg-2 col-xl-1">
+                <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                   <div class="form-group">
                     <label for="select">Sexo:</label>
                     <select id="select" name="select" class="form-control">
@@ -65,7 +65,16 @@
                   </div>
                 </div>
 
-                <div class="col-2 col-md-2 col-lg-2 col-xl-7"></div>
+              <!--  <div class="col-2 col-md-2 col-lg-2 col-xl-7"></div> -->
+
+                
+            <div class="col-5 col-md-3 col-lg-5 col-xl-2">
+                <div class="form-group">
+                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                </div>
+            </div>
+
 
               <div class="col-12 col-md-5 col-xl-4">
                 <div class="form-group">
@@ -81,35 +90,40 @@
                 </div>
             </div>
             
-            <div class="col-5 col-md-3 col-lg-5 col-xl-2">
-                <div class="form-group">
-                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                </div>
-            </div>
-
-            <div class="col-7 col-md-1 col-lg-2 col-xl-4"></div>
+            <div class="col-xl-4"></div>
 
 
-           <div class="col-8 col-md-2">
+           <div class="col-8 col-md-2 col-lg-4">
                 <div class="form-group">
                   <label for="tipo_via">Tipo via:</label>
                   <input type="text" class="form-control" id="tipo_via" name="tipo_via" required>
                 </div>
            </div>
 
-           
-
-           <div class="col-10 col-md-5 col-lg-4">
+           <div class="col-9 col-md-5 col-lg-4">
               <div class="form-group">
                   <label for="nombre_via">Nombre via:</label>
                   <input type="text" class="form-control" id="nombre_via" name="nombre_via" required>
               </div>
            </div>
-           <div class="col-1">
+           <div class="col-2 col-xl-1">
             <div class="form-group">
               <label for="numero">Número:</label>
               <input type="text" class="form-control" id="numero" name="numero">
+            </div>
+          </div>
+
+          <div class="col-3 col-md-3 col-lg-1">
+            <div class="form-group">
+                <label for="planta">Planta:</label>
+                <input type="text" class="form-control" id="planta" name="planta" required>
+            </div>
+         </div>
+
+          <div class="col-3 col-md-2 col-lg-1">
+            <div class="form-group">
+              <label for="puerta">Puerta:</label>
+              <input type="text" class="form-control" id="puerta" name="puerta" required>
             </div>
           </div>
 
@@ -127,69 +141,47 @@
             </div>
           </div>
 
-           <div class="col-11 col-md-7 col-lg-5 col-xl-4">
+           <div class="col-11 col-md-5 col-lg-4 col-xl-4">
               <div class="form-group">
                 <label for="provincia">Provincia:</label>
                 <input type="text" class="form-control" id="provincia" name="provincia" required>
               </div>
            </div>
 
-        
-  
-         <div class="col-4 col-md-2">
-            <div class="form-group">
-                <label for="planta">Planta:</label>
-                <input type="text" class="form-control" id="planta" name="planta" required>
-            </div>
-         </div>
-
-          <div class="col-4 col-md-2">
-            <div class="form-group">
-              <label for="puerta">Puerta:</label>
-              <input type="text" class="form-control" id="puerta" name="puerta" required>
-            </div>
-          </div>
-
-          <div class="col-6 col-md-2">
+          <div class="col-3 col-md-2">
             <div class="form-group">
                <label for="fijo">Telefono:</label>
                <input type="text" class="form-control" id="fijo" name="fijo" required>
             </div>
           </div>
 
-          <div class="col-6 col-md-2">
+          <div class="col-3 col-md-2">
             <div class="form-group">
                 <label for="telefono_movil">Móvil:</label>
                 <input type="text" class="form-control" id="telefono_movil" name="telefono_movil" required>
             </div>
           </div>
 
-          <div class="col-12">
+          <div class="col-1 col-md-1 col-lg-2 col-xl-2 col-xxl-2"></div>
+
+          <div class="col-12 col-md-6">
             <div class="form-group">
               <label for="puesto">Puesto:</label>
               <input type="text" class="form-control" id="puesto" name="puesto" required>
             </div>
           </div>
 
-          <div class="col-12">
+          <div class="col-12 col-md-6">
             <div class="form-group">
               <label for="tipo">Tipo:</label>
               <input type="text" class="form-control" id="tipo" name="tipo" required>
             </div>
           </div>
 
-          <div class="col-12">
+          <div class="col-12 col-md-5">
             <div class="form_group">
                 <label for="situacio_laboral">Estado laboral:</label>
                 <input type="text" class="form-control" id="situacio_laboral" name="Estado laboral" required>
-            </div>
-          </div>
-
-          <div class="col-12">
-            <div class="form_group">
-                <label for="comentarios">Comentarios:</label>
-                <textarea class="col-12" name="motivo_baja" rows="3"   placeholder="Motivo de la baja"></textarea>
-          
             </div>
           </div>
 
@@ -205,9 +197,18 @@
                   <label for="fecha_nacimiento">Fecha de Baja:</label>
                   <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
               </div>
+          </div> 
+
+          <div class="col-12 col-md-7">
+            <div class="form_group">
+                <label for="comentarios">Comentarios:</label>
+                <textarea class="col-12" name="comentarios" rows="2"   placeholder="Motivo de la baja"></textarea>
+          
+            </div>
           </div>
 
-          <div class="col-12 my-4 border border-danger">
+          
+          <div class="col-12  col-md-6 my-4 border">
             
                 <div class="form_group">
                     <label for="imagen">Selecciona una imagen:</label>
@@ -215,7 +216,7 @@
                       <br><br>
                 </div>
             
-             <div class="col-4 mx-auto borde_ccc">
+             <div class="col-2 mx-auto borde_ccc">
                  <img id="imagenSeleccionada" src="#" alt="" style="width: 100px;height: 156px;">
              </div>
           </div>

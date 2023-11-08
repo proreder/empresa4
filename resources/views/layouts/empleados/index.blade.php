@@ -27,13 +27,15 @@
             <thead class="thead-light">
                 <tr>
                     <th width="80px">Fotografía</th>
-                    <th>NIF/NIE</th>
-                    <th>Número SS</th>
-                    <th width="200px">Nombre</th>
-                    <th width="200px">Apellidos</th>
-                    <th width="120px">Tipo Via</th>
-                    <th width="200px">Nombre via</th>
-                    <th width="130px">Acciones</th>
+                    <th width="90px">NIF/NIE</th>
+                    <th width="100px">Número SS</th>
+                    <th width="125px">Nombre</th>
+                    <th width="125px">Apellidos</th>
+                    <th width="40px">Móvil</th>
+                    <th width="40px">Fijo</th>
+                    <th width="50px">Tipo Via</th>
+                    <th width="160px">Nombre via</th>
+                    <th width="140px">Acciones</th>
 
                 </tr>
 
@@ -51,6 +53,8 @@
                         <td>{{ $empleado->nss}}</td>
                         <td>{{ $empleado->nombre}}</td>
                         <td>{{ $empleado->apellidos}}</td>
+                        <td>{{ $empleado->telefono_movil }} </td>
+                        <td>{{ $empleado->telefono_fijo }} </td>
                         <td>{{ $empleado->tipo_via}}</td>
                         <td>{{ $empleado->nombre_via}}</td>
                         <td>
@@ -72,15 +76,13 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="./vendor/adminlte/dist/css/adminlte.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+  
 @stop
 
 @section('js')
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <script>
+   
         $(document).ready(function(){
             $('#empleados').DataTable({
             "language" : {
