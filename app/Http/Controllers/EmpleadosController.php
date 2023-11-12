@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\EmpleadosModel;
+use App\Http\Requests\StoreEmpleados;
 
 class EmpleadosController extends Controller
 {
@@ -20,7 +21,11 @@ class EmpleadosController extends Controller
         return view('layouts.empleados.create');
     }
 
-    public function store(Request $request){
+    public function store(StoreEmpleados $request){
+        
+        //$request->validate([
+        //    'nss' => 'required|integer|min:11|max:12|unique:posts'
+        //]);
         //obtenemos los enviados por el formulario de empleado nuevo eliminamo el valor del token
         $datosEmpleado=$request->except('_token');
         dd($datosEmpleado);

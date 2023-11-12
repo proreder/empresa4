@@ -34,7 +34,10 @@
               <div class="col-4 col-md-3 col-lg-3 col-xl-2 border">
                   <div class="form-group">
                     <label for="nss">NSS.:</label>
-                    <input type="text" class="form-control" id="nss" name="nss" required>
+                    <input type="text" class="form-control @error('nss') is-invalid @enderror" id="nss" name="nss" value="{{old('nss')}}">
+                    @error('nss')
+                      <span class='text-danger'>{{$message}}</span>
+                    @enderror
                   </div>        
               </div> 
               <div class="col-2 col-md-2 col-lg-1 col-xl-1">
@@ -50,7 +53,7 @@
               <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                 <div class="form-group">
                     <label for="numero_dni_nie">Número:</label>
-                    <input type="text" class="form-control" id="numero_dni_nie" name="numero_dni_nie" required>
+                    <input type="text" class="form-control" id="numero_dni_nie" name="numero_dni_nie">
                 </div>
               </div>
 
@@ -71,7 +74,7 @@
             <div class="col-5 col-md-3 col-lg-5 col-xl-2">
                 <div class="form-group">
                     <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
                 </div>
             </div>
 
@@ -79,14 +82,14 @@
               <div class="col-12 col-md-5 col-xl-4">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    <input type="text" class="form-control" id="nombre" name="nombre">
                 </div>
               </div>
               
               <div class="col-12 col-md-5 col-xl-4">  
                 <div class="form-group">
                     <label for="apellidos">Apellidos:</label>
-                    <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                    <input type="text" class="form-control" id="apellidos" name="apellidos">
                 </div>
             </div>
             
@@ -96,14 +99,14 @@
            <div class="col-8 col-md-2 col-lg-4">
                 <div class="form-group">
                   <label for="tipo_via">Tipo via:</label>
-                  <input type="text" class="form-control" id="tipo_via" name="tipo_via" required>
+                  <input type="text" class="form-control" id="tipo_via" name="tipo_via">
                 </div>
            </div>
 
            <div class="col-9 col-md-5 col-lg-4">
               <div class="form-group">
                   <label for="nombre_via">Nombre via:</label>
-                  <input type="text" class="form-control" id="nombre_via" name="nombre_via" required>
+                  <input type="text" class="form-control" id="nombre_via" name="nombre_via">
               </div>
            </div>
            <div class="col-2 col-xl-1">
@@ -116,49 +119,49 @@
           <div class="col-3 col-md-3 col-lg-1">
             <div class="form-group">
                 <label for="planta">Planta:</label>
-                <input type="text" class="form-control" id="planta" name="planta" required>
+                <input type="text" class="form-control" id="planta" name="planta">
             </div>
          </div>
 
           <div class="col-3 col-md-2 col-lg-1">
             <div class="form-group">
               <label for="puerta">Puerta:</label>
-              <input type="text" class="form-control" id="puerta" name="puerta" required>
+              <input type="text" class="form-control" id="puerta" name="puerta">
             </div>
           </div>
 
            <div class="col-11 col-md-5 col-lg-4">
               <div class="form-group">
                 <label for="municipio">Municipio:</label>
-                <input type="text" class="form-control" id="municipio" name="municipio" required>
+                <input type="text" class="form-control" id="municipio" name="municipio">
               </div>
            </div>
 
            <div class="col-3 col-md-2 col-lg-2 col-xl-1">
             <div class="form-group">
               <label for="cp">CP:</label>
-              <input type="text" class="form-control" id="cp" name="cp" required>
+              <input type="text" class="form-control" id="cp" name="cp">
             </div>
           </div>
 
            <div class="col-11 col-md-5 col-lg-4 col-xl-4">
               <div class="form-group">
                 <label for="provincia">Provincia:</label>
-                <input type="text" class="form-control" id="provincia" name="provincia" required>
+                <input type="text" class="form-control" id="provincia" name="provincia">
               </div>
            </div>
 
           <div class="col-3 col-md-2">
             <div class="form-group">
                <label for="fijo">Telefono:</label>
-               <input type="text" class="form-control" id="fijo" name="fijo" required>
+               <input type="text" class="form-control" id="fijo" name="fijo">
             </div>
           </div>
 
           <div class="col-3 col-md-2">
             <div class="form-group">
                 <label for="telefono_movil">Móvil:</label>
-                <input type="text" class="form-control" id="telefono_movil" name="telefono_movil" required>
+                <input type="text" class="form-control" id="telefono_movil" name="telefono_movil">
             </div>
           </div>
 
@@ -167,35 +170,35 @@
           <div class="col-12 col-md-6">
             <div class="form-group">
               <label for="puesto">Puesto:</label>
-              <input type="text" class="form-control" id="puesto" name="puesto" required>
+              <input type="text" class="form-control" id="puesto" name="puesto">
             </div>
           </div>
 
           <div class="col-12 col-md-6">
             <div class="form-group">
               <label for="tipo">Tipo:</label>
-              <input type="text" class="form-control" id="tipo" name="tipo" required>
+              <input type="text" class="form-control" id="tipo" name="tipo">
             </div>
           </div>
 
           <div class="col-12 col-md-5">
             <div class="form_group">
                 <label for="situacio_laboral">Estado laboral:</label>
-                <input type="text" class="form-control" id="situacio_laboral" name="Estado laboral" required>
+                <input type="text" class="form-control" id="situacio_laboral" name="Estado laboral">
             </div>
           </div>
 
           <div class="col-6 col-md-3 col-lg-3 col-xl-2">
             <div class="form_group">
               <label for="fecha_alta">Fecha de Alta:</label>
-              <input type="date" class="form-control" id="fecha_alta" name="fecha_alta" required>
+              <input type="date" class="form-control" id="fecha_alta" name="fecha_alta">
             </div>
           </div>
 
           <div class="col-6 col-md-3 col-lg-3 col-xl-2">
               <div class="form_group">
                   <label for="fecha_nacimiento">Fecha de Baja:</label>
-                  <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                  <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
               </div>
           </div> 
 

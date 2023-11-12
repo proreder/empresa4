@@ -29,3 +29,7 @@
         .borde_ccc{
             border: solid 1px #ccc;
         }
+
+        .span_rojo{
+            color: red;
+        }
