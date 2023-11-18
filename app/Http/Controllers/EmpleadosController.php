@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\EmpleadosModel;
+//importamos el archivos de validaciones
 use App\Http\Requests\StoreEmpleados;
 
 class EmpleadosController extends Controller
@@ -20,7 +21,8 @@ class EmpleadosController extends Controller
     public function create(){
         return view('layouts.empleados.create');
     }
-
+    
+    //pasamos a la función un objeto de StoreEmpleados que contiene las validaciones
     public function store(StoreEmpleados $request){
         
         //$request->validate([
