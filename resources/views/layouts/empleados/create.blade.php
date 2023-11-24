@@ -36,7 +36,7 @@
                     <label for="nss">NSS.:</label>
                     <input type="text" class="form-control @error('nss') is-invalid @enderror" id="nss" name="nss" value="{{old('nss')}}">
                     @error('nss')
-                      <span class='text-danger'>{{$message}}</span>
+                      <small class='text-danger'>{{$message}}</small>
                     @enderror
                   </div>        
               </div> 
