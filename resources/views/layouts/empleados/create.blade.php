@@ -53,7 +53,11 @@
               <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                 <div class="form-group">
                     <label for="numero_dni_nie">Número:</label>
-                    <input type="text" class="form-control" id="numero_dni_nie" name="numero_dni_nie">
+                    <input type="text" class="form-control @error('numero_dni_nie') is-invalid
+                     @enderror" id="numero_dni_nie" name="numero_dni_nie" value="{{old('numero_dni_nie')}}" >
+                     @error('numero_dni_nie')
+                      <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
               </div>
 

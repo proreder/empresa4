@@ -1,3 +1,4 @@
+<?php
 namespace App\Http\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
@@ -27,7 +28,7 @@ class NifNie implements Rule
    }
 
    /**
-   * Get the validation error message.
+   * Mensaje de error a retornar.
    *
    * @return string
    */

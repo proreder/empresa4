@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\EmpleadosModel;
-//importamos el archivos de validaciones
+//importamos el archivos de validaciones esterno
 use App\Http\Requests\StoreEmpleados;
 
 class EmpleadosController extends Controller

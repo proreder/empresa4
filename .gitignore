@@ -17,3 +17,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+database/migrations.copy/2023_04_25_080609_create_empleado_table.php
+database/migrations.copy/2023_04_25_080609_create_empleado_table.php
