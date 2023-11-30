@@ -27,7 +27,7 @@ class StoreEmpleados extends FormRequest
         return [
             'nss' => 'required|unique:empleado|integer|min:11|max:12',
             //verificamos con validación personalizada el dni o nie
-            'numero_dni_nie' => ['required' , new NifNie()],
+            'numero_dni_nie' => ['required|unique:empleado' , new NifNie()],
             'fecha_nacimiento' => 'required',
 
         ];
