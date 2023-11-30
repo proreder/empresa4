@@ -92,7 +92,11 @@
               <div class="col-12 col-md-5 col-xl-4">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre">
+                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" value="{{old('nombre')}}">
+                    @error('nombre')
+                      <small class="nombre">
+                        {{$message}}
+                      </small>
                 </div>
               </div>
               
