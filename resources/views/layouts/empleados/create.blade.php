@@ -53,18 +53,11 @@
               <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                 <div class="form-group">
                     <label for="numero_dni_nie">Número:</label>
-<<<<<<< HEAD
-                    <input type="text" class="form-control @error('numero_dni_nie') is-invalid
-                     @enderror" id="numero_dni_nie" name="numero_dni_nie" value="{{old('numero_dni_nie')}}" >
-                     @error('numero_dni_nie')
-                      <small class="text-danger">{{$message}}</small>
-=======
                     <input type="text" class="form-control @error('numero_dni_nie') is-invalid  @enderror" id="numero_dni_nie" name="numero_dni_nie" value="{{old('numero_dni_nie')}}">
                     @error('numero_dni_nie')
                       <small class="text-danger">
                         {{$message}}
                       </small>
->>>>>>> 6a42f4ef6adcfb2384ff17c16292d6685279199a
                     @enderror
                 </div>
               </div>
@@ -101,16 +94,22 @@
                     <label for="nombre">Nombre:</label>
                     <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" value="{{old('nombre')}}">
                     @error('nombre')
-                      <small class="nombre">
+                      <small class="text-danger">
                         {{$message}}
                       </small>
+                    @enderror
                 </div>
               </div>
               
               <div class="col-12 col-md-5 col-xl-4">  
                 <div class="form-group">
                     <label for="apellidos">Apellidos:</label>
-                    <input type="text" class="form-control" id="apellidos" name="apellidos">
+                    <input type="text" class="form-control @error('apellidos') is-invalid @enderror" id="apellidos" name="apellidos" value="{{old('apellidos')}}">
+                    @error('apellidos')
+                      <small class="text-danger">
+                          {{$mesagge}}
+                      </small>
+                    @enderror
                 </div>
             </div>
             
@@ -120,14 +119,24 @@
            <div class="col-8 col-md-2 col-lg-4">
                 <div class="form-group">
                   <label for="tipo_via">Tipo via:</label>
-                  <input type="text" class="form-control" id="tipo_via" name="tipo_via">
+                  <input type="text" class="form-control @error('tipo_via') is-invalid @enderror" id="tipo_via" name="tipo_via" value="{{old('tipo_via')}}">
+                  @error('tipo_via')
+                    <small class="text-danger">
+                      {{$message}}
+                    </small>
+                  @enderror
                 </div>
            </div>
 
            <div class="col-9 col-md-5 col-lg-4">
               <div class="form-group">
                   <label for="nombre_via">Nombre via:</label>
-                  <input type="text" class="form-control" id="nombre_via" name="nombre_via">
+                  <input type="text" class="form-control @error('nombre_via') is-invalid @enderror" id="nombre_via" name="nombre_via" value="{{old('nombre_via')}}">
+                  @error('nombre_via')
+                  <small class="text-danger">
+                    {{$message}}
+                  </small>
+                  @enderror
               </div>
            </div>
            <div class="col-2 col-xl-1">
