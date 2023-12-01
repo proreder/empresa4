@@ -2,6 +2,7 @@
 namespace App\Http\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+//use Illuminate\Contracts\Validation\ValidationRule;
 
 class NifNie implements Rule
 {

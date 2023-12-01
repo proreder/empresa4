@@ -30,6 +30,7 @@ class EmpleadosController extends Controller
         //]);
         //obtenemos los enviados por el formulario de empleado nuevo eliminamo el valor del token
         $datosEmpleado=$request->except('_token');
+        echo('hola');
         dd($datosEmpleado);
         return response()->json($datosEmpleado);
     }

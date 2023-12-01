@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Requests;
-//use Illuminate\Validation\Factory as ValidationFactory;
+
+use App\Http\Rules\NifNie;
 use Illuminate\Foundation\Http\FormRequest;
 //Se agrega personalizada del NifNie
 use App\Http\Rules\NifNie;
@@ -30,9 +31,13 @@ class StoreEmpleados extends FormRequest
      */
     public function rules(): array
     {
+        
         return [
-            'nss' => 'required|integer|min:11|max:12|unique:posts',
-            'numero_dni_nie' => ['required', new NifNie()],
+            'nss' => 'required|unique:empleado|integer|min:11|max:12',
+            //verificamos con validación personalizada el dni o nie
+            'numero_dni_nie' => ['required|unique:empleado' , new NifNie()],
+            'fecha_nacimiento' => 'required',
+
         ];
     }
 }

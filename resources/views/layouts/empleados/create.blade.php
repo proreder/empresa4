@@ -53,10 +53,18 @@
               <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                 <div class="form-group">
                     <label for="numero_dni_nie">Número:</label>
+<<<<<<< HEAD
                     <input type="text" class="form-control @error('numero_dni_nie') is-invalid
                      @enderror" id="numero_dni_nie" name="numero_dni_nie" value="{{old('numero_dni_nie')}}" >
                      @error('numero_dni_nie')
                       <small class="text-danger">{{$message}}</small>
+=======
+                    <input type="text" class="form-control @error('numero_dni_nie') is-invalid  @enderror" id="numero_dni_nie" name="numero_dni_nie" value="{{old('numero_dni_nie')}}">
+                    @error('numero_dni_nie')
+                      <small class="text-danger">
+                        {{$message}}
+                      </small>
+>>>>>>> 6a42f4ef6adcfb2384ff17c16292d6685279199a
                     @enderror
                 </div>
               </div>
@@ -78,7 +86,12 @@
             <div class="col-5 col-md-3 col-lg-5 col-xl-2">
                 <div class="form-group">
                     <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
+                    <input type="date" class="form-control @error('fecha_nacimiento') is-invalid @enderror" id="fecha_nacimiento" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}">
+                    @error('fecha_nacimiento')
+                       <small class="text-danger">
+                            {{$message}}
+                       </small>
+                    @enderror
                 </div>
             </div>
 
@@ -86,7 +99,11 @@
               <div class="col-12 col-md-5 col-xl-4">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre">
+                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" value="{{old('nombre')}}">
+                    @error('nombre')
+                      <small class="nombre">
+                        {{$message}}
+                      </small>
                 </div>
               </div>
               
@@ -201,8 +218,8 @@
 
           <div class="col-6 col-md-3 col-lg-3 col-xl-2">
               <div class="form_group">
-                  <label for="fecha_nacimiento">Fecha de Baja:</label>
-                  <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
+                  <label for="fecha_baja">Fecha de Baja:</label>
+                  <input type="date" class="form-control" id="fecha_baja" name="fecha_baja">
               </div>
           </div> 
 
