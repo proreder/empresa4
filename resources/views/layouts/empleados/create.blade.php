@@ -242,36 +242,60 @@
           <div class="col-12 col-md-6">
             <div class="form-group">
               <label for="tipo">Tipo:</label>
-              <input type="text" class="form-control" id="tipo" name="tipo">
+              <input type="text" class="form-control @error('tipo') is-invalid @enderror" id="tipo" name="tipo" value="{{old('tipo')}}">
+              @error('tipo')
+                <small class="text-danger">
+                  {{$message}}
+                </small>
+              @enderror
             </div>
           </div>
 
           <div class="col-12 col-md-5">
             <div class="form_group">
-                <label for="situacio_laboral">Estado laboral:</label>
-                <input type="text" class="form-control" id="situacio_laboral" name="Estado laboral">
+                <label for="situacion_laboral">Estado laboral:</label>
+                <input type="text" class="form-control @error('situacion_laboral" id="situacion_laboral" name="situacion_laboral" value="{{old('situacion_laboral')}}">
+                @error('situacion_laboral')
+                  <small class="text-danger">
+                      {{$message}}
+                  </small>
+                @enderror
             </div>
           </div>
 
           <div class="col-6 col-md-3 col-lg-3 col-xl-2">
             <div class="form_group">
               <label for="fecha_alta">Fecha de Alta:</label>
-              <input type="date" class="form-control" id="fecha_alta" name="fecha_alta">
+              <input type="date" class="form-control @error('fecha_alta') is-invalid @enderror"  id="fecha_alta" name="fecha_alta" value="{{old('fecha_alta')}}">
+              @error('fecha_alta')
+                <small class="text-danger">
+                  {{$message}}
+                </small>
+              @enderror
             </div>
           </div>
 
           <div class="col-6 col-md-3 col-lg-3 col-xl-2">
               <div class="form_group">
                   <label for="fecha_baja">Fecha de Baja:</label>
-                  <input type="date" class="form-control" id="fecha_baja" name="fecha_baja">
+                  <input type="date" class="form-control @error('fecha_baja') is-invalid @enderror" id="fecha_baja" name="fecha_baja">
+                  @error('fecha_baja')
+                    <small class="text-danger">
+                      {{$message}}
+                    </small>
+                  @enderror
               </div>
           </div> 
 
           <div class="col-12 col-md-7">
             <div class="form_group">
                 <label for="comentarios">Comentarios:</label>
-                <textarea class="col-12" name="comentarios" rows="2"   placeholder="Motivo de la baja"></textarea>
-          
+                <textarea class="col-12 @error('comentarios') is-invalid @enderror" name="comentarios" rows="2" value="{{old('comentrios')}}"  placeholder="Motivo de la baja"></textarea>
+                @error('comentarios')
+                    <small class="text-danger">
+                      {{$message}}
+                    </small>
+                  @enderror
             </div>
           </div>
 

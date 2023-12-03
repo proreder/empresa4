@@ -65,11 +65,12 @@ class StoreEmpleados extends FormRequest{
             'telefono'          => 'integer|min:9|max:9',
             'telefono_movil'    => 'integer|min:9|max:9',
             'puesto'            => 'required|min:5|max:100',
+            'tipo'              => 'required|min:5|max:100',
+            'situacion_laboral' => 'required|min:5|max:100',
+            'fecha_alta'        => 'required|date_format:d/m/Y',
+            'fecha_nacimiento'  => 'date_format:d/m/Y',
+            'comentarios'       => 'max:200',
             
-
-
-
-
 
         ];
     }
