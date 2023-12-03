@@ -52,9 +52,9 @@
               </div>
               <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                 <div class="form-group">
-                    <label for="numero_dni_nie">Número:</label>
-                    <input type="text" class="form-control @error('numero_dni_nie') is-invalid  @enderror" id="numero_dni_nie" name="numero_dni_nie" value="{{old('numero_dni_nie')}}">
-                    @error('numero_dni_nie')
+                    <label for="nifnie">Número:</label>
+                    <input type="text" class="form-control @error('nifnie') is-invalid  @enderror" id="nifnie" name="nifnie" value="{{old('nifnie')}}">
+                    @error('nifnie')
                       <small class="text-danger">
                         {{$message}}
                       </small>
@@ -107,7 +107,7 @@
                     <input type="text" class="form-control @error('apellidos') is-invalid @enderror" id="apellidos" name="apellidos" value="{{old('apellidos')}}">
                     @error('apellidos')
                       <small class="text-danger">
-                          {{$mesagge}}
+                          {{$message}}
                       </small>
                     @enderror
                 </div>
@@ -116,7 +116,7 @@
             <div class="col-xl-4"></div>
 
 
-           <div class="col-8 col-md-2 col-lg-4">
+           <div class="col-8 col-md-2 col-lg-4 col-xl-1">
                 <div class="form-group">
                   <label for="tipo_via">Tipo via:</label>
                   <input type="text" class="form-control @error('tipo_via') is-invalid @enderror" id="tipo_via" name="tipo_via" value="{{old('tipo_via')}}">
@@ -142,7 +142,12 @@
            <div class="col-2 col-xl-1">
             <div class="form-group">
               <label for="numero">Número:</label>
-              <input type="text" class="form-control" id="numero" name="numero">
+              <input type="text" class="form-control @error('numero') is-invalid @enderror" id="numero" name="numero" value="{{old('numero')}}">
+              @error('numero')
+                  <small class="text-danger">
+                    {{$message}}
+                  </small>
+              @enderror
             </div>
           </div>
 
@@ -163,35 +168,60 @@
            <div class="col-11 col-md-5 col-lg-4">
               <div class="form-group">
                 <label for="municipio">Municipio:</label>
-                <input type="text" class="form-control" id="municipio" name="municipio">
+                <input type="text" class="form-control @error('municipio') is-invalid @enderror" id="municipio" name="municipio" value="{{old('municipio')}}">
+                @error('municipio')
+                  <small class="text-danger">
+                    {{$message}}
+                  </small>
+                @enderror
               </div>
            </div>
 
            <div class="col-3 col-md-2 col-lg-2 col-xl-1">
             <div class="form-group">
               <label for="cp">CP:</label>
-              <input type="text" class="form-control" id="cp" name="cp">
+              <input type="text" class="form-control @error('cp') is-invalid @enderror" id="cp" name="cp" value="{{old('cp')}}">
+              @error('cp')
+                  <small class="text-danger">
+                    {{$message}}
+                  </small>
+              @enderror
             </div>
           </div>
 
            <div class="col-11 col-md-5 col-lg-4 col-xl-4">
               <div class="form-group">
                 <label for="provincia">Provincia:</label>
-                <input type="text" class="form-control" id="provincia" name="provincia">
+                <input type="text" class="form-control @error('provincia') is-invalid @enderror" id="provincia" name="provincia" value="{{old('provincia')}}">
+                @error('provincia')
+                  <small class="text-danger">
+                    {{$message}}
+                  </small>
+                @enderror
               </div>
            </div>
 
           <div class="col-3 col-md-2">
             <div class="form-group">
                <label for="fijo">Telefono:</label>
-               <input type="text" class="form-control" id="fijo" name="fijo">
+               <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="fijo" name="fijo" value="{{old('telefono')}}">
+               @error('telefono')
+                  <small class="text-danger">
+                    {{$message}}
+                  </small>
+               @enderror
             </div>
           </div>
 
           <div class="col-3 col-md-2">
             <div class="form-group">
                 <label for="telefono_movil">Móvil:</label>
-                <input type="text" class="form-control" id="telefono_movil" name="telefono_movil">
+                <input type="text" class="form-control @error('telefono_movil') is-invalid @enderror" id="telefono_movil" name="telefono_movil" value="{{old('telefono_movil'}}">
+                @error('telefono_movil')
+                  <small class="text-danger">
+                      {{$message}}
+                  </small>
+                @enderror
             </div>
           </div>
 
@@ -200,7 +230,12 @@
           <div class="col-12 col-md-6">
             <div class="form-group">
               <label for="puesto">Puesto:</label>
-              <input type="text" class="form-control" id="puesto" name="puesto">
+              <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto" value="{{old('puesto'}}">
+              @error('puesto')
+                <small class="text-danger">
+                  {{$message}}
+                </small>
+              @enderror
             </div>
           </div>
 
@@ -259,7 +294,7 @@
       <div class="container my-5">
           <div class="row  col-12 border border-primary ">
             
-                  <div class="mx-auto col-6 col-md-4 col-lg-4 col-xl-2 border border-danger ">
+                  <div class="mx-auto col-6 col-md-4 col-lg-4 col-xl-2 border">
                     
                     <button type="submit" class="btn btn-primary btn-block">Enviar</button>
                   </div>
