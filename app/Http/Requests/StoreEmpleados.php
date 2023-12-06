@@ -70,6 +70,7 @@ class StoreEmpleados extends FormRequest{
             'fecha_alta'        => 'required|date_format:d/m/Y',
             'fecha_nacimiento'  => 'date_format:d/m/Y',
             'comentarios'       => 'max:200',
+            'imagen'            => 'required|file|mimes:jpg,jpeg,png|max:256a'
             
 
         ];

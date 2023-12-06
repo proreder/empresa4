@@ -33,7 +33,7 @@
             
               <div class="col-4 col-md-3 col-lg-3 col-xl-2 border">
                   <div class="form-group">
-                    <label for="nss">NSS.:</label>
+                    <label for="nss">NSS.:</label><span class="text-danger">*</span>
                     <input type="text" class="form-control @error('nss') is-invalid @enderror" id="nss" name="nss" value="{{old('nss')}}">
                     @error('nss')
                       <small class='text-danger'>{{$message}}</small>
@@ -216,7 +216,7 @@
           <div class="col-3 col-md-2">
             <div class="form-group">
                 <label for="telefono_movil">Móvil:</label>
-                <input type="text" class="form-control @error('telefono_movil') is-invalid @enderror" id="telefono_movil" name="telefono_movil" value="{{old('telefono_movil'}}">
+                <input type="text" class="form-control @error('telefono_movil') is-invalid @enderror" id="telefono_movil" name="telefono_movil" value="{{old('telefono_movil')}}">
                 @error('telefono_movil')
                   <small class="text-danger">
                       {{$message}}
@@ -230,7 +230,7 @@
           <div class="col-12 col-md-6">
             <div class="form-group">
               <label for="puesto">Puesto:</label>
-              <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto" value="{{old('puesto'}}">
+              <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto" value="{{old('puesto')}}">
               @error('puesto')
                 <small class="text-danger">
                   {{$message}}
@@ -254,7 +254,7 @@
           <div class="col-12 col-md-5">
             <div class="form_group">
                 <label for="situacion_laboral">Estado laboral:</label>
-                <input type="text" class="form-control @error('situacion_laboral" id="situacion_laboral" name="situacion_laboral" value="{{old('situacion_laboral')}}">
+                <input type="text" class="form-control @error('situacion_laboral') is-invalid @enderror" id="situacion_laboral" name="situacion_laboral" value="{{old('situacion_laboral')}}">
                 @error('situacion_laboral')
                   <small class="text-danger">
                       {{$message}}
@@ -278,7 +278,7 @@
           <div class="col-6 col-md-3 col-lg-3 col-xl-2">
               <div class="form_group">
                   <label for="fecha_baja">Fecha de Baja:</label>
-                  <input type="date" class="form-control @error('fecha_baja') is-invalid @enderror" id="fecha_baja" name="fecha_baja">
+                  <input type="date" class="form-control @error('fecha_baja') is-invalid @enderror" id="fecha_baja" name="fecha_baja" value="{{old('fecha_baja')}}">
                   @error('fecha_baja')
                     <small class="text-danger">
                       {{$message}}
@@ -290,7 +290,7 @@
           <div class="col-12 col-md-7">
             <div class="form_group">
                 <label for="comentarios">Comentarios:</label>
-                <textarea class="col-12 @error('comentarios') is-invalid @enderror" name="comentarios" rows="2" value="{{old('comentrios')}}"  placeholder="Motivo de la baja"></textarea>
+                <textarea class="col-12 @error('comentarios') is-invalid @enderror" name="comentarios" rows="2" value="{{old('comentarios')}}"  placeholder="Motivo de la baja"></textarea>
                 @error('comentarios')
                     <small class="text-danger">
                       {{$message}}
@@ -304,9 +304,14 @@
             
                 <div class="form_group">
                     <label for="imagen">Selecciona una imagen:</label>
-                    <input class="col-12 borde_ccc" type="file" name="imagen" id="imagen" accept="image/*" required onchange="mostrarImagen(event)">
-                      <br><br>
-                </div>
+                    <input class="col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event)">
+                    @error('imagen')
+                      <small class="text-danger">
+                      {{$message}}
+                      </small>
+                    @enderror
+                    <br><br>
+                  </div>
             
              <div class="col-2 mx-auto borde_ccc">
                  <img id="imagenSeleccionada" src="#" alt="" style="width: 100px;height: 156px;">
