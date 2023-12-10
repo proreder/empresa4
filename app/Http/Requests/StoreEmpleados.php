@@ -48,9 +48,9 @@ class StoreEmpleados extends FormRequest{
      */
     public function rules(): array
     {
-        
+       
         return [
-            'nss'               => 'required|unique:empleado|integer|min:11|max:12',
+            'nss'               => 'required|unique:empleado|min:11|max:12',
             //verificamos con validación personalizada el dni o nie
             'nifnie'            => 'required|unique:empleado|nifnie',
             'fecha_nacimiento'  => 'required',
@@ -60,17 +60,19 @@ class StoreEmpleados extends FormRequest{
             'nombre_via'        => 'required|min:3|max:40',
             'numero'            => 'required|integer|min:1|max:3',
             'municipio'         => 'required|min:3|max:40',
-            'cp'                => 'required|integer|min:5|max:5',
+            'cp'                => 'required|min:5|max:5',
             'provincia'         => 'required|min:3|max:40',
-            'telefono'          => 'integer|min:9|max:9',
-            'telefono_movil'    => 'integer|min:9|max:9',
+            'telefono'          => 'nullable|numeric|digits:9',
+            'telefono_movil'    => 'nullable|numeric|digits:9',
             'puesto'            => 'required|min:5|max:100',
-            'tipo'              => 'required|min:5|max:100',
+            'tipo'              => 'required|min:4|max:100',
             'situacion_laboral' => 'required|min:5|max:100',
-            'fecha_alta'        => 'required|date_format:d/m/Y',
-            'fecha_nacimiento'  => 'date_format:d/m/Y',
+            'fecha_alta'        => 'required|date_format:Y-m-d',
+            'fecha_nacimiento'  => 'date_format:Y-m-d',
+            //'fecha_alta'        => 'required|date_format:d/m/Y',
+            //'fecha_nacimiento'  => 'date_format:d/m/Y',
             'comentarios'       => 'max:200',
-            'imagen'            => 'required|file|mimes:jpg,jpeg,png|max:256a'
+            'imagen'            => 'required|file|mimes:jpg,jpeg,png|max:256'
             
 
         ];

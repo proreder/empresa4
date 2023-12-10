@@ -24,7 +24,7 @@ class EmpleadosController extends Controller
     
     //pasamos a la función un objeto de StoreEmpleados que contiene las validaciones
     public function store(StoreEmpleados $request){
-        
+    //public function store(Request $request){   
         //$request->validate([
         //    'nss' => 'required|integer|min:11|max:12|unique:posts'
         //]);
@@ -50,6 +50,6 @@ class EmpleadosController extends Controller
         $empleado= EmpleadosModel::find($id);
         $empleado->delete();
         //EmpleadosModel::destroy($id);
-        return redirect('empleados/index');
+        return redirect('empleados/index')->with('success', 'success');
     }
 }

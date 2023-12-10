@@ -8,6 +8,7 @@
 
 @section('content')
     <div class="container-flex">
+      
         
         <!--<p>Welcome to this beautiful admin panel.</p>-->
         <!--Mostramos el ROL de usuario que se ha conectado-->
@@ -23,6 +24,7 @@
         
         <a href="{{ url('empleados/create') }}" class="btn btn-success">Alta de Empleado</a>
         <br><br>
+        
         <table id="empleados" class="table table-striped border">
             <thead class="thead-light">
                 <tr>
@@ -58,12 +60,13 @@
                         <td>{{ $empleado->tipo_via}}</td>
                         <td>{{ $empleado->nombre_via}}</td>
                         <td>
-                            <form action="{{ url('/empleados/'.$empleado->id)}}" method="post">
+                            <form id="btnEliminar" action="{{url('/empleados/'.$empleado->id)}}" method="post">
                                 {{method_field('EDIT')}}
-                                <a href="{{ url('/empleados/'.$empleado->id.'/edit/')}}" class="btn btn-primary btn-sm py-0">Editar</a> 
+                                <a href="{{url('/empleados/'.$empleado->id.'/edit/')}}" class="btn btn-primary btn-sm py-0">Editar</a> 
                                 @csrf
                                 {{method_field('DELETE')}}
-                                <input type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar" class="btn btn-danger btn-sm py-0">  
+                             <!--   <input type="submit" onclick="return confirm('¿Quieres borrar?')" id="btnEliminar" value="Borrar" class="btn btn-danger btn-sm py-0"> -->
+                                <button type="submit" value="Borrar" class="btn btn-danger btn-sm py-0">Borrar</button> 
                             </form>   
                         </td>
                     </tr>
@@ -72,12 +75,15 @@
                 @endforelse
             </tbody>
         </table>
+      <!--End card-->
     </div>
 @stop
 
 @section('css')
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../public/css/sweetalert2.min.css">
 @stop
 
 @section('js')
@@ -85,6 +91,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
+    <script src="../public/build/assets/sweetalert2.all.min.js"></script>
     <script>
         $(document).ready(function(){
             $('#empleados').DataTable({
@@ -103,7 +110,29 @@
                 }   
             }  
             });
-        
+            $('#btnEliminar').on('submit', function(e){
+                e.preventDefault();
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "¡El borrado no se podrá trevertir!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "¡Confirmar borrado!"
+                }).then((result) => {
+                    this.submit()
+                });
+            })
         });
     </script>
-@stop
+    @if(Session::has('success'))
+        <script>
+            Swal.fire({
+                title: "Borrado",
+                text: "El empleado se ha borrado corectamente",
+                icon: "question"
+            });
+        </script>
+    @endif
+@endsection

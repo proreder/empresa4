@@ -45,6 +45,9 @@ Route::middleware([
 //Ruta para la creación de un nuevo empleado
 //route::get('/empleados/create', [EmpleadosController::class, 'create']);
 
+//Obtenemos las rutas de los metodos de conductoresController
+Route::resource('/conductores', ConductoresController::class);
+
 //Obtenemos las rutas de los metodos de empleadoController
 Route::resource('/empleados', EmpleadosController::class);
 

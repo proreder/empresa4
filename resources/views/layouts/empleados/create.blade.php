@@ -40,7 +40,7 @@
                     @enderror
                   </div>        
               </div> 
-              <div class="col-2 col-md-2 col-lg-1 col-xl-1">
+              <div class="col-2 col-md-2 col-lg-2 col-xl-1">
                 <div class="form-group">
                     <label for="select">Tipo:</label>
             
@@ -76,7 +76,7 @@
               <!--  <div class="col-2 col-md-2 col-lg-2 col-xl-7"></div> -->
 
                 
-            <div class="col-5 col-md-3 col-lg-5 col-xl-2">
+            <div class="col-5 col-md-3 col-lg-3 col-xl-2">
                 <div class="form-group">
                     <label for="fecha_nacimiento">Fecha de nacimiento:</label>
                     <input type="date" class="form-control @error('fecha_nacimiento') is-invalid @enderror" id="fecha_nacimiento" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}">
@@ -116,7 +116,7 @@
             <div class="col-xl-4"></div>
 
 
-           <div class="col-8 col-md-2 col-lg-4 col-xl-1">
+           <div class="col-8 col-md-2 col-lg-2 col-xl-1">
                 <div class="form-group">
                   <label for="tipo_via">Tipo via:</label>
                   <input type="text" class="form-control @error('tipo_via') is-invalid @enderror" id="tipo_via" name="tipo_via" value="{{old('tipo_via')}}">
@@ -139,7 +139,7 @@
                   @enderror
               </div>
            </div>
-           <div class="col-2 col-xl-1">
+           <div class="col-2 col-lg-1 col-xl-1 mr-3">
             <div class="form-group">
               <label for="numero">Número:</label>
               <input type="text" class="form-control @error('numero') is-invalid @enderror" id="numero" name="numero" value="{{old('numero')}}">
@@ -165,7 +165,7 @@
             </div>
           </div>
 
-           <div class="col-11 col-md-5 col-lg-4">
+           <div class="col-11 col-md-5 col-lg-5">
               <div class="form-group">
                 <label for="municipio">Municipio:</label>
                 <input type="text" class="form-control @error('municipio') is-invalid @enderror" id="municipio" name="municipio" value="{{old('municipio')}}">
@@ -189,7 +189,7 @@
             </div>
           </div>
 
-           <div class="col-11 col-md-5 col-lg-4 col-xl-4">
+           <div class="col-11 col-md-5 col-lg-5 col-xl-5">
               <div class="form-group">
                 <label for="provincia">Provincia:</label>
                 <input type="text" class="form-control @error('provincia') is-invalid @enderror" id="provincia" name="provincia" value="{{old('provincia')}}">
@@ -203,8 +203,8 @@
 
           <div class="col-3 col-md-2">
             <div class="form-group">
-               <label for="fijo">Telefono:</label>
-               <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="fijo" name="fijo" value="{{old('telefono')}}">
+               <label for="telefono">Telefono:</label>
+               <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono" value="{{old('telefono')}}">
                @error('telefono')
                   <small class="text-danger">
                     {{$message}}
@@ -225,9 +225,9 @@
             </div>
           </div>
 
-          <div class="col-1 col-md-1 col-lg-2 col-xl-2 col-xxl-2"></div>
+          <div class="col-1 col-md-1 col-lg-6 col-xl-6 col-xxl-2"></div>
 
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group">
               <label for="puesto">Puesto:</label>
               <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto" value="{{old('puesto')}}">
@@ -239,7 +239,7 @@
             </div>
           </div>
 
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group">
               <label for="tipo">Tipo:</label>
               <input type="text" class="form-control @error('tipo') is-invalid @enderror" id="tipo" name="tipo" value="{{old('tipo')}}">
@@ -251,7 +251,7 @@
             </div>
           </div>
 
-          <div class="col-12 col-md-5">
+          <div class="col-12 col-md-5 col-lg-4">
             <div class="form_group">
                 <label for="situacion_laboral">Estado laboral:</label>
                 <input type="text" class="form-control @error('situacion_laboral') is-invalid @enderror" id="situacion_laboral" name="situacion_laboral" value="{{old('situacion_laboral')}}">

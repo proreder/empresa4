@@ -26,7 +26,7 @@
 
 
     <form class="form-horizontal" action="{{ url('/empleados')}}" method="post" enctype="multipart/form-data">
-       @method('PUT')
+       @method('POST')
         @csrf
 
         <div class="container-fluid">
@@ -103,33 +103,33 @@
 
            
 
-           <div class="col-9 col-md-5 col-lg-4">
+           <div class="col-9 col-md-4 col-lg-4">
               <div class="form-group">
                   <label for="nombre_via">Nombre via:</label>
                   <input type="text" class="form-control" id="nombre_via" name="nombre_via" value="{{$empleado->nombre_via}}">
               </div>
            </div>
-           <div class="col-2 col-xl-1">
+           <div class="col-2 col-md-1 col-xl-1">
             <div class="form-group">
               <label for="numero">Número:</label>
               <input type="text" class="form-control" id="numero" name="numero" value="{{$empleado->numero}}">
             </div>
           </div>
 
-          <div class="col-3 col-md-3 col-lg-1">
+          <div class="col-3 col-md-1 col-lg-1">
             <div class="form-group">
                 <label for="planta">Planta:</label>
                 <input type="text" class="form-control" id="planta" name="planta" value="{{$empleado->planta}}">
             </div>
          </div>
 
-          <div class="col-3 col-md-2 col-lg-1">
+          <div class="col-3 col-md-1 col-lg-1">
             <div class="form-group">
               <label for="puerta">Puerta:</label>
               <input type="text" class="form-control" id="puerta" name="puerta" value="{{$empleado->puerta}}">
             </div>
           </div>
-
+          <div class="col-xl-2"></div> 
            <div class="col-11 col-md-5 col-lg-4">
               <div class="form-group">
                 <label for="municipio">Municipio:</label>
@@ -150,37 +150,37 @@
                 <input type="text" class="form-control" id="provincia" name="provincia" value="{{$empleado->provincia}}">
               </div>
            </div>
-
-        
-          <div class="col-3 col-md-2">
+           
+           <div class="col-xl-3"></div>
+          <div class="col-3 col-md-2 col-lg-3 col-xl-2">
             <div class="form-group">
                <label for="fijo">Telefono:</label>
                <input type="text" class="form-control" id="fijo" name="fijo" value="{{$empleado->telefono_fijo}}">
             </div>
           </div>
 
-          <div class="col-3 col-md-2">
+          <div class="col-3 col-md-2 col-lg-3 col-xl-2">
             <div class="form-group">
                 <label for="telefono_movil">Móvil:</label>
                 <input type="text" class="form-control" id="telefono_movil" name="telefono_movil" value="{{$empleado->telefono_movil}}">
             </div>
           </div>
-          <div class="col-1 col-md-1 col-lg-2 col-xl-2 col-xxl-2"></div>
-          <div class="col-12 col-md-6">
+          <div class="col-md-6 col-lg-6 col-xl-8"></div>
+          <div class="col-12 col-md-4 col-lg-4">
             <div class="form-group">
               <label for="puesto">Puesto:</label>
               <input type="text" class="form-control" id="puesto" name="puesto" value="{{$empleado->puesto}}">
             </div>
           </div>
 
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-4 col-lg-4">
             <div class="form-group">
               <label for="tipo">Tipo:</label>
               <input type="text" class="form-control" id="tipo" name="tipo" value="{{$empleado->tipo}}">
             </div>
           </div>
 
-          <div class="col-12 col-md-5">
+          <div class="col-12 col-md-4 col-lg-4">
             <div class="form_group">
                 <label for="situacio_laboral">Estado laboral:</label>
                 <input type="text" class="form-control" id="situacion_laboral" name="Estadon laboral" value="{{$empleado->situacion_laboral}}">
@@ -249,12 +249,12 @@
    
 @stop
 @section('css')
-    
+    <link rel="stylesheet" href="../public/css/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @stop
 
 @section('js')
-    
+    <script src="../public/build/assets/sweetalert2.all.min.js"></script>
     <script> console.log('Hi!'); </script>
     <script>
       function mostrarImagen(event) {
