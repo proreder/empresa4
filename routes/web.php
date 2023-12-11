@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 //Agregamos UsuariosControlles
 use App\Http\Controllers\EmpleadosController;
+use App\http\Controllers\ConductoresController;
 
 
 /*
@@ -46,7 +47,7 @@ Route::middleware([
 //route::get('/empleados/create', [EmpleadosController::class, 'create']);
 
 //Obtenemos las rutas de los metodos de conductoresController
-Route::resource('/conductores', ConductoresController::class);
+Route::resource('/conductor', ConductoresController::class);
 
 //Obtenemos las rutas de los metodos de empleadoController
 Route::resource('/empleados', EmpleadosController::class);

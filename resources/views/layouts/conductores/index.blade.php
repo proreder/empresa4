@@ -41,13 +41,10 @@
                 <tr>
                     <th width="80px">Fotografía</th>
                     <th width="90px">NIF/NIE</th>
-                    <th width="100px">Número SS</th>
-                    <th width="125px">Nombre</th>
-                    <th width="125px">Apellidos</th>
-                    <th width="40px">Móvil</th>
-                    <th width="40px">Fijo</th>
-                    <th width="50px">Tipo Via</th>
-                    <th width="160px">Nombre via</th>
+                    <th width="100px">Permisos</th>
+                    <th width="125px">CAP</th>
+                    <th width="125px">Tarjeta tacógrafo</th>
+                    <th width="40px">Tipo ADR</th>
                     <th width="140px">Acciones</th>
 
                 </tr>
@@ -62,14 +59,10 @@
                             ?>"  alt="" width="40">
                         </td>
                         <!-- <td></td> -->
-                        <td>{{ $conductor->nifnie}}</td>
-                        <td>{{ $conductor->nss}}</td>
-                        <td>{{ $conductor->nombre}}</td>
-                        <td>{{ $conductor->apellidos}}</td>
-                        <td>{{ $conductor->telefono_movil }} </td>
-                        <td>{{ $conductor->telefono_fijo }} </td>
-                        <td>{{ $conductor->tipo_via}}</td>
-                        <td>{{ $conductor->nombre_via}}</td>
+                        <td>{{ $conductor->nifnie_empleado}}</td>
+                        <td>{{ $conductor->permisos}}</td>
+                        <td>{{ $conductor->cap}}</td>
+                        <td>{{ $conductor->tarjeta_tacografo}}</td>
                         <td>
                             <form id="btnEliminar" action="{{url('/conductores/'.$conductor->id)}}" method="post">
                                 {{method_field('EDIT')}}

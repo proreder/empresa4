@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('conductores', function (Blueprint $table) {
+        Schema::create('conductor', function (Blueprint $table) {
             $table->id();
-            $table->string('nif_empleado');
-            $table->string('premisos');
+            $table->string('nifnie_empleado');
+            $table->string('permisos');
             $table->boolean('cap');
             $table->boolean('tarjeta_tacografo');
             $table->enum('tipo_ADR',['básico', 'cisternas', 'explosivos', 'radiactivos']);
             $table->timestamps();
-            $table->foreign('nif_empleado')->references('nifnie')->on('empleado');
+            $table->foreign('nifnie_empleado')->references('nifnie')->on('empleado');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('conductores');
+        Schema::dropIfExists('conductor');
     }
 };
