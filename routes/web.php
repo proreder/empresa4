@@ -47,11 +47,13 @@ Route::middleware([
 //route::get('/empleados/create', [EmpleadosController::class, 'create']);
 
 //Obtenemos las rutas de los metodos de conductoresController
-Route::resource('/conductor', ConductoresController::class);
+Route::resource('/conductores', ConductoresController::class);
 
 //Obtenemos las rutas de los metodos de empleadoController
 Route::resource('/empleados', EmpleadosController::class);
 
+/*
 Route::get('/conductores/index', function () {
     return view('layouts.conductores.index');
 });
+*/

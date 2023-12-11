@@ -8,10 +8,24 @@ class ConductoresController extends Controller
 {
     //
 
-    public function show(Request $request){
+    public function index(){
         //obtenemos todos los registros de la tabla Empleado
-        $conductores=ConductoresModel::paginate(10);
-        return view('layouts.conductores.index', ['conductores'=>$conductores]);
+        $datos['conductores']=ConductoresModel::all();
+        echo('hola');
+        print_r($conductores);
+        dd($conductores);
+        return view('layouts.conductores.index', $datos);
      
     }
+    //obtenemos un solo registro de la tabla conductores
+    
+    public function show(Request $request){
+        
+        $datos['conductores']=ConductoresModel::paginate(10);
+        return view('layouts.conductores.index', $datos);
+     
+    }
+
+    
+    
 }

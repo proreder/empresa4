@@ -20,18 +20,7 @@
     @endrole
     <div class="container-flex">
       
-        
-        <!--<p>Welcome to this beautiful admin panel.</p>-->
-        <!--Mostramos el ROL de usuario que se ha conectado-->
-        @role('super')
-            <p>Hola SuperAdministrador</p>
-        @endrole
-        @role('admin')
-            <p>Hola Administrador</p>
-        @endrole
-        @role('usuario')
-            <p>Hola Usuario</p>
-        @endrole
+       
         
         <a href="{{ url('conductores/create') }}" class="btn btn-success">Alta de conductor</a>
         <br><br>
@@ -63,6 +52,7 @@
                         <td>{{ $conductor->permisos}}</td>
                         <td>{{ $conductor->cap}}</td>
                         <td>{{ $conductor->tarjeta_tacografo}}</td>
+                        <td>{{ $conductor->tipo_ADR}}</td>
                         <td>
                             <form id="btnEliminar" action="{{url('/conductores/'.$conductor->id)}}" method="post">
                                 {{method_field('EDIT')}}
