@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('conductor', function (Blueprint $table) {
             $table->id();
             $table->string('nifnie_empleado');
-            $table->string('permisos');
+            $table->enum('permisos', ['C1','C1+E','C','C+E']);
             $table->boolean('cap');
             $table->boolean('tarjeta_tacografo');
             $table->enum('tipo_ADR',['básico', 'cisternas', 'explosivos', 'radiactivos']);

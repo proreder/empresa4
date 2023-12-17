@@ -50,8 +50,8 @@
                         <!-- <td></td> -->
                         <td>{{ $conductor->nifnie_empleado}}</td>
                         <td>{{ $conductor->permisos}}</td>
-                        <td>{{ $conductor->cap}}</td>
-                        <td>{{ $conductor->tarjeta_tacografo}}</td>
+                        <td>{{ ($conductor->cap = true ? 'Si' :  'No')}}</td>
+                        <td>{{ $conductor->tarjeta_tacografo = true ? 'Si' : 'No' }}</td>
                         <td>{{ $conductor->tipo_ADR}}</td>
                         <td>
                             <form id="btnEliminar" action="{{url('/conductores/'.$conductor->id)}}" method="post">
