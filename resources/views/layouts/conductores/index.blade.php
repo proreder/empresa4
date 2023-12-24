@@ -7,8 +7,6 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
-
     @role('super')
         <p>Hola SuperAdministrador</p>
     @endrole
@@ -44,10 +42,10 @@
                     <tr>
                         <td><img src="data:image/png;base64,
                             <?php 
-                                 echo base64_encode($conductor->foto); 
+                                 echo base64_encode($conductor->empleado->foto); 
                             ?>"  alt="" width="40">
                         </td>
-                        <!-- <td></td> -->
+                        
                         <td>{{ $conductor->nifnie_empleado}}</td>
                         <td>{{ $conductor->permisos}}</td>
                         <td>{{ ($conductor->cap = true ? 'Si' :  'No')}}</td>
@@ -75,8 +73,59 @@
 
 @section('css')
     <link rel="stylesheet" href=".public/vendor/adminlte/dist/css/adminlte.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="../public/css/sweetalert2.min.css">
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
-@stop
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
+    <script src="../public/build/assets/sweetalert2.all.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#conductores').DataTable({
+                responsive : true,
+            "language" : {
+                "search" :          "Buscar",
+                "lengthMenu" :      "Mostrar _MENU_ registros por página",
+                "info"  :           "Página _PAGE_ de _PAGES_",
+                "zeroRecords" :    "No hay registros",
+                "infoEmpty" :     "",
+                "paginate" :        {
+                                        "previous"  :  "Anterior",
+                                        "next":       "Siguiente",
+                                        "first":       "Primero",
+                                        "last":        "último"
+                }   
+            }  
+            });
+            $('#btnEliminar').on('submit', function(e){
+                e.preventDefault();
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "¡El borrado no se podrá revertir!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "¡Confirmar borrado!"
+                }).then((result) => {
+                    this.submit()
+                });
+            })
+        });
+    </script>
+    @if(Session::has('success'))
+        <script>
+            Swal.fire({
+                title: "Borrado",
+                text: "El conductor se ha borrado corectamente",
+                icon: "question"
+            });
+        </script>
+    @endif
+@endsection

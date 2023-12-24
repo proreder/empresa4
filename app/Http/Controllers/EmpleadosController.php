@@ -50,6 +50,7 @@ class EmpleadosController extends Controller
         $empleado= EmpleadosModel::find($id);
         $empleado->delete();
         //EmpleadosModel::destroy($id);
+        //si se ha borrado el empleado retirnamos success
         return redirect('empleados/index')->with('success', 'success');
     }
 }
