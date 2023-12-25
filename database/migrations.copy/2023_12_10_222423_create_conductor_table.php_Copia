@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('tarjeta_tacografo');
             $table->enum('tipo_ADR',['básico', 'cisternas', 'explosivos', 'radiactivos']);
             $table->timestamps();
-            $table->foreign('nifnie_empleado')->references('nifnie')->on('empleado');
+            $table->foreign('nifnie_empleado')->references('nifnie')->on('empleado')->onDelete('cascade');
         });
     }
 
