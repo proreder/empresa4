@@ -18,9 +18,10 @@ class VehiculosController extends Controller
     public function listarVehiculos(){
         $vehiculos= VehiculoModel::all();
         echo "listar vehiculos";
+        //dd ($vehiculos);
         $html='';
         if($vehiculos->count()>0){
-            $html.=`<table id="tabla_conductores" class="table table-striped border">
+            $html.='<table id="tabla_conductores" class="table table-striped border">
             <thead class="thead-light">
                 <tr>
                     <th width="40px">Fotografía</th>
@@ -38,7 +39,7 @@ class VehiculosController extends Controller
             <tbody>
                 
             </tbody>
-             </table>`;
+             </table>';
              echo $html;
         }else{
            echo $html.='<h1 class="text-center text-secundary my-5">No Hay registros en la base de datos</h1>';
