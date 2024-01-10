@@ -23,22 +23,23 @@
         <a href="{{ url('conductores/create') }}" class="btn btn-success">Alta de conductor</a>
         <br><br>
         <div  id="spinner"></div>
-        <table id="conductores" class="table table-striped border">
+        <table id="tabla_conductores" class="table table-striped border">
             <thead class="thead-light">
                 <tr>
-                    <th width="80px">Fotografía</th>
-                    <th width="90px">NIF/NIE</th>
-                    <th width="100px">Permisos</th>
-                    <th width="125px">CAP</th>
-                    <th width="125px">Tarjeta tacógrafo</th>
+                    <th width="40px">Fotografía</th>
+                    <th width="50px">NIF/NIE</th>
+                    <th width="140px">Nombre</th>
+                    <th width="40px">Permisos</th>
+                    <th width="30px">CAP</th>
+                    <th width="60px">Tacógrafo</th>
                     <th width="40px">Tipo ADR</th>
-                    <th width="140px">Acciones</th>
+                    <th width="45px">Acciones</th>
 
                 </tr>
 
             </thead>
             <tbody>
-                @forelse ($conductores as $conductor)
+                @foreach ($conductores as $conductor)
                     <tr>
                         <td><img src="data:image/png;base64,
                             <?php
@@ -48,40 +49,31 @@
                         </td>
 
                         <td>{{ $conductor->nifnie_empleado }}</td>
+                        <td>{{ $conductor->empleado->nombre}} {{$conductor->empleado->apellidos}}</td>
                         <td>{{ $conductor->permisos }}</td>
                         <td>{{ $conductor->cap = true ? 'Si' : 'No' }}</td>
                         <td>{{ $conductor->tarjeta_tacografo = true ? 'Si' : 'No' }}</td>
                         <td>{{ $conductor->tipo_ADR }}</td>
                         <td>
-                            <form id="btnEliminar" action="{{ url('/conductores/' . $conductor->id) }}" method="post">
-                                {{ method_field('EDIT') }}
-                                <a href="{{ url('/conductores/' . $conductor->id . '/edit/') }}"
-                                    class="text-success mx-1 editIcon" data-bs-toggle="modal"
-                                    data-bs-target="#editarConductor"><i class="bi-pencil-square h4"></i></a>
-
+                            <!-- <a href="" class="btn_edit text-success mx-1 editIcon" id=""data-bs-toggle="modal"  data-bs-target="#editarConductor{{$conductor->nifnie_empleado}}"><i class="bi-pencil-square h4"></i></a>
+                            -->
                                 <!-- Button trigger modal -->
-                                <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>-->
-                                @csrf
-                                {{ method_field('DELETE') }}
-                                <!--   <input type="submit" onclick="return confirm('¿Quieres borrar?')" id="btnEliminar" value="Borrar" class="btn btn-danger btn-sm py-0"> -->
-                                <!--   <button type="submit" value="Borrar" class="text-danger mx-1 delete-Icon"><i class="bi-trash h5"></i></button> -->
-                                <a href="{{ url('/conductores/' . $conductor->id . '/delete/') }}"
-                                    class="text-danger mx-1 delete-Icon"><i class="bi-trash h4"></i></a>
-                            </form>
+                              <button type="button" class="btn_editar btn btn-link" data-bs-config="backdrop:true" data-bs-target="#editarConductor"><i class="bi-pencil-square h4"></i></button>
+                              
                         </td>
                     </tr>
-                @empty
-                @endforelse
+               
+                @endforeach
             </tbody>
         </table>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Launch demo modal
         </button>
         <!--End card-->
 
 
-        {{-- Modal --}}
+        {{-- Modal edit --}}
         <div class="modal fade" id="editarConductor" tabindex="-1" aria-labelledby="editarConductorLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -89,13 +81,69 @@
                         <h2 class="modal-title fs-5" id="editarConductorLabel">Editar un conductor</h2>
                         <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-square h-3"></i></button>
                     </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar cambios</button>
-                    </div>
+                    <form action="{{ route('conductores.update',$conductor->nifnie_empleado)}}" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                    <div class="modal-body" id="form">
+                        
+                           
+                            <div class="mb-5">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" aria-describedby="emailHelp"  disabled readonly>
+                            
+                            </div>
+                            <div class="col-12 px-3">
+                                    <div class="form-group border">
+                                        <label for="tarjeta_tacografo">Tarjeta tacógrafo:</label>
+                                        <select class="form-select mb-3" aria-label="Default select example" id="tarjeta_tacografo" name="tacografo">
+                                            <option value="Si">Si</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                            </div>
+                            
+                            <div class="col-12 px-3">
+                                    <div class="form-group border">
+                                        <label for="cap">Permiso CAP:</label>
+                                        <select class="form-select mb-3" aria-label="Default select example" id="cap" name="cap">
+                                            <option value="Si">Si</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                            </div>
+                            
+                                <div class="col-12 px-3">
+                                    <div class="form-group border">
+                                        <label for="exampleInputEmail1">Tipo ADR:</label>
+                                        <select class="form-select mb-3" aria-label="Default select example" id="tipo_ADR" name="tipo_ADR">
+                                            <option value="Básico">Básico</option>
+                                            <option value="Cisternas">Cisternas</option>
+                                            <option value="Explosivos">Explosivos</option>
+                                            <option value="Radiactivos">Radiactivos</option>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <label for="permisos" >Permiso:</label>
+                                        <select class="form-select mb-3" aria-label="Default select example" id="permisos" name="permisos">
+                                            <option selected>C1</option>
+                                            <option value="C1">C1</option>
+                                            <option value="C1+E">C1+E</option>
+                                            <option value="C">C</option>
+                                            <option value="C+E">C+E</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="hidden" name="nifnie_empleado" id="nifnie_empleado">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                            </div>
+                        
+                    </form>
                 </div>
             </div>
         </div>
@@ -120,41 +168,11 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <script src="../public/build/assets/sweetalert2.all.min.js"></script>
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
+    
     
     <script>
         $(document).ready(function() {
-            $.ajax({
-                type: 'POST',
-                url:  '{{ route('conductores.index') }}',
-                dataType: 'json',
-                //antes de enviar la petición colocamos un spinner
-                beforeSend: function(){
-                    $('#spinner').html("<div class='cargando'><i class='fa-solid fa-spinner fa-5x'></i></div>");
-                },
-                //si hay error lo procesamos
-                error: function(data){
-                    //guardo en una variable el error del tipo que es
-                    let errorJSON=JSON.parse(data.responseText);
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error de conexión",
-                        text: errorJSON.message,
-                         
-                    });        
-                },
-                //si no hay error los mostramos en la tabla
-                success: function(data){
-
-                }
-            });
-            $('#conductores').DataTable({
+             $('#conductores').DataTable({
                 responsive: true,
                 "language": {
                     "search": "Buscar",
@@ -183,7 +201,24 @@
                 }).then((result) => {
                     this.submit()
                 });
-            })
+            });
+            $('#tabla_conductores tbody').on( 'click', '.btn_editar', function () {
+                var nifnie_empleado = $(this).closest('tr').find('td:eq(1)').text();
+                var nombre = $(this).closest('tr').find('td:eq(2)').text();
+                var permisos = $(this).closest('tr').find('td:eq(3)').text();
+                var cap = $(this).closest('tr').find('td:eq(4)').text();
+                var tacografo = $(this).closest('tr').find('td:eq(5)').text();
+                var tipo_ADR = $(this).closest('tr').find('td:eq(6)').text();
+                $('#editarConductor').modal('show');
+                $("#nifnie_empleado").val("nifnie_empleado");
+                $('#nombre').val(nombre);
+                $("#permisos option[value='"+permisos+"']").attr("selected",true);
+                $("#cap option[value='"+cap+"']").attr("selected",true);
+                $("#tarjeta_tacografo option[value='"+tacografo+"']").attr("selected",true);
+                $("#tipo_ADR option[value='"+tipo_ADR+"']").attr("selected",true);
+                
+            });
+            
         });
     </script>
     @if (Session::has('success'))

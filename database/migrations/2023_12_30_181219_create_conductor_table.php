@@ -12,16 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('conductor', function (Blueprint $table) {
-            //motor de la base de datos
-            $table->engine="InnoDB";
             $table->id();
             $table->string('nifnie_empleado');
             $table->enum('permisos', ['C1','C1+E','C','C+E']);
             $table->boolean('cap');
             $table->boolean('tarjeta_tacografo');
             $table->enum('tipo_ADR',['Básico', 'Cisternas', 'Explosivos', 'Radiactivos']);
-            $table->timestamps();
             $table->foreign('nifnie_empleado')->references('nifnie')->on('empleado')->onDelete('cascade');
+			$table->timestamps();
         });
     }
 

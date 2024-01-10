@@ -4,20 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\EmpleadosModel;
 
 class ConductoresModel extends Model
 {
-    //importamos la tabla Conductor
+    use HasFactory;
     protected $table="conductor";
+    protected $fillable=[
+        'id',
+        'nifnie_empleado',
+        'permisos',
+        'cap',
+        'tarjeta_tacofrafo',
+        'tipo_ADR'
+                ];
+    
     //no enviamos datos de tiempo
     public $timestamps=true;
-    use HasFactory;
-
+    
     //obtenemos los registros del empleado 
     public function empleado(){
-            return $this->hasOne(EmpleadosModel::class, 'nifnie', 'nifnie_empleado');
-        
+        return $this->hasOne(EmpleadosModel::class, 'nifnie', 'nifnie_empleado');
+    
     }
-
 }

@@ -176,7 +176,11 @@
           <div class="col-12 col-md-4 col-lg-4">
             <div class="form-group">
               <label for="tipo">Tipo:</label>
-              <input type="text" class="form-control" id="tipo" name="tipo" value="{{$empleado->tipo}}">
+              <select class="form-control" name="tipo" value="{{$empleado->tipo}}">
+                <option value="1">Oficina</option>
+                <option value="2">Taller</option>
+                <option value="3">Conductor</option>
+             </select>
             </div>
           </div>
 

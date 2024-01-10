@@ -27,7 +27,46 @@ class ConductoresController extends Controller
 
     //metodo para guardar los datos en la base de datos
     public function store(Request $request){
-        
+        dd($request);
+        echo("update: ".$nifnie_empleado);
+        $conductores=ConductoresModel::find($nifnie_empleado);
+        $conductores->permisos=$request->input('permisos');
+        $conductores->cap=$request->input('cap');
+        $conductores->tarjeta_tacofrafo=$request->input('tarjeta_tacografo');
+        $conductores->tipo_ADR=$reques->input('tipo_ADR');
+        $conductores->save();
+        return redirect()->back();
+    }
+
+    //Editamos un conductor
+    public function edit($id){
+
+    }
+
+    //Editamos un conductor
+    public function update($id){
+        echo("update id: ".$id);
+    }
+
+    /*
+    //actualizamos un conductor
+    public function update(Request $request, $nifnie_empleado){
+        dd($request);
+        echo("update: ".$nifnie_empleado);
+        $conductores=ConductoresModel::find($nifnie_empleado);
+        $conductores->permisos=$request->input('permisos');
+        $conductores->cap=$request->input('cap');
+        $conductores->tarjeta_tacofrafo=$request->input('tarjeta_tacografo');
+        $conductores->tipo_ADR=$reques->input('tipo_ADR');
+        $conductores->save();
+        return redirect()->back();
+    }
+*/
+    //Borra de la tabla un conductor
+    public function destroy($id){
+        $onductores=ConductoresModel::find($id);
+        $conductores->delete();
+       return redirect()->back();
     }
 
     //obtenemos los conductores de la base de datos

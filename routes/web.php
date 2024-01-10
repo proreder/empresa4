@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 //Agregamos UsuariosControlles
 use App\Http\Controllers\EmpleadosController;
-use App\http\Controllers\ConductoresController;
+use App\Http\Controllers\ConductoresController;
+use App\Http\Controllers\VehiculosController;
 
 
 /*
@@ -36,9 +37,9 @@ Route::middleware([
 });
 
 //vista para listar los empleados
-//Route::get('/empleados/index', function () {
-//    return view('layouts.empleados.index');
-//});
+Route::get('/errors/bd_conexion_error', function () {
+   return view('layouts.errors.bd_conexion_error');
+});
 
 //vista para listar los empleados
 //Route::get("/empleados/index", [EmpleadosController::class, 'read']);
@@ -51,12 +52,28 @@ Route::middleware([
 
 //Obtenemos las rutas de los metodos de empleadoController
 //Route::resource('/empleados', EmpleadosController::class);
+//Route::group(['prefix' =>'admin', 'as' => 'admin'], function(){
+ //   Route::post('/conductores/listar','ConductoresController@listarConductores');
+
+    
+  /*  Route::resources([
+        '/empleados'   =>EmpleadosController::class,
+        '/conductores' => ConductoresController::class]);
+        */
+//});
 Route::resources([
-                '/empleados'   => EmpleadosController::class,
-                '/conductores' => ConductoresController::class,
-]);
+    '/empleados'   =>EmpleadosController::class,
+    '/conductores' => ConductoresController::class
+    ]
+);
+
+Route::get('/vehiculos/index', [VehiculosController::class, 'listarVehiculos']);
 /*
-Route::get('/conductores/index', function () {
-    return view('layouts.conductores.index');
+Route::controller(ConductoresController::class)->group(function(){
+    Route::get('/conductores/index','index')->name('index');
+    Route::get('/conductores/lista','listarConductores')->name('conductores.lista');
+    //Route::match(['get', 'post'], '/conductores/lista', 'listarConductores')->name('conductores.lista');
+    Route::post('conductores/editar','edit')->name('editar');
 });
+
 */
