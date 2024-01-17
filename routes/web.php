@@ -67,7 +67,7 @@ Route::resources([
     ]
 );
 
-Route::get('/vehiculos/index', [VehiculosController::class, 'listarVehiculos']);
+Route::get('vehiculos/index', [VehiculosController::class, 'listarVehiculos'])->name('index');
 /*
 Route::controller(ConductoresController::class)->group(function(){
     Route::get('/conductores/index','index')->name('index');

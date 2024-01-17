@@ -33,7 +33,7 @@ class ConductoresController extends Controller
         $conductores->permisos=$request->input('permisos');
         $conductores->cap=$request->input('cap');
         $conductores->tarjeta_tacofrafo=$request->input('tarjeta_tacografo');
-        $conductores->tipo_ADR=$reques->input('tipo_ADR');
+        $conductores->tipo_ADR=$request->input('tipo_ADR');
         $conductores->save();
         return redirect()->back();
     }

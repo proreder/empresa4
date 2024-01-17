@@ -3,7 +3,7 @@
 @section('title', 'Vehículos')
 
 @section('content_header')
-    <h1>Listado de Vehículos</h1>
+        
 @stop
 
 @section('content')
@@ -16,17 +16,68 @@
     @role('usuario')
         <p>Hola Usuario</p>
     @endrole
-
-    <div class="container">
+    <div class="float-right justify-content-end"></div>
+                            
+    </div>
+    <div class="container-fluid">
+ 
         <div class="row my-5">
             <div class="col-lg-12">
-                <h2> Tabla vehiculos </h2>
+                
                 <div class="card  shadow">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h3 class="text-light">Control de vehículos</h3>
-                        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#agregarVehiculo"><i class="bi-plus-circle me-2"></i>Añadir vehículo</button>
+                    <div class="card-header row col-12">
+                        <h5 class="text-dark col-11">Control de vehículos</h5>
+                        <button class="btn btn-success btn-sm " data-bs-toggle="modal"  data-bs-target="#agregarVehiculo"><i class="bi-plus-circle me-2"></i>Añadir vehículo</button>
+                        
+                        
                     </div>
                     <div class="card-body" id="mostrarTodosVehiculos">
+                    <table id="tabla_conductores" class="table table-striped border">
+                        <thead class="thead-light">
+                            <tr>
+                                <th width="70px">Matrícula</th>
+                                <th width="220px">Número de chasis</th>
+                                <th width="60px">Potencia</th>
+                                <th width="70px">Tipo</th>
+                                <th width="120px">Modelo</th>
+                                <th width="100px">Km. Actuales</th>
+                                <th width="100px">Km. Revisión</th>
+                                <th width="60px">Disponible</th>
+                                <th width="60px">Foto</th>
+                                <th width="80px">Acciones</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @if (count($vehiculos) >0)
+                                @foreach ($vehiculos as $vehiculo)
+                                    <tr>
+                                        <td>{{$vehiculo->matricula}}</td>
+                                        <td>{{$vehiculo->numero_chasis}}</td>
+                                        <td>{{$vehiculo->potencia}}</td>
+                                        <td>{{$vehiculo->tipo}}</td>
+                                        <td>{{$vehiculo->modelo}}</td>
+                                        <td>{{$vehiculo->km_actuales}}</td>
+                                        <td>{{$vehiculo->km_revision}}</td>
+                                        <td>{{$vehiculo->disponible}}</td>
+                                        <td><img src="data:image/png;base64,
+                                            <?php 
+                                                    echo base64_encode($vehiculo->foto); 
+                                            ?>"  alt="" width="60"></td>
+                                        <td>
+                                            <button type="button" class="btn_editar btn btn-link" data-bs-config="backdrop:true" data-bs-target="#editarConductor"><i class="bi-pencil-square h4"></i></button>
+                                            <button type="button"  data-toggle="popover" class="btn_borrar btn btn-link text-danger" ><i class="bi bi-trash h4"></i></button>
+                                            
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else 
+                                <tr>
+                                    <td coolspan="5">No hay datos que mostrar</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
                         <h2 class="text-center text-secondary my-5">Cargando...</h2>                    
 
                     </div>
@@ -36,7 +87,7 @@
     </div>
        
         
-{{-- Modal --}}
+{{-- Modal  Editar--}}
 <div class="modal fade" id="agregarVehiculo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -76,18 +127,23 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             }
         });
     $(document).ready(function(){
+        $html=``;
+        $('[data-toggle="popover"]').popover();
         mostrarVehiculos();
         //funcion para motras los vehiulos de la base de datos
         function mostrarVehiculos(){
             $.ajax({
-                url: '{{ route('vehiculos.index') }}',
-                method: 'get',
+                type: 'get',
+                url: "{{ route('index') }}",
                 success: function(response){
-                    $('#mostrarTodosVehiculos').html(response);
+                    //$('#mostrarTodosVehiculos').html($html);
                     console.log('ajax');
                 }
             });
-        }
+        };
+        
+        
+        
 
     });
 </script>
