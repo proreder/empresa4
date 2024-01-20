@@ -88,8 +88,8 @@
                         
                            
                             <div class="mb-5">
-                            <label for="nombre" class="form-label">Nombre:</label>
-                            <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" aria-describedby="emailHelp"  disabled readonly>
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" aria-describedby="emailHelp"  disabled readonly>
                             
                             </div>
                             <div class="col-12 px-3">
