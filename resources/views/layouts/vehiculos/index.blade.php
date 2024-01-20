@@ -140,7 +140,8 @@
             
                     <div class="form_group">
                         <label for="imagen">Selecciona una imagen:</label>
-                        <input class="col-6 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event)">
+                        <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event)">
+                        <small class="text-danger">El tamaño del archivo no puede superor los 65535 Bytes</small>
                         @error('imagen')
                         <small class="text-danger">
                             {{$message}}
@@ -227,7 +228,8 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             });
         };
      });
-    function mostrarImagen(event) {
+        //Mostramos la imagen seleccionada
+        function mostrarImagen(event) {
                 var input = event.target;
                 var reader = new FileReader();
                 
