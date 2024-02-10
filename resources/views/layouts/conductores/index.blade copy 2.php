@@ -46,14 +46,14 @@
                         <td>{{ $conductor->nifnie_empleado }}</td>
                         <td>{{ $conductor->empleado->nombre}} {{$conductor->empleado->apellidos}}</td>
                         <td>{{ $conductor->permisos }}</td>
-                        <td>{{ $conductor->cap == true ? 'Si' : 'No' }}</td>
-                        <td>{{ $conductor->tarjeta_tacografo == true ? 'Si' : 'No' }}</td>
+                        <td>{{ $conductor->cap = true ? 'Si' : 'No' }}</td>
+                        <td>{{ $conductor->tarjeta_tacografo = true ? 'Si' : 'No' }}</td>
                         <td>{{ $conductor->tipo_ADR }}</td>
                         <td>
                             <!-- <a href="" class="btn_edit text-success mx-1 editIcon" id=""data-bs-toggle="modal"  data-bs-target="#editarConductor{{$conductor->nifnie_empleado}}"><i class="bi-pencil-square h4"></i></a>
                             -->
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn_editar btn btn-link" data-bs-config="backdrop:true" data-bs-toggle="modal" data-bs-target="#editarConductor" data-id="{{$conductor->id}}" data-nifnie_empleado="{{$conductor->nifnie_empleado}}" data-permisos="{{$conductor->permisos}}" data-cap="{{$conductor->cap}}" data-tarjeta_tacografo="{{$conductor->tarjeta_tacografo}}" data-tipo_ADR="{{$conductor->tipo_ADR}}" ><i class="bi-pencil-square h4"></i></button>
+                                <button type="button" class="btn_editar btn btn-link" data-bs-config="backdrop:true" data-bs-toggle="modal" data-bs-target="#editarConductor" data-id="{{$conductor->id}}"><i class="bi-pencil-square h4"></i></button>
                                 <button type="button"  data-toggle="popover" id="btn_borrar"  class="btn_borrar btn btn-link text-danger" data-id="{{$conductor->id}}"><i class="bi bi-trash h4"></i></button>
                         </td>
                     </tr>
@@ -76,46 +76,52 @@
                 <small class='alert alert-danger' id='alerta-error' style='display: none;'></small> 
                 <div class="modal-body">
                 <form id="editConductorForm" method="POST" enctype="multipart/form-data">
-                        <div class="mb-3 col-7">
-                            <label for="nombre" class="form-label">Nombre:</label>
-                            <input type="text" class="form-control form-control-sm" id="nombre" aria-describedby="nombre" disabled readonly>
-                            
-                        </div>
-                        <div class="mb-3 col-5">
-                            <label for="nifnie_empleado" class="form-label">DNI/NIE empleado:</label>
-                            <input type="text" class="form-control form-control-sm" id="nifnie_empleado" aria-describedby="nifnie_empleado" disabled readonly>
-                            
-                        </div>
-                    <div class="row mt-5">
-                            <div class="col-3">
-                                <label for="permisos" class="form-label">Permisos:</label>
-                                <select class="form-select mb-3 permisos" aria-label="permisos" id="permisos" name="permisos">
-                                                    <option value="C1">C1</option>
-                                                    <option value="C1+E">C1+E</option>
-                                                    <option value="C">C</option>
-                                                    <option value="C+E">C+E</option>
-                                </select>
+                    <div class="row mt-1 mb-3">
+                            <div class="col-10">
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control @error('nombre_error') is-invalid @enderror" id="nombre" name="nombre">
+                                <small class='alert text-danger' id='matricula_error'></small>
                             </div> 
-                            <div class="mb-2 col-4 form-check">
-                                        <input type="checkbox" class="form-check-input" id="cap" name="cap">
-                                        <label class="form-check-label" for="cap">Permiso CAP</label>
-                            </div>
-                            <div class="mb-2 col-5 form-check">
-                                      <input type="checkbox" class="form-check-input" id="tarjeta_tacografo" name="tarjeta_tacografo">
-                                      <label class="form-check-label" for="tarjeta_tacografo">Tarjeta de Tacógrafo</label>
+                            <div class="col-9">
+                                <label for="num_chasis" class="form-label">Chasis:</label>
+                                <input type="text" class="form-control @error('matricula_error') is-invalid @enderror" id="num_chasis" name="num_chasis">
+                                <small class='alert text-danger' id='num_chasis_error'></small>
                             </div>
                     </div> 
-                    <div class="row col-12">
-                            <div class="py-3">
-                                <div class="form-group border">
-                                    <label for="tipo_ADR">Tipo de permiso ADR:</label>
-                                    <select class="form-select mb-3" aria-label="Default select example" id="tipo_ADR" name="tipo_ADR">
-                                         <option value="Básico">Básico</option>
-                                        <option value="Cisternas">Cisternas</option>
-                                        <option value="Explosivos">Explosivos</option>
-                                        <option value="Radiactivos">Radiactivos</option>
-                                    </select>
-                                </div>
+                    <div class="row mb-3">
+                            <div class="col-3">
+                                <label for="potencia" class="form-label">Potencia:</label>
+                                <input type="text" class="form-control" id="potencia" name="potencia">
+                                <small class='alert text-danger' id='potencia_error'></small>
+                            </div> 
+                            <div class="col-4">
+                                <label for="tipo" class="form-label">Tipo:</label>
+                                <input type="text" class="form-control" id="tipo" name="tipo">
+                                <small class='alert text-danger' id='tipo_error'></small>
+                            </div>
+                            <div class="col-5">
+                                <label for="modelo" class="form-label">Modelo:</label>
+                                <input type="text" class="form-control" id="modelo" name="modelo">
+                                <small class='alert text-danger' id='modelo_error'></small>
+                            </div>
+                    </div> 
+                    <div class="row mb-3">
+                            <div class="col-3">
+                                <label for="km_actuales" class="form-label">Km actuales:</label>
+                                <input type="text" class="form-control" id="km_actuales" name="km_actuales">
+                                <small class='alert text-danger' id='km_actuales_error'></small>
+                            </div> 
+                            <div class="col-3">
+                                <label for="km_revision" class="form-label">Km revisión:</label>
+                                <input type="text" class="form-control" id="km_revision" name="km_revision">
+                                <span class='alert text-danger' id='km_revision_error'></span>
+                            </div>
+                            <div class="form-group ms-2">
+                                <label>Disponible:</label>
+                                <select class="form-select mb-3" id="disponible" name="disponible">
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
                             </div>
                     </div> 
                     <div class="col-12 my-4 border">
@@ -132,16 +138,16 @@
                                 <br><br>
                             </div>
                     
-                            <div class="col-5 mx-auto borde_ccc">
-                                    <img id="imagenSeleccionada" src="#" alt="" style="width: 100px;height: 143px;">
+                            <div class="col-9 mx-auto borde_ccc">
+                                    <img id="imagenSeleccionada" src="#" alt="" style="width: 300px;height: 175px;">
                             </div>
                         </div>     
                 
                 
                         <div class="modal-footer">
-                            <div id="spinner"></div>
+                            <input type="text" id="spinner">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" id="editBtn" class="btn btn-danger">Guardar</button>
+                            <button type="submit" id="editBtn" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
                 </div> 
@@ -216,7 +222,7 @@
                             processData: false,
                             beforeSend: function(){
                                 //desactivamos el botón añadir vehículos
-                                
+                                //$('#')('beforeSend');
                                 $('.btn_borrar').prop('disabled', true);
                                 $("#spinner").busyLoad("show", {
                                     fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
@@ -255,50 +261,23 @@
             });
             //si se pulsa el boton editar se abre el modal con los datos
             $('#tabla_conductores tbody').on( 'click', '.btn_editar', function () {
-                var nifnie_empleado = $(this).attr('data-nifnie_empleado');
+                var nifnie_empleado = $(this).closest('tr').find('td:eq(1)').text();
                 var nombre = $(this).closest('tr').find('td:eq(2)').text();
-                var permisos = $(this).attr('data-permisos');
-               
-                var cap = $(this).attr('data-cap');
-                var tacografo = $(this).attr('data-tarjeta_tacografo');
-                var tipo_ADR = $(this).attr('data-tipo_ADR');
-
-                //mostramos el formulario modal
+                var permisos = $(this).closest('tr').find('td:eq(3)').text();
+                var cap = $(this).closest('tr').find('td:eq(4)').text();
+                var tacografo = $(this).closest('tr').find('td:eq(5)').text();
+                var tipo_ADR = $(this).closest('tr').find('td:eq(6)').text();
                 $('#editarConductor').modal('show');
-                $("#nifnie_empleado").val(nifnie_empleado);
+                $("#nifnie_empleado").val("nifnie_empleado");
                 $('#nombre').val(nombre);
-                
-                $('#permisos').val(permisos);
-                //Verificamos valor de cap
-                if(cap==true){
-                    $("#cap").prop('checked',true);
-                }else{
-                    $("#cap").prop('checked',false);
-                }
-                //Verificamos valor tarjeta tacógrafo
-                if(tacografo==true){
-                    $("#tarjeta_tacografo").prop('checked',true);
-                }else{
-                    $("#tarjeta_tacografo").prop('checked',false);
-                }
-                $("#tipo_ADR").val(tipo_ADR);
+                $("#permisos option[value='"+permisos+"']").attr("selected",true);
+                $("#cap option[value='"+cap+"']").attr("selected",true);
+                $("#tarjeta_tacografo option[value='"+tacografo+"']").attr("selected",true);
+                $("#tipo_ADR option[value='"+tipo_ADR+"']").attr("selected",true);
                 
             });
             
-            
         });
-        //Mostramos la imagen seleccionada
-        function mostrarImagen(event) {
-                    var input = event.target;
-                    var reader = new FileReader();
-                    
-                    reader.onload = function() {
-                        var imagen = document.getElementById('imagenSeleccionada');
-                        imagen.src = reader.result;
-                    }
-                    
-                    reader.readAsDataURL(input.files[0]);
-        };
     </script>
     @if (Session::has('success'))
         <script>

@@ -62,12 +62,17 @@ Route::get('/errors/bd_conexion_error', function () {
         */
 //});
 Route::resources([
-    '/empleados'   =>EmpleadosController::class,
-    '/conductores' => ConductoresController::class
+    '/empleados'   =>EmpleadosController::class
     ]
 );
 
+//rutas para conductores
+Route::get('conductores/index', [ConductoresController::class, 'index'])->name('index');
+Route::get('conductores/delete/{id}', [ConductoresController::class, 'delete'])->name('borrarConductor');
+
+//rutas para vehiculos
 Route::get('vehiculos/index', [VehiculosController::class, 'listarVehiculos'])->name('index');
+Route::post('vehiculos/create', [VehiculosController::class, 'crearVehiculo'])->name('crearVehiculo');
 /*
 Route::controller(ConductoresController::class)->group(function(){
     Route::get('/conductores/index','index')->name('index');

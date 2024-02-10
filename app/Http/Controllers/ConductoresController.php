@@ -4,24 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ConductoresModel;
+
 class ConductoresController extends Controller
 {
     //
 
     public function index(){
+        $html='';
+        echo 'index';
         //obtenemos todos los registros de la tabla Empleado
         //$datos['conductores']=ConductoresModel::all();
         //return view('layouts.conductores.index', $datos);
-        $datos=ConductoresModel::paginate(10);
-        return view('layouts.conductores.index', compact($datos));
-     
+        $conductores=ConductoresModel::paginate(10);
+        return view('layouts.conductores.index', compact('conductores'));
+       
     }
     //obtenemos un solo registro de la tabla conductores
     
     public function show(Request $request){
-        
-        $datos['conductores']=ConductoresModel::paginate(10);
-        return view('layouts.conductores.index', $datos);
+
+        echo 'show';
+        $conductores=ConductoresModel::paginate(10);
+        return view('layouts.conductores.index', ['conductores' => $conductores]);
      
     }
 
@@ -42,6 +46,7 @@ class ConductoresController extends Controller
     public function edit($id){
 
     }
+    
 
     //Editamos un conductor
     public function update($id){
@@ -63,10 +68,15 @@ class ConductoresController extends Controller
     }
 */
     //Borra de la tabla un conductor
-    public function destroy($id){
-        $onductores=ConductoresModel::find($id);
-        $conductores->delete();
-       return redirect()->back();
+    public function delete($id){
+        try{
+            $conductor_borrado=ConductoresModel::where('id',$id)->delete();
+            return response()->json(['success' => true, 'msg' => 'Conductor borrado correctamente.']);
+           //return redirect()->back();   
+        }catch(\Exception $e){
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
+       
     }
 
     //obtenemos los conductores de la base de datos

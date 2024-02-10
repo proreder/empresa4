@@ -334,14 +334,19 @@ return [
             'label_color' => 'success',
             'submenu' => [
                 [
+                    'text' => 'Listado',
+                    'url'  => 'vehiculos/index',
+                    'icon'        => 'fas fa-caret-up fa-rotate-90',
+                ],
+                [
                     'text' => 'Activos',
                     'url'  => '#',
                     'icon'        => 'fas fa-caret-up fa-rotate-90',
                 ],
                 [
-                    'text' => 'Listado',
+                    'text' => 'De baja',
                     'url'  => '#',
-                    'icon'        => 'fas fa-caret-up fa-rotate-90',
+                    'icon'        => 'fas fa fa-ban fa-rotate-90',
                 ],
             ],
         ],

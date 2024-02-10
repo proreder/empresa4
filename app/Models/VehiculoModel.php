@@ -17,7 +17,8 @@ class VehiculoModel extends Model
                         'km_actuales',
                         'km_revision',
                         'disponible',
-                        'foto'];
+                        'foto',
+                        'imagen'];
 
      //no enviamos datos de tiempo
      public $timestamps=false;
