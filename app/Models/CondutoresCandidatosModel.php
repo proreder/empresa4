@@ -12,12 +12,7 @@ class ConductoresModel extends Model
     protected $fillable=[
         'id',
         'nifnie_empleado',
-        'permisos',
-        'cap',
-        'tarjeta_tacofrafo',
-        'tipo_ADR',
-        'imagen'
-                ];
+        ];
     
     //no enviamos datos de tiempo
     public $timestamps=true;
@@ -28,3 +23,6 @@ class ConductoresModel extends Model
     
     }
 }
+
+
+

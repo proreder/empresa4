@@ -277,14 +277,14 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
         $('[data-toggle="popover"]').popover();
         */
         mostrarVehiculos();
-        //funcion para motras los vehiulos de la base de datos
+        //funcion para motras los vehiculos de la base de datos
         function mostrarVehiculos(){
             $.ajax({
                 type: 'get',
-                url: "{{ route('index') }}",
+                url: "{{ route('listarVehiculos') }}",
                 success: function(response){
                     //$('#mostrarTodosVehiculos').html($html);
-                    console.log('ajax');
+                    console.log('listarVehiculos');
                 }
             });
         };
@@ -301,7 +301,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 
                 reader.readAsDataURL(input.files[0]);
          };
-          //Crreamos las tres funciones para craer los mensajes
+          //Creamos las tres funciones para craer los mensajes
           function printValidationErrorMsg(msg){
                 $.each(msg, function(field_name, error){
                     console.log(field_name, error);

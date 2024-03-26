@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ConductoresModel;
+use App\Models\empleadosModel;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+//use JeroenNoten\LaravelAdminLte\View\Components\Tool\Datatable;
+use DataTables;
 
 class ConductoresController extends Controller
 {
@@ -78,6 +85,44 @@ class ConductoresController extends Controller
         }
        
     }
+
+    //obtener el listado de empleados candidatos a conductor
+    function obtenerCandidatos(Request $request){
+        //$candidatos="['Luis' => '1000']";
+        
+        /* $candidatos=DB::table('empleado')
+                    ->select('nifnie')
+                    ->where('tipo','=','Conductor')
+                    
+                    ->whereNotIn('nifnie_empleado',DB::table('conductor')
+                    
+                    
+                    ->get())->pluck('nifnie');
+        */
+        //obtenemos los 
+        //$nif_empleados = empleadosModel::select('nifnie')->where('tipo','=','Conductor')->distinct()->get()->pluck('nifnie')->toArray();
+        //$candidatos= ConductoresModel::select('nifnie_empleado')->whereNotIn('nifnie_empleado',$nif_empleados)->get();
+       //dd($nif_empleados);
+        //echo('Candidatos');
+        /* $candidatos=DB::table('empleado')
+        ->whereIn('nifnie', DB::table('conductor')
+        ->join('empleado', 'conductor.nifnie_empleado', '=', 'empleado.nifnie')
+        ->where('empleado.tipo', 'Conductor')
+        ->pluck('empleado.nifnie')->values())->get();
+        */
+
+        $candidatos = DB::table("empleado")->select('nifnie', 'nombre','apellidos')
+                        ->where('tipo','=','Conductor')
+                        ->whereNOTIn('nifnie',function($query){
+                                                                $query->select('nifnie_empleado')->from('conductor');
+                                                            })
+                        ->get();
+        //return DataTables::of($candidatos);
+               
+        return response()->json($candidatos);
+        
+    }
+    
 
     //obtenemos los conductores de la base de datos
     public function listarConductores(Request $request){
