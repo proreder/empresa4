@@ -28,7 +28,7 @@ class EmpleadosController extends Controller
         //$request->validate([
         //    'nss' => 'required|integer|min:11|max:12|unique:posts'
         //]);
-        //obtenemos los enviados por el formulario de empleado nuevo eliminamo el valor del token
+        //obtenemos los enviados por el formulario de empleado nuevo eliminamos el valor del token
         $datosEmpleado=$request->except('_token');
         echo('hola');
         dd($datosEmpleado);

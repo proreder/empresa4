@@ -12,7 +12,7 @@ class StoreEmpleados extends FormRequest{
 
     public function __construct(ValidationFactory $validationfactory)
     {
-        
+        //Validamos la letra del nif
         $validationfactory->extend(
             'nifnie',
             function($attrribute, $value, $parameters){
@@ -27,11 +27,7 @@ class StoreEmpleados extends FormRequest{
     }
 
     
-   // public function __construct(validationFactory $validationfactory)
-   // {
-
-    //}
-
+  
     /**
      * Determine if the user is authorized to make this request.
      * el return se deja en true para autorizar cualquier usuario

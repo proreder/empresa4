@@ -253,12 +253,12 @@
    
 @stop
 @section('css')
-    <link rel="stylesheet" href="../public/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="/empresa4/public/css/create.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @stop
 
 @section('js')
-    <script src="../public/build/assets/sweetalert2.all.min.js"></script>
+    <script src="/empresa4/public/build/assets/sweetalert2.all.min.js"></script>
     <script> console.log('Hi!'); </script>
     <script>
       function mostrarImagen(event) {

@@ -72,6 +72,8 @@ Route::get('conductores/index', [ConductoresController::class, 'index'])->name('
 Route::get('conductores/listarconductores', [ConductoresController::class, 'listarConductores'])->name('listarConductores');
 Route::get('conductores/delete/{id}', [ConductoresController::class, 'delete'])->name('borrarConductor');
 Route::get('conductores/candidatos', [ConductoresController::class, 'obtenerCandidatos'])->name('obtenerCandidatos');
+Route::post('conductores/agregarconductor', [ConductoresController::class, 'agregarConductor'])->name('agregarConductor');
+Route::post('conductores/updateconductor', [ConductoresController::class, 'updateConductor'])->name('updateConductor');
 
 //rutas para vehiculos
 Route::get('vehiculos/index', [VehiculosController::class, 'listarVehiculos'])->name('listarVehiculos');
