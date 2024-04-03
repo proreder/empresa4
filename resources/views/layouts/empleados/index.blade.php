@@ -22,7 +22,7 @@
             <p>Hola Usuario</p>
         @endrole
         
-        <a href="{{ url('empleados/create') }}" class="btn btn-success">Alta de Empleado</a>
+        <a href="{{ route('agregarEmpleado') }}" class="btn btn-success">Alta de Empleado</a>
         <br><br>
         
         <table id="empleados" class="table table-striped border">
@@ -181,6 +181,8 @@
                     
                 });
             });
+
+            
             /*
             $('#btnEliminar').on('submit', function(e){
                 e.preventDefault();

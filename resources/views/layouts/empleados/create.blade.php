@@ -25,7 +25,7 @@
 
 
 
-    <form class="form-horizontal" action="{{ url('/empleados')}}" method="post" enctype="multipart/form-data">
+    <form class="form-horizontal" id="agregarEmpleadoForm" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="container-fluid">
@@ -321,19 +321,12 @@
       </div> 
 
       <div class="container my-5">
-          <div class="row  col-12 border border-primary ">
+          <div class="row justify-content-between col-12">
+               <button= type="button" class="btn btn-secondary">Cerrar</button=>
+                <div id="spinnerConductor"></div>
+                <button type="submit" id="AddBtn" class="btn btn-danger">Guardad</button>
+          </div>
             
-                  <div class="mx-auto col-6 col-md-4 col-lg-4 col-xl-2 border">
-                    
-                    <button type="submit" class="btn btn-primary btn-block">Enviar</button>
-                  </div>
-                  
-                  <div class="mx-auto col-6 col-md-4 col-lg-3 col-xl-2 pl-4">
-                  
-                    <button type="submit" class="btn btn-danger">Cancelar</button>
-                  </div>
-            </div> 
-           
         </div>  
     </form>
    
@@ -346,6 +339,62 @@
 @section('js')
     
     <script>
+      <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
+<script>
+    //CSRF
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    $(document).ready(function(){
+        $('#agregarEmpleadosForm').submit(function(e){
+            
+            e.preventDefault();
+            //let formData=$(this).serialize();
+            var formData=new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("crearEmpleado") }}',
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function(){
+                    //desactivamos el botón añadir vehículos
+                    //$('#')('beforeSend');
+                    $('#addBtn').prop('disabled', true);
+                    $("#spinner").busyLoad("show", {
+                        fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
+                    },
+                complete: function(){
+                    //Si se ha comppletado la operación lo activamos
+                    $('#addBtn').prop('disabled', false);
+                }, 
+                success: function(data){
+                    console.log('success');
+                      if(data.success == true){
+                        //cerramos el modal agregarVehiculo si se ha guardado la informacion en la base de datos correctamente
+                        $('#agregarVehiculo').hide();
+                        location.reload();
+                        printSuccessMsg(data.msg);
+                      }else if(data.success == false){
+                        console.log('success=false');
+                        printErrorMsg(data.msg);
+                      }else{
+                        console.log('printValidationErrorMsg');
+                        printValidationErrorMsg(data.msg);
+                      }
+                },
+            });
+            return false;
+
+           
+
+        });
+
       function mostrarImagen(event) {
         var input = event.target;
         var reader = new FileReader();
