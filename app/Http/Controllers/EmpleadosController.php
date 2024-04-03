@@ -45,12 +45,21 @@ class EmpleadosController extends Controller
     }
 
     //Se borra el registro indicado en el parámetro que recibe como argumento
-    public function destroy($id){
+    public function borrarEmpleado($id){
+        try{
+            
+            $empleado_borrado=EmpleadosModel::where('id',$id)->delete();
+            return response()->json(['success' => true, 'msg' => 'Empleado borrado correctamente.']);
+           //return redirect()->back();   
+        }catch(\Exception $e){
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
 
-        $empleado= EmpleadosModel::find($id);
+       /* $empleado= EmpleadosModel::find($id);
         $empleado->delete();
         //EmpleadosModel::destroy($id);
         //si se ha borrado el empleado retirnamos success
         return redirect('empleados/index')->with('success', 'success');
+        */
     }
 }

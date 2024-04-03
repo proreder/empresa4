@@ -344,7 +344,7 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    
     <script>
       function mostrarImagen(event) {
         var input = event.target;

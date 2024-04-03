@@ -218,9 +218,9 @@
           <div class="col-12 col-md-6 my-4 border border-danger">
             
                 <div class="form_group">
-                    <label for="imagen">Selecciona una imagen:</label>
-                    <input class="col-12 borde_ccc" type="file" name="imagen" id="imagen" accept="image/*" required onchange="mostrarImagen(event)">
-                      <br><br>
+                  <div class="file-select col-5 d-flex col-5 mx-auto" id="src-file1" >
+                    <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" data-imagen-edit="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event, 'imagenEditForm')">
+                  </div>
                 </div>
             
              <div class="col-2 mx-auto borde_ccc">
@@ -234,7 +234,7 @@
            
       </div> 
 
-      <div class="container my-5">
+      <div class="container my-4">
           <div class="row  col-12 border border-primary ">
             
                   <div class="mx-auto col-6 col-md-4 col-lg-4 col-xl-2 border border-danger ">

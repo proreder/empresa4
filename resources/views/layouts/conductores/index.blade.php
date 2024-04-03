@@ -329,6 +329,7 @@
                     }
                 }
             });
+            
             //script para BORRAR un conductor si se pulsa el botón de borrado
             $('.btn_borrar').on('click', function(e) {
                 var conductor_id= $(this).attr('data-id');
@@ -370,6 +371,7 @@
                                         icon: "question"
                                     }).then((result) => {
                                             if(result.isConfirmed){
+                                                $("#spinner").hide();
                                                 location.reload();    
                                             }
                                     });
@@ -513,7 +515,7 @@
                       if(data.success == true){
                         //cerramos el modal agregarCandidato si se ha guardado la informacion en la base de datos correctamente
                         $('#editarConductorCandidato').hide();
-                        location.reload();
+                        
                         printSuccessMsg(data.msg);
                         Swal.fire({
                             title: "<h3 style='color:red'>¡¡Errores detectados!!</h3>",
@@ -522,7 +524,15 @@
                             showCancelButton: false,
                             confirmButtonColor: "#d33",
                             confirmButtonText: "Continuar"
-                        });
+
+                        }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            $("#spinnerCandidato").hide();
+                            location.reload();
+                        }
+                });
+                        
                       }else if(data.success == false){
                         console.log('success=false');
 

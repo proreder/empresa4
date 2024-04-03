@@ -61,10 +61,13 @@ Route::get('/errors/bd_conexion_error', function () {
         '/conductores' => ConductoresController::class]);
         */
 //});
-Route::resources([
-    '/empleados'   =>EmpleadosController::class
-    ]
-);
+//Route::resources([
+//    '/empleados'   =>EmpleadosController::class
+//    ]
+//);
+//rutas para empleados
+Route::get('empleados/index', [EmpleadosController::class, 'show'])->name('show');
+Route::get('empleados/borrarEmpleado/{id}', [EmpleadosController::class, 'borrarEmpleado'])->name('borrarEmpleado');
 
 //rutas para conductores
 Route::get('conductores/index', [ConductoresController::class, 'index'])->name('index');
