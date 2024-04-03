@@ -68,7 +68,7 @@ Route::get('/errors/bd_conexion_error', function () {
 //rutas para empleados
 Route::get('empleados/index', [EmpleadosController::class, 'show'])->name('show');
 Route::get('empleados/borrarEmpleado/{id}', [EmpleadosController::class, 'borrarEmpleado'])->name('borrarEmpleado');
-Route::post('empleados/create', [EmpleadosController::class, 'agregarEmpleado'])->name('agregarEmpleado');
+Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('agregarEmpleado');
 
 //rutas para conductores
 Route::get('conductores/index', [ConductoresController::class, 'index'])->name('index');

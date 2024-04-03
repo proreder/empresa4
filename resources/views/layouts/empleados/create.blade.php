@@ -358,7 +358,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             var formData=new FormData(this);
             $.ajax({
                 type: 'POST',
-                url: '{{ route("crearEmpleado") }}',
+                url: '{{ route("agregarEmpleado") }}',
                 data: formData,
                 contentType: false,
                 processData: false,
