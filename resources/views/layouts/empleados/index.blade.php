@@ -22,7 +22,7 @@
             <p>Hola Usuario</p>
         @endrole
         
-        <a href="{{ route('agregarEmpleado') }}" class="btn btn-success">Alta de Empleado</a>
+        <a href="{{ route('vistaAgregarEmpleado') }}" class="btn btn-success">Alta de Empleado</a>
         <br><br>
         
         <table id="empleados" class="table table-striped border">

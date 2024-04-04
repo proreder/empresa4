@@ -520,7 +520,7 @@
                         Swal.fire({
                             title: "<h3 style='color:red'>¡¡Errores detectados!!</h3>",
                             text: 'Conductor actualizado correctamente',
-                            icon: "warning",
+                            icon: "success",
                             showCancelButton: false,
                             confirmButtonColor: "#d33",
                             confirmButtonText: "Continuar"

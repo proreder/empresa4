@@ -19,8 +19,28 @@ class EmpleadosController extends Controller
     }
 
     public function create(){
-        return view('layouts.empleados.create');
+      return view('layouts.empleados.create');
+       
     }
+    
+
+     
+    //pasamos a la función un objeto de StoreEmpleados que contiene las validaciones
+    public function agregarEmpleado(StoreEmpleados $request){
+        echo('agregarEpleados');
+        //public function store(Request $request){   
+            //$request->validate([
+            //    'nss' => 'required|integer|min:11|max:12|unique:posts'
+            //]);
+            //obtenemos los enviados por el formulario de empleado nuevo eliminamos el valor del token
+            $datosEmpleado=$request->except('_token');
+            if($datosEmpleado->fails()){
+                echo('error en los datos de los empleados');
+            }
+            
+            dd($datosEmpleado);
+            return response()->json($datosEmpleado);
+        }
     
     //pasamos a la función un objeto de StoreEmpleados que contiene las validaciones
     public function store(StoreEmpleados $request){
@@ -30,7 +50,10 @@ class EmpleadosController extends Controller
         //]);
         //obtenemos los enviados por el formulario de empleado nuevo eliminamos el valor del token
         $datosEmpleado=$request->except('_token');
-        echo('hola');
+        if($datosEmpleado->fails()){
+            echo('error en los datos de los empleados');
+        }
+        
         dd($datosEmpleado);
         return response()->json($datosEmpleado);
     }

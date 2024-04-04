@@ -25,7 +25,7 @@
 
 
 
-    <form class="form-horizontal" id="agregarEmpleadoForm" method="post" enctype="multipart/form-data">
+    <form class="form-horizontal" id="agregarEmpleadoForm" enctype="multipart/form-data">
         @csrf
 
         <div class="container-fluid">
@@ -324,7 +324,7 @@
           <div class="row justify-content-between col-12">
                <button= type="button" class="btn btn-secondary">Cerrar</button=>
                 <div id="spinnerConductor"></div>
-                <button type="submit" id="AddBtn" class="btn btn-danger">Guardad</button>
+                <button type="submit" id="AddBtn" class="btn btn-danger">Guardar</button>
           </div>
             
         </div>  
@@ -357,7 +357,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             //let formData=$(this).serialize();
             var formData=new FormData(this);
             $.ajax({
-                type: 'POST',
+                type: 'post',
                 url: '{{ route("agregarEmpleado") }}',
                 data: formData,
                 contentType: false,
@@ -394,7 +394,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
            
 
         });
-
+    });  
       function mostrarImagen(event) {
         var input = event.target;
         var reader = new FileReader();
