@@ -37,29 +37,33 @@
 
             </thead>
             <tbody>
-                @foreach ($conductores as $conductor)
-                    <tr>
-                        <td>@if ($conductor->imagen)
-                                <img src="../storage/app/{{ $conductor->imagen }}" alt="imagen conductor" width="40">
-                            @endif
-                        </td>
+                @if($conductores)
+                    @foreach ($conductores as $conductor)
+                        <tr>
+                            <td>@if ($conductor->imagen)
+                                    <img src="../storage/app/{{ $conductor->imagen }}" alt="imagen conductor" width="40">
+                                @endif
+                            </td>
 
-                        <td>{{ $conductor->nifnie_empleado }}</td>
-                        <td>{{ $conductor->empleado->nombre}} {{$conductor->empleado->apellidos}}</td>
-                        <td>{{ $conductor->permisos }}</td>
-                        <td>{{ $conductor->cap == true ? 'Si' : 'No' }}</td>
-                        <td>{{ $conductor->tarjeta_tacografo == true ? 'Si' : 'No' }}</td>
-                        <td>{{ $conductor->tipo_ADR }}</td>
-                        <td>
-                            <!-- <a href="" class="btn_edit text-success mx-1 editIcon" id=""data-bs-toggle="modal"  data-bs-target="#editarConductor{{$conductor->nifnie_empleado}}"><i class="bi-pencil-square h4"></i></a>
-                            -->
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn_editar btn btn-link"  data-bs-toggle="modal" data-bs-target="#editarConductorModal" data-id="{{$conductor->id}}" data-nifnie_empleado="{{$conductor->nifnie_empleado}}" data-permisos="{{$conductor->permisos}}" data-cap="{{$conductor->cap}}" data-tarjeta_tacografo="{{$conductor->tarjeta_tacografo}}" data-tipo_ADR="{{$conductor->tipo_ADR}}" data-imagen="../storage/app/{{ $conductor->imagen }}"><i class="bi-pencil-square h4"></i></button>
-                                <button type="button"  data-toggle="popover" id="btn_borrar"  class="btn_borrar btn btn-link text-danger" data-id="{{$conductor->id}}"><i class="bi bi-trash h4"></i></button>
-                        </td>
-                    </tr>
-               
-                @endforeach
+                            <td>{{ $conductor->nifnie_empleado }}</td>
+                            <td>{{ $conductor->empleado->nombre}} {{$conductor->empleado->apellidos}}</td>
+                            <td>{{ $conductor->permisos }}</td>
+                            <td>{{ $conductor->cap == true ? 'Si' : 'No' }}</td>
+                            <td>{{ $conductor->tarjeta_tacografo == true ? 'Si' : 'No' }}</td>
+                            <td>{{ $conductor->tipo_ADR }}</td>
+                            <td>
+                                <!-- <a href="" class="btn_edit text-success mx-1 editIcon" id=""data-bs-toggle="modal"  data-bs-target="#editarConductor{{$conductor->nifnie_empleado}}"><i class="bi-pencil-square h4"></i></a>
+                                -->
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn_editar btn btn-link"  data-bs-toggle="modal" data-bs-target="#editarConductorModal" data-id="{{$conductor->id}}" data-nifnie_empleado="{{$conductor->nifnie_empleado}}" data-permisos="{{$conductor->permisos}}" data-cap="{{$conductor->cap}}" data-tarjeta_tacografo="{{$conductor->tarjeta_tacografo}}" data-tipo_ADR="{{$conductor->tipo_ADR}}" data-imagen="../storage/app/{{ $conductor->imagen }}"><i class="bi-pencil-square h4"></i></button>
+                                    <button type="button"  data-toggle="popover" id="btn_borrar"  class="btn_borrar btn btn-link text-danger" data-id="{{$conductor->id}}"><i class="bi bi-trash h4"></i></button>
+                            </td>
+                        </tr>
+                
+                    @endforeach
+                @else
+                    <td class="flex mx-auto col-12"><h2>No hay datos que mostrar</h2></td>
+                @endif
             </tbody>
         </table>
         
@@ -313,7 +317,7 @@
             }
         });
         $(document).ready(function() {
-             $('#conductores').DataTable({
+             $('#tabla_conductores').DataTable({
                 responsive: true,
                 "language": {
                     "search": "Buscar",
@@ -322,8 +326,8 @@
                     "zeroRecords": "No hay registros",
                     "infoEmpty": "",
                     "paginate": {
-                        "previous": "Anterior",
-                        "next": "Siguiente",
+                        "previous": "Anterior  ",
+                        "next": "  Siguiente",
                         "first": "Primero",
                         "last": "último"
                     }
@@ -402,7 +406,7 @@
                 var tipo_ADR = $(this).attr('data-tipo_ADR');
                 var id_conductor = $(this).attr('data-id');
                 var url_imagen = $(this).attr('data-imagen');
-                console.log('Tamaño imagen:'+url_imagen.length);
+                
                 
                 //mostramos el formulario modal
                 $('#editarConductor').modal('show');
@@ -451,7 +455,7 @@
                             '<td><button type="button" class="btn_editarCandidato btn btn-link" data-nifnie="'+candidato.nifnie+'" data-nombre="'+candidato.nombre+'" data-apellidos="'+candidato.apellidos+'"  data-imagen="'+url.concat("/",candidato.imagen)+'"><i class="bi-pencil-square h4"></i></button>';
                             +"</td>";
                             html+="</tr>";
-                            console.log('imagen:'+candidato.imagen);
+                            
                         });
                         
                         $("#tbody_candidatos").html(html);
@@ -689,5 +693,15 @@
                 icon: "question"
             });
         </script>
+        Session::flush());
+    @else
+    <script>
+            Swal.fire({
+                title: "Borrado",
+                text: "Se ha producido un error en el borrado",
+                icon: "error"
+            });
+        </script>
+        Session::flush();
     @endif
 @endsection

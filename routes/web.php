@@ -61,17 +61,21 @@ Route::get('/errors/bd_conexion_error', function () {
         '/conductores' => ConductoresController::class]);
         */
 //});
-//Route::resources([
-//    '/empleados'   =>EmpleadosController::class
-//    ]
-//);
-//rutas para empleados
-Route::get('empleados/index', [EmpleadosController::class, 'show'])->name('show');
-Route::get('empleados/borrarEmpleado/{id}', [EmpleadosController::class, 'borrarEmpleado'])->name('borrarEmpleado');
-//muestra la ágina para agregar el empleado
-Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('vistaAgregarEmpleado');
-Route::get('empleados/agregarEmpleado', [EmpleadosController::class, 'agregarEmpleado'])->name('agregarEmpleado');
-Route::get('empleados/edit/{id}', [EmpleadosController::class, 'update'])->name('editarEmpleado');
+/*
+Route::get('empleados/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
+Route::get('empleados/index', [EmpleadosController::class, 'show'])->name('index');
+Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
+Route::get('empleados/{id}/edit/', [EmpleadosController::class, 'edit'])->name('edit');
+*/
+//Route::put('empleados/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
+Route::resource('/empleados', EmpleadosController::class);
+
+/*
+Route::get('empleados/index', [empleadosController::class, 'show'])->name('index');
+Route::get('empleados/create', [empleadosController::class, 'create'])->name('create');
+Route::get('empleados/edit/{id}', [empleadosController::class, 'edit'])->name('edit');
+*/
+
 
 //rutas para conductores
 Route::get('conductores/index', [ConductoresController::class, 'index'])->name('index');
@@ -86,12 +90,4 @@ Route::post('conductores/updateconductor', [ConductoresController::class, 'updat
 Route::get('vehiculos/index', [VehiculosController::class, 'listarVehiculos'])->name('listarVehiculos');
 Route::post('vehiculos/create', [VehiculosController::class, 'crearVehiculo'])->name('crearVehiculo');
 
-/*
-Route::controller(ConductoresController::class)->group(function(){
-    Route::get('/conductores/index','index')->name('index');
-    Route::get('/conductores/lista','listarConductores')->name('conductores.lista');
-    //Route::match(['get', 'post'], '/conductores/lista', 'listarConductores')->name('conductores.lista');
-    Route::post('conductores/editar','edit')->name('editar');
-});
 
-*/

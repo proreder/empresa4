@@ -33,12 +33,12 @@ return new class extends Migration
             $table->integer('cp')->nullable();
             $table->string('email', 100)->nullable();
             $table->string('puesto', 100);
-            $table->enum('tipo', ['Oficina', 'Conductor']);
+            $table->enum('tipo', ['Oficina', 'Conductor','Taller']);
             $table->string('situacion_laboral', 100);
             $table->date('fecha_alta');
             $table->date('fecha_baja')->nullable(); 
             $table->string('comentarios', 300)->nullable();
-            $table->binary('foto')->nullable();
+            $table->string('imagen',250)->nullable();
             $table->timestamps();
         });
     }

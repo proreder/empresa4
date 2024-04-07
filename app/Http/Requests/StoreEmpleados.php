@@ -65,10 +65,11 @@ class StoreEmpleados extends FormRequest{
             'situacion_laboral' => 'required|min:5|max:100',
             'fecha_alta'        => 'required|date_format:Y-m-d',
             'fecha_nacimiento'  => 'date_format:Y-m-d',
+            'email'             => 'min:10|max:200',
             //'fecha_alta'        => 'required|date_format:d/m/Y',
             //'fecha_nacimiento'  => 'date_format:d/m/Y',
             'comentarios'       => 'max:200',
-            'imagen'            => 'required|file|mimes:jpg,jpeg,png|max:64'
+            'imagen'            => 'required|file|mimes:jpg,jpeg,png|max:5000'
             
 
         ];

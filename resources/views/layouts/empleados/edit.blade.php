@@ -25,13 +25,14 @@
 
 
 
-    <form class="form-horizontal" id="editarEmpleadorForm"  enctype="multipart/form-data">
-       @method('POST')
-        @csrf
+    <form id="editEmpleadoForm" action="{{ url('empleados/'. $empleado->id )}}"  method="post" enctype="multipart/form-data">
+      <!-- A traves de método PATCH accedemos al controlador al método UPDATE-->
+      @method('PUT')
+      @csrf  
 
         <div class="container-fluid">
           <div class="row border border-danger">
-            
+              <h6>{{ $empleado->id }}</h6>
               <div class="col-4 col-md-3 col-lg-3 col-xl-2 border">
                   <div class="form-group">
                     <label for="nss">NSS.:</label>
@@ -40,9 +41,9 @@
               </div> 
               <div class="col-2 col-md-2 col-lg-2 col-xl-1">
                 <div class="form-group">
-                    <label for="select">Tipo:</label>
+                    <label for="tipo_doc">Tipo:</label>
             
-                    <select id="select" name="select" class="form-control">
+                    <select id="tipo_doc" name="tipo_doc" class="form-control">
                         <option value="NIF">{{$empleado->tipo_doc}}</option>
                         <option value="NIE">{{$empleado->tipo_doc}}</option>
                     </select>
@@ -50,15 +51,15 @@
               </div>
               <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                 <div class="form-group">
-                    <label for="numero_dni_nie">Número:</label>
-                    <input type="text" class="form-control" id="numero_dni_nie" name="numero_dni_nie" value="{{$empleado->nifnie}}">
+                    <label for="nifnie">Número:</label>
+                    <input type="text" class="form-control" id="nifnie" name="nifnie" value="{{$empleado->nifnie}}">
                 </div>
               </div>
 
                 <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                   <div class="form-group">
-                    <label for="select">Sexo:</label>
-                    <select id="select" name="select" class="form-control">
+                    <label for="sexo">Sexo:</label>
+                    <select id="sexo" name="sexo" class="form-control">
                         <option value="Hombre">{{$empleado->sexo}}</option>
                         <option value="Mujer">{{$empleado->sexo}}</option>
                         <option value="X">{{$empleado->sexo}}</option>
@@ -154,8 +155,8 @@
            <div class="col-xl-3"></div>
           <div class="col-3 col-md-2 col-lg-3 col-xl-2">
             <div class="form-group">
-               <label for="fijo">Telefono:</label>
-               <input type="text" class="form-control" id="fijo" name="fijo" value="{{$empleado->telefono_fijo}}">
+               <label for="telefono_fijo">Telefono:</label>
+               <input type="text" class="form-control" id="telefono_fijo" name="telefono_fijo" value="{{$empleado->telefono_fijo}}">
             </div>
           </div>
 
@@ -165,7 +166,13 @@
                 <input type="text" class="form-control" id="telefono_movil" name="telefono_movil" value="{{$empleado->telefono_movil}}">
             </div>
           </div>
-          <div class="col-md-6 col-lg-6 col-xl-8"></div>
+          <div class="col-4 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" class="form-control" id="email" name="email" value="{{$empleado->email}}">
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-3 col-xl-3"></div>
           <div class="col-12 col-md-4 col-lg-4">
             <div class="form-group">
               <label for="puesto">Puesto:</label>
@@ -176,7 +183,7 @@
           <div class="col-12 col-md-4 col-lg-4">
             <div class="form-group">
               <label for="tipo">Tipo:</label>
-              <select class="form-control" name="tipo" value="{{$empleado->tipo}}">
+              <select class="form-control" id="tipo" name="tipo" value="{{$empleado->tipo}}">
                 <option value="1">Oficina</option>
                 <option value="2">Taller</option>
                 <option value="3">Conductor</option>
@@ -186,8 +193,8 @@
 
           <div class="col-12 col-md-4 col-lg-4">
             <div class="form_group">
-                <label for="situacio_laboral">Estado laboral:</label>
-                <input type="text" class="form-control" id="situacion_laboral" name="Estadon laboral" value="{{$empleado->situacion_laboral}}">
+                <label for="situacion_laboral">Estado laboral:</label>
+                <input type="text" class="form-control" id="situacion_laboral" name="situacion_laboral" value="{{$empleado->situacion_laboral}}">
             </div>
           </div>
 
@@ -200,7 +207,7 @@
 
           <div class="col-6 col-md-3 col-lg-3 col-xl-2">
               <div class="form_group">
-                  <label for="fecha_nacimiento">Fecha de Baja:</label>
+                  <label for="fecha_baja">Fecha de Baja:</label>
                   <input type="date" class="form-control" id="fecha_baja" name="fecha_baja" value="{{$empleado->fecha_baja}}">
               </div>
           </div>
@@ -208,39 +215,46 @@
           <div class="col-12 col-md-7">
             <div class="form_group">
                 <label for="comentarios">Comentarios:</label>
-                <textarea class="col-12" name="motivo_baja" rows="2"   placeholder="{{$empleado->comentarios}}" value="{{$empleado->comentarios}}"></textarea>
+                <textarea class="col-12" name="comentarios" id="comentarios" rows="2"   placeholder="{{$empleado->comentarios}}" value="{{$empleado->comentarios}}"></textarea>
           
             </div>
           </div>
 
           
 
-          <div class="col-12 col-md-6 my-4 border border-danger">
+          <div class="col-12 col-md-6 my-3 border border-danger">
             
                 <div class="form_group">
-                  <div class="file-select col-5 d-flex col-5 mx-auto" id="src-file1" >
-                    <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" data-imagen-edit="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event, 'imagenEditForm')">
-                  </div>
+                        <div class="file-select col-5 d-flex mx-auto" id="src-file1" >
+                              <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" data-imagen-edit="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event,'imagenSeleccionada')">
+                        </div>
+                        @error('imagen')
+                         <small class="text-danger">
+                      {{$message}}
+                      </small>
+                    @enderror
                 </div>
             
-             <div class="col-2 mx-auto borde_ccc">
-                            <img id="imagenSeleccionada" src="data:image/png;base64,
-                            <?php 
-                                 echo base64_encode($empleado->foto); 
-                            ?>"  alt="" style="width: 100px;height: 156px;"> 
-                 <!--<img id="imagenSeleccionada" src="#" alt="" style="width: 100px;height: 156px;">-->
-             </div>
+                <div class="col-2 mx-auto borde_ccc">
+                 <img id="imagenSeleccionada" name="imagenSeleccionada" src="" alt="" style="width: 100px;height: 156px;">
+                </div>
           </div>
            
       </div> 
 
       <div class="container my-5">
-          <div class="row justify-content-between col-12">
-               <button= type="button" class="btn btn-secondary">Cerrar</button=>
-                <div id="spinnerEmpleado"></div>
-                <button type="submit" id="btnActualizar" class="btn btn-danger">Actualizar</button>
-          </div>
+          <div class="row  col-12 border border-primary ">
             
+                  <div class="mx-auto col-6 col-md-4 col-lg-4 col-xl-2 border border-danger ">
+                    
+                    <input type="submit" class="btn btn-primary btn-block" value="Actualizar">
+                  </div>
+                  
+                  <div class="mx-auto col-6 col-md-4 col-lg-3 col-xl-2 pl-4">
+                    <button type="button" class="btn btn-danger" onclick="history.back()" name="Cerrar" value="volver atrás">Cancelar</button>
+                  </div>
+            </div> 
+           
         </div>  
     </form>
    
@@ -254,64 +268,13 @@
     <script src="/empresa4/public/build/assets/sweetalert2.all.min.js"></script>
     
     <script>
-      //CSRF
-    $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-    });
-
-    $(document).ready(function(){
-        $('#editarEmpleadorForm').submit(function(e){
-            
-            e.preventDefault();
-            //let formData=$(this).serialize();
-            var formData=new FormData(this);
-            $.ajax({
-                type: 'post',
-                url: '{{ route("aditarEmpleado") }}',
-                data: formData,
-                contentType: false,
-                processData: false,
-                beforeSend: function(){
-                    //desactivamos el botón añadir vehículos
-                    //$('#')('beforeSend');
-                    $('#btnActualizar').prop('disabled', true);
-                    $("#spinner").busyLoad("show", {
-                        fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
-                    },
-                complete: function(){
-                    //Si se ha comppletado la operación lo activamos
-                    $('#btnActualizar').prop('disabled', false);
-                }, 
-                success: function(data){
-                    console.log('success');
-                      if(data.success == true){
-                        //cerramos el modal agregarVehiculo si se ha guardado la informacion en la base de datos correctamente
-                        
-                        location.reload();
-                        printSuccessMsg(data.msg);
-                      }else if(data.success == false){
-                        console.log('success=false');
-                        printErrorMsg(data.msg);
-                      }else{
-                        console.log('printValidationErrorMsg');
-                        printValidationErrorMsg(data.msg);
-                      }
-                },
-            });
-            return false;
-
-           
-
-        });
-    });  
-      function mostrarImagen(event) {
+      
+      function mostrarImagen(event,id) {
         var input = event.target;
         var reader = new FileReader();
-        
+        console.log('variable reader: '+reader);
         reader.onload = function() {
-          var imagen = document.getElementById('imagenSeleccionada');
+          var imagen = document.getElementById(id);
           imagen.src = reader.result;
         }
         

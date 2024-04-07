@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('vehiculo', function (Blueprint $table) {
             $table->id();
+            $table->string('matricula', 11)->unique();
+            $table->string('numero_chasis',40)->unique();
+            $table->integer('potencia');
+            $table->string('tipo',100);
+            $table->string('modelo',100);
+            $table->integer('km_actuales');
+            $table->integer('km_revision');
+            $table->boolean('disponible');
+            $table->string('imagen',250)->nullable();
             $table->timestamps();
         });
     }

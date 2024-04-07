@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Session\SessionManager;
 use App\Models\EmpleadosModel;
+use Illuminate\Support\Facades\Storage;
 //importamos el archivos de validaciones esterno
 use App\Http\Requests\StoreEmpleados;
 
@@ -19,43 +21,33 @@ class EmpleadosController extends Controller
     }
 
     public function create(){
-      return view('layouts.empleados.create');
-       
+        return view('layouts.empleados.create');
     }
-    
-
-     
-    //pasamos a la función un objeto de StoreEmpleados que contiene las validaciones
-    public function agregarEmpleado(StoreEmpleados $request){
-        echo('agregarEpleados');
-        //public function store(Request $request){   
-            //$request->validate([
-            //    'nss' => 'required|integer|min:11|max:12|unique:posts'
-            //]);
-            //obtenemos los enviados por el formulario de empleado nuevo eliminamos el valor del token
-            $datosEmpleado=$request->except('_token');
-            if($datosEmpleado->fails()){
-                echo('error en los datos de los empleados');
-            }
-            
-            dd($datosEmpleado);
-            return response()->json($datosEmpleado);
-        }
     
     //pasamos a la función un objeto de StoreEmpleados que contiene las validaciones
     public function store(StoreEmpleados $request){
-    //public function store(Request $request){   
-        //$request->validate([
-        //    'nss' => 'required|integer|min:11|max:12|unique:posts'
-        //]);
+    
         //obtenemos los enviados por el formulario de empleado nuevo eliminamos el valor del token
         $datosEmpleado=$request->except('_token');
-        if($datosEmpleado->fails()){
-            echo('error en los datos de los empleados');
+       
+        //guardamos la ruta de la imagen en y la imagen en la carpeta storage
+        //guardamos las imagenes en store
+        $file = $request->file('imagen');
+        $name = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        //guardamos el archivo con su nombre y extension en la carpeta imagenes
+        $rutaImagen= Storage::putFileAs('public/imagenes',$file,$name);
+        if($request->hasFile('imagen')){
+            $datosEmpleado['imagen']=$rutaImagen;
+        }
+        try{
+            EmpleadosModel::insert($datosEmpleado);
+            return redirect('empleados/index')->with('success', 'success');
+        }catch(\Exception $e){
+            return redirect('empleados/index')->with('success', 'error');
         }
         
-        dd($datosEmpleado);
-        return response()->json($datosEmpleado);
+        //return response()->json($datosEmpleado);
     }
 
     //editamos el empleado
@@ -63,26 +55,49 @@ class EmpleadosController extends Controller
     public function edit($id){
         
         $empleado= EmpleadosModel::findOrFail($id);
-        //dd($empleado);
+        
+       //dd($empleado);
         return view('layouts.empleados.edit', compact('empleado'));
     }
 
-    //Se borra el registro indicado en el parámetro que recibe como argumento
-    public function borrarEmpleado($id){
+    public function update(Request $request, $id){
+       //obtenemos los datos enviados por el formulario de editar usuario y eliminamos el valor del token y method
+        $datosEmpleado=$request->except('_token', '_method');
+        
+        if($request->hasFile('imagen')){
+            //guardamos la ruta de la imagen en y la imagen en la carpeta storage
+            //guardamos las imagenes en store
+            $file = $request->file('imagen');
+            $name = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            //guardamos el archivo con su nombre y extension en la carpeta imagenes
+            $rutaImagen= Storage::putFileAs('public/imagenes',$file,$name);
+            $datosEmpleado['imagen']=$rutaImagen;
+        }
+        
         try{
             
-            $empleado_borrado=EmpleadosModel::where('id',$id)->delete();
-            return response()->json(['success' => true, 'msg' => 'Empleado borrado correctamente.']);
-           //return redirect()->back();   
+            EmpleadosModel::where('id', '=', $id)->update($datosEmpleado);
+            return redirect('empleados/index')->with('actualizado', 'El empleado se ha actulaizado con éxito');
         }catch(\Exception $e){
-            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+            return redirect('empleados/edit')->with('actualizado', 'Error en la actualización');
+            dd ($e);
         }
+        
+    }
 
-       /* $empleado= EmpleadosModel::find($id);
-        $empleado->delete();
-        //EmpleadosModel::destroy($id);
-        //si se ha borrado el empleado retirnamos success
-        return redirect('empleados/index')->with('success', 'success');
-        */
+    //Se borra el registro indicado en el parámetro que recibe como argumento
+    public function destroy($id){
+        try{
+            $empleado= EmpleadosModel::find($id);
+             $empleado->delete();
+            //EmpleadosModel::destroy($id);
+            //si se ha borrado el empleado retirnamos success
+            return redirect('empleados/index')->with('borrado', 'El el emplado se ha borrado con éxito');
+        }catch(\Exception $e){
+            return redirect('empleados/edit')->with('borrado', 'Ocurrió un error durante el borrado');
+            
+        }
+        
     }
 }

@@ -70,3 +70,11 @@
         #src-file1::before {
         content: 'Seleccionar foto';
         }
+
+        .btn_borrar_empleado1{
+            width: 24px;
+            height: 32px;  
+        }
+        .icon_edit{
+            padding-top: 7px !important;
+        }

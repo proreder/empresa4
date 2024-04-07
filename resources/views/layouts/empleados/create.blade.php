@@ -25,7 +25,7 @@
 
 
 
-    <form class="form-horizontal" id="agregarEmpleadoForm" enctype="multipart/form-data">
+    <form class="form-horizontal" action="{{ url('/empleados')}}" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="container-fluid">
@@ -42,9 +42,9 @@
               </div> 
               <div class="col-2 col-md-2 col-lg-2 col-xl-1">
                 <div class="form-group">
-                    <label for="select">Tipo:</label>
+                    <label for="tipo_doc">Tipo:</label>
             
-                    <select id="select" name="select" class="form-control">
+                    <select id="tipo_doc" name="tipo_doc" class="form-control">
                         <option value="nif">NIF</option>
                         <option value="nie">NIE</option>
                     </select>
@@ -64,8 +64,8 @@
 
                 <div class="col-3 col-md-2 col-lg-2 col-xl-2">
                   <div class="form-group">
-                    <label for="select">Sexo:</label>
-                    <select id="select" name="select" class="form-control">
+                    <label for="sexo">Sexo:</label>
+                    <select id="sexo" name="sexo" class="form-control">
                         <option value="hombre">Hombre</option>
                         <option value="mujer">Mujer</option>
                         <option value="x">X</option>
@@ -203,8 +203,8 @@
 
           <div class="col-3 col-md-2">
             <div class="form-group">
-               <label for="telefono">Telefono:</label>
-               <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono" value="{{old('telefono')}}">
+               <label for="telefono_fijo">Telefono:</label>
+               <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono_fijo" name="telefono_fijo" value="{{old('telefono')}}">
                @error('telefono')
                   <small class="text-danger">
                     {{$message}}
@@ -224,6 +224,18 @@
                 @enderror
             </div>
           </div>
+          <div class="col-4 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{old('empleado->email')}}">
+                @error('email')
+                  <small class="text-danger">
+                      {{$message}}
+                  </small>
+                @enderror
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-3 col-xl-6"></div>
 
           <div class="col-1 col-md-1 col-lg-6 col-xl-6 col-xxl-2"></div>
 
@@ -242,14 +254,20 @@
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group">
               <label for="tipo">Tipo:</label>
-              <input type="text" class="form-control @error('tipo') is-invalid @enderror" id="tipo" name="tipo" value="{{old('tipo')}}">
-              @error('tipo')
+              <select class="form-control @error('tipo') is-invalid @enderror" id="tipo" name="tipo" value="{{old('tipo')}}">
+                <option value="Oficina">Oficina</option>
+                <option value="Taller">Taller</option>
+                <option value="Conductor">Conductor</option>
+             </select>
+             @error('tipo')
                 <small class="text-danger">
                   {{$message}}
                 </small>
               @enderror
             </div>
           </div>
+
+        
 
           <div class="col-12 col-md-5 col-lg-4">
             <div class="form_group">
@@ -290,7 +308,7 @@
           <div class="col-12 col-md-7">
             <div class="form_group">
                 <label for="comentarios">Comentarios:</label>
-                <textarea class="col-12 @error('comentarios') is-invalid @enderror" name="comentarios" rows="2" value="{{old('comentarios')}}"  placeholder="Motivo de la baja"></textarea>
+                <textarea class="col-12 @error('comentarios') is-invalid @enderror" id="comentarios" name="comentarios" rows="2" value="{{old('comentarios')}}"  placeholder="Motivo de la baja"></textarea>
                 @error('comentarios')
                     <small class="text-danger">
                       {{$message}}
@@ -303,15 +321,17 @@
           <div class="col-12  col-md-6 my-4 border">
             
                 <div class="form_group">
-                    <label for="imagen">Selecciona una imagen:</label>
-                    <input class="col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event)">
+                  
+                    <div class="file-select col-5 d-flex col-5 mx-auto" id="src-file1" >
+                                    <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" data-imagen-edit="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event)">
+                    </div>
                     @error('imagen')
                       <small class="text-danger">
                       {{$message}}
                       </small>
                     @enderror
                     <br><br>
-                  </div>
+               </div>
             
              <div class="col-2 mx-auto borde_ccc">
                  <img id="imagenSeleccionada" src="#" alt="" style="width: 100px;height: 156px;">
@@ -321,80 +341,28 @@
       </div> 
 
       <div class="container my-5">
-          <div class="row justify-content-between col-12">
-               <button= type="button" class="btn btn-secondary">Cerrar</button=>
-                <div id="spinnerConductor"></div>
-                <button type="submit" id="AddBtn" class="btn btn-danger">Guardar</button>
-          </div>
-            
-        </div>  
+              <div class="row row justify-content-between col-12">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <div id="spinnerCandidato"></div>
+                                <button type="submit" id="btn_guardarCandidato" class="btn btn-danger">Guardar</button>
+              </div>
+      </div>    
+        
     </form>
-   
+
+
 @stop
 @section('css')
     <link rel="stylesheet" href="../public/vendor/adminlte/dist/css/adminlte.css">
     <link rel="stylesheet" href="../public/css/create.css">
+    <link rel="stylesheet" href="../public/css/sweetalert2.min.css">
 @stop
 
 @section('js')
-    
+    <script src="../public/build/assets/sweetalert2.all.min.js"></script>
     <script>
-      <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
-<script>
-    //CSRF
-    $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    $(document).ready(function(){
-        $('#agregarEmpleadosForm').submit(function(e){
-            
-            e.preventDefault();
-            //let formData=$(this).serialize();
-            var formData=new FormData(this);
-            $.ajax({
-                type: 'post',
-                url: '{{ route("agregarEmpleado") }}',
-                data: formData,
-                contentType: false,
-                processData: false,
-                beforeSend: function(){
-                    //desactivamos el botón añadir vehículos
-                    //$('#')('beforeSend');
-                    $('#addBtn').prop('disabled', true);
-                    $("#spinner").busyLoad("show", {
-                        fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
-                    },
-                complete: function(){
-                    //Si se ha comppletado la operación lo activamos
-                    $('#addBtn').prop('disabled', false);
-                }, 
-                success: function(data){
-                    console.log('success');
-                      if(data.success == true){
-                        //cerramos el modal agregarVehiculo si se ha guardado la informacion en la base de datos correctamente
-                        $('#agregarVehiculo').hide();
-                        location.reload();
-                        printSuccessMsg(data.msg);
-                      }else if(data.success == false){
-                        console.log('success=false');
-                        printErrorMsg(data.msg);
-                      }else{
-                        console.log('printValidationErrorMsg');
-                        printValidationErrorMsg(data.msg);
-                      }
-                },
-            });
-            return false;
-
-           
-
-        });
-    });  
+      
+      
       function mostrarImagen(event) {
         var input = event.target;
         var reader = new FileReader();
@@ -407,5 +375,6 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
         reader.readAsDataURL(input.files[0]);
       }
     </script>
+     
     
-@stop
+@endsection
