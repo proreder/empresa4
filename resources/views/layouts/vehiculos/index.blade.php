@@ -31,7 +31,7 @@
                         <button class="btn btn-success btn-sm " data-bs-toggle="modal"  data-bs-target="#agregarVehiculo"><i class="bi-plus-circle me-2"></i>Añadir vehículo</button>
                     </div>
                     <div class="card-body" id="mostrarTodosVehiculos">
-                    <table id="tabla_conductores" class="table table-striped border">
+                    <table id="tabla_vehiculos" class="table table-striped border">
                         <thead class="thead-light">
                             <tr>
                                 <th width="70px">Matrícula</th>
@@ -43,12 +43,12 @@
                                 <th width="100px">Km. Revisión</th>
                                 <th width="60px">Disponible</th>
                                 <th width="60px">Foto</th>
-                                <th width="80px">Acciones</th>
+                                <th width="100px">Acciones</th>
                             </tr>
 
                         </thead>
                         <tbody>
-                            @if (count($vehiculos) >0)
+                            @if ($vehiculos)
                                 @foreach ($vehiculos as $vehiculo)
                                     <tr>
                                         <td>{{$vehiculo->matricula}}</td>
@@ -70,8 +70,8 @@
                                             ?>"  alt="" width="60"></td>
                                         -->
                                         <td>
-                                            <button type="button" class="btn_editar btn btn-link" data-bs-config="backdrop:true" data-bs-target="#editarConductor"><i class="bi-pencil-square h4"></i></button>
-                                            <button type="button"  data-toggle="popover" id="btn_borrar"  class="btn_borrar btn btn-link text-danger" ><i class="bi bi-trash h4"></i></button>
+                                            <button type="button" class="btn_editar btn btn-link" data-bs-config="backdrop:true" data-bs-target="#editarConductor" data-id_edit="{{$vehiculo->id}}" data-matricula="{{$vehiculo->matricula}}" data-chasis="{{$vehiculo->numero_chasis}}" data-potencia="{{$vehiculo->potencia}}" data-tipo="{{$vehiculo->tipo}}" data-modelo="{{$vehiculo->modelo}}" data-km_actuales="{{$vehiculo->km_actuales}}" data-km_revision="{{$vehiculo->km_revision}}" data-disponible="{{$vehiculo->disponible}}" data-imagen="{{$vehiculo->imagen}}"><i class="bi-pencil-square h4"></i></button>
+                                            <button type="button"  data-toggle="popover" id="btn_borrar" data-id="{{$vehiculo->id}}" class="btn_borrar btn btn-link text-danger" ><i class="bi bi-trash h4"></i></button>
                                             
                                         </td>
                                     </tr>
@@ -83,7 +83,7 @@
                             @endif
                         </tbody>
                     </table>
-                        <h2 class="text-center text-secondary my-5">Cargando...</h2>                    
+                                           
 
                     </div>
                 </div>
@@ -155,9 +155,9 @@
                <div class="col-12 my-4 border">
             
                     <div class="form_group">
-                        <label for="imagen">Selecciona una imagen:</label>
-                        <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event)">
-                        <small class="text-danger">El tamaño del archivo no puede superor los 65535 Bytes</small>
+                        <div class="file-select col-5 d-flex col-5 mx-auto" id="src-file1" >
+                            <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" data-imagen-edit="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event, 'imagenEditForm')">
+                        </div>
                         @error('imagen')
                         <small class="text-danger">
                             {{$message}}
@@ -173,9 +173,11 @@
            
            
                 <div class="modal-footer">
-                    <input type="text" id="spinner">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" id="addBtn" class="btn btn-primary">Guardar</button>
+                <div class="row row justify-content-between col-12">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <div id="spinnerVehiculo"></div>
+                                <button type="submit" id="btn_guardarVehiculo" class="btn btn-danger">Guardar</button>
+                </div>
                 </div>
              </form>
         </div> 
@@ -188,18 +190,89 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Editar un vehículo</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
         </div>
         <div class="modal-body">
             <form id="editarVehiculoForm">
-                
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+            @csrf
+              <input type="hidden" id="id_vehiculo" name="id_vehiculo">
+              <div class="row mt-1 mb-3">
+                    <div class="col-3">
+                        <label for="matricula_edit" class="form-label">Matrícula:</label>
+                        <input type="text" class="form-control @error('matricula_error') is-invalid @enderror" id="matricula_edit" name="matricula_edit">
+                        <small class='alert text-danger' id='matricula_error'></small>
+                    </div> 
+                    <div class="col-9">
+                        <label for="num_chasis_edit" class="form-label">Chasis:</label>
+                        <input type="text" class="form-control" id="num_chasis_edit" name="num_chasis_edit">
+                        <small class='alert text-danger' id='num_chasis_error'></small>
+                    </div>
+               </div> 
+               <div class="row mb-3">
+                    <div class="col-3">
+                        <label for="potencia_edit" class="form-label">Potencia:</label>
+                        <input type="text" class="form-control" id="potencia_edit" name="potencia_edit">
+                        <small class='alert text-danger' id='potencia_error'></small>
+                    </div> 
+                    <div class="col-4">
+                        <label for="tipo_edit" class="form-label">Tipo:</label>
+                        <input type="text" class="form-control" id="tipo_edit" name="tipo_edit">
+                        <small class='alert text-danger' id='tipo_error'></small>
+                    </div>
+                    <div class="col-5">
+                        <label for="modelo_edit" class="form-label">Modelo:</label>
+                        <input type="text" class="form-control" id="modelo_edit" name="modelo_edit">
+                        <small class='alert text-danger' id='modelo_error'></small>
+                    </div>
+               </div> 
+               <div class="row mb-3">
+                    <div class="col-3">
+                        <label for="km_actuales_edit" class="form-label">Km actuales:</label>
+                        <input type="text" class="form-control" id="km_actuales_edit" name="km_actuales_edit">
+                        <small class='alert text-danger' id='km_actuales_error'></small>
+                    </div> 
+                    <div class="col-3">
+                        <label for="km_revision_edit" class="form-label">Km revisión:</label>
+                        <input type="text" class="form-control" id="km_revision_edit" name="km_revision_edit">
+                        <span class='alert text-danger' id='km_revision_error'></span>
+                    </div>
+                    <div class="form-group ms-2">
+                        <label>Disponible:</label>
+                        <select class="form-select mb-3" id="disponible_edit" name="disponible_edit">
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+               </div> 
+               <div class="col-12 my-4 border">
+            
+                    <div class="form_group">
+                        <div class="file-select col-5 d-flex col-5 mx-auto" id="src-file1" >
+                            <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" data-imagen-edit="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event, 'imagenEditForm')">
+                        </div>
+                        @error('imagen')
+                        <small class="text-danger">
+                            {{$message}}
+                        </small>
+                        @enderror
+                        <br><br>
+                    </div>
+            
+                    <div class="col-9 mx-auto borde_ccc">
+                            <img id="imagenEditForm" src="" alt="" style="width: 300px;height: 175px;">
+                    </div>
+                </div>     
+           
+            </div>
+            <div class="modal-footer">
+                    <div class="row row justify-content-between col-12">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <div id="spinnerVehiculo"></div>
+                                    <button type="submit" id="btn_guardarVehiculo" class="btn btn-danger">Guardar</button>
+                    </div>
+            </div>
+        </form>
       </div>
     </div>
 </div>
@@ -209,14 +282,20 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../public/css/create.css">
 @endsection
 
 @section('js')
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
+<script src="../public/build/assets/sweetalert2.all.min.js"></script>
 <script>
     //CSRF
     $.ajaxSetup({
@@ -225,6 +304,87 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             }
         });
     $(document).ready(function(){
+        $('#tabla_vehiculos').DataTable({
+                responsive: true,
+                "language": {
+                    "search": "Buscar",
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "info": "Página _PAGE_ de _PAGES_",
+                    "zeroRecords": "No hay registros",
+                    "infoEmpty": "",
+                    "paginate": {
+                        "previous": "Anterior  ",
+                        "next": "  Siguiente",
+                        "first": "Primero",
+                        "last": "último"
+                    }
+                }
+            });
+        
+        //script para BORRAR un conductor si se pulsa el botón de borrado
+        $('.btn_borrar').on('click', function(e) {
+                console.log('Se ha pulsado borrar');
+                var vehiculo_id= $(this).attr('data-id');
+                e.preventDefault();
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "¡El borrado no se podrá revertir!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "¡Confirmar borrado!"
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        var url= "{{ route('borrarVehiculo','vehiculo_id') }}";
+                        url=url.replace('vehiculo_id',vehiculo_id);
+                        console.log(url);
+                        $.ajax({
+                            type: 'GET',
+                            url: url,
+                            contentType: false,
+                            processData: false,
+                            beforeSend: function(){
+                                //desactivamos el botón añadir vehículos
+                                
+                                $('.btn_borrar').prop('disabled', true);
+                                $("#spinner").busyLoad("show", {
+                                    fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
+                                },
+                            complete: function(){
+                                //Si se ha comppletado la operación lo activamos
+                                $('.btn_borrar').prop('disabled', false);
+                            }, 
+                            success: function(data){
+                                console.log('success');
+                                if(data.success == true){
+                                    Swal.fire({
+                                        title: "Borrado",
+                                        text: "El vehículo se ha borrado corectamente",
+                                        icon: "question"
+                                    }).then((result) => {
+                                            if(result.isConfirmed){
+                                                $("#spinner").hide();
+                                                location.reload();    
+                                            }
+                                    });
+                                    
+                                    
+                                }else if(data.success == false){
+                                    Swal.fire({
+                                        title: "Borrado",
+                                        text: data.msg,
+                                        icon: "question"
+                                    });
+                                    
+                                }
+                            },
+                        });    
+                    }
+                    
+                });
+            });
+        //Se abre una ventana modal para añadir los datos de un nuevo vehiculo
         $('#addVehiculoForm').submit(function(e){
             
             e.preventDefault();
@@ -234,6 +394,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 type: 'POST',
                 url: '{{ route("crearVehiculo") }}',
                 data: formData,
+                dataType: 'JSON',
                 contentType: false,
                 processData: false,
                 beforeSend: function(){
@@ -252,13 +413,139 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                       if(data.success == true){
                         //cerramos el modal agregarVehiculo si se ha guardado la informacion en la base de datos correctamente
                         $('#agregarVehiculo').hide();
+                        printSuccessMsg(data.msg);
+                        //location.reload();
+                      }else if(data.success == false){
+                        printErrorMsg("Error, no se ha pódido guardar el vehículo");
+                        console.log(data.msg);
+                      }else{
+                        console.log('printValidationErrorMsg');
+                        printErrorMsg("Error, no se ha pódido guardar el vehículo");
+                        printValidationErrorMsg(data.msg);
+                      }
+                },
+            });
+            return false;
+         });
+
+         //si se pulsa el boton editar se abre el modal con los datos de fila de la tabla
+         $('#tabla_vehiculos tbody').on( 'click', '.btn_editar', function () {
+                var id_vehiculo = $(this).attr('data-id_edit');
+                var matricula = $(this).attr('data-matricula');
+                var chasis = $(this).attr('data-chasis');
+                var potencia = $(this).attr('data-potencia');
+               
+                var tipo = $(this).attr('data-tipo');
+                var modelo = $(this).attr('data-modelo');
+                var km_actuales = $(this).attr('data-km_actuales');
+                var km_revision = $(this).attr('data-km_revision');
+                var disponible = $(this).attr('data-disponible');
+                var url_imagen = $(this).attr('data-imagen');
+                               
+                //rellenamos el formulario modal con los datos de la fila seleccionada
+                $('#editarVehiculo').modal('show');
+                $('#id_vehiculo').val(id_vehiculo)
+                $("#matricula_edit").val(matricula);
+                $('#num_chasis_edit').val(chasis);
+                $('#potencia_edit').val(potencia);
+                $('#tipo_edit').val(tipo);
+                $('#modelo_edit').val(modelo);
+                $('#km_actuales_edit').val(km_actuales);
+                $('#km_revision_edit').val(km_revision);
+                $('#disponible').val(disponible);
+            
+
+                var url="../storage/app/";
+                
+                $('#imagenEditForm').attr('src', url+url_imagen);
+                //Verificamos valor de disponible
+                if(disponible==true){
+                    $("#disponible").prop('checked',true);
+                }else{
+                    $("#disponible").prop('checked',false);
+                }
+                
+                
+            });
+
+            //si se pulsa   el botón Actualizar  enviamos el formulario    
+        $('#editVehiculosForm').submit(function(e){
+             e.preventDefault();
+
+                //guardamos todos los valores de los inputs en valiables
+                var id_vehiculo = $(this).attr('data-id_edit');
+                var matricula = $(this).attr('data-matricula');
+                var chasis = $(this).attr('data-chasis');
+                var potencia = $(this).attr('data-potencia');
+               
+                var tipo = $(this).attr('data-tipo');
+                var modelo = $(this).attr('data-modelo');
+                var km_actuales = $(this).attr('data-km_actuales');
+                var km_revision = $(this).attr('data-km_revision');
+                var disponible = $(this).attr('data-disponible');
+                var url_imagen = $(this).attr('data-imagen');
+            
+                var formData=new FormData(this);
+
+            //Camniamos los valores del checkbox cap a 1 o 0
+            if($valor_cap){
+                formData.set('cap',1);
+            }else{
+                formData.set('cap',0);
+            }
+            //Camniamos los valores del checkbox tarjeta de tacógrafo a 1 o 0
+            if($valor_cap){
+                formData.set('tarjeta_tacografo',1);
+            }else{
+                formData.set('tarjeta_tacografo',0);
+            }
+            
+            
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("updateVehiculo") }}',
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function(){
+                    //desactivamos el botón actualizar conductor
+                    
+                    $('#btn_updateConductor').prop('disabled', true);
+                    $("#spinnerConductor").busyLoad("show", {
+                        fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
+                    },
+                complete: function(){
+                    console.log('complete:');
+                    //Si se ha completado la operación lo activamos
+                    $('#btn_updateConductor').prop('disabled', false);
+                }, 
+                success: function(data){
+                    console.log('success');
+                      if(data.success == true){
+                        //cerramos el modal agregarCandidato si se ha guardado la informacion en la base de datos correctamente
+                        $('#editarConductorModal').hide();
                         location.reload();
                         printSuccessMsg(data.msg);
                       }else if(data.success == false){
                         console.log('success=false');
+                        $("#spinnerConductor").hide();
                         printErrorMsg(data.msg);
                       }else{
+                        $("#spinnerConductor").hide();
                         console.log('printValidationErrorMsg');
+                        if(!data.msg.cap) data.msg.cap="";
+                        if(!data.msg.tarjeta_tacografo) data.msg.tarjeta_tacografo="";
+                        if(!data.msg.imagen) data.msg.imagen="";
+                        //console.log('tamaño: '+Object.keys(data.msg.imagen).length);
+                        Swal.fire({
+                            title: "<h3 style='color:red'>¡¡Errores detectados!!</h3>",
+                            html: '<div style="color:red">'+data.msg.cap+"<br>"+data.msg.tarjeta_tacografo+"<br>"+data.msg.imagen+'</div>',
+                            icon: "warning",
+                            showCancelButton: false,
+                            confirmButtonColor: "#d33",
+                            confirmButtonText: "Continuar"
+                        });
+                        $('#btn_updateConductor').prop('disabled', false);
                         printValidationErrorMsg(data.msg);
                       }
                 },
@@ -267,7 +554,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
 
            
 
-        });
+        }); 
         /*
         $('[data-toggle="popover"]').hover(function(){
                 console.log('mouseHover');
@@ -285,18 +572,18 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 url: "{{ route('listarVehiculos') }}",
                 success: function(response){
                     //$('#mostrarTodosVehiculos').html($html);
-                    console.log('listarVehiculos');
+                    //console.log('listarVehiculos');
                 }
             });
         };
      });
         //Mostramos la imagen seleccionada
-        function mostrarImagen(event) {
+        function mostrarImagen(event, id) {
                 var input = event.target;
                 var reader = new FileReader();
                 
                 reader.onload = function() {
-                var imagen = document.getElementById('imagenSeleccionada');
+                var imagen = document.getElementById(id);
                 imagen.src = reader.result;
                 }
                 
@@ -310,18 +597,37 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 });
             }
             function printErrorMsg(msg){
-                console.log(msg);
-                $('#alerta-error').html('');
-                $('#alerta-error').css('display','block');
-                $('#alerta-error').append(''+msg+'');
-            }
-            function printSuccessMsg(msg){
-                console.log(msg);
-                $('#alerta-success').html('');
-                $('#alerta-success').css('display','block');
-                $('#alerta-success').append(''+msg+'');
+                Swal.fire({
+                title: "Acción sobre vehículos",
+                html: '<h3>'+msg+'</h3>',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Continuar"
+              }).then((result) => {
+ 
                 //si wl formulario se envió correctamente de resetra los campos del formulario
                 document.getElementById('addVehiculoForm').reset();
+                //recargamos la página para actualizar los cambios
+                location.reload();
+              })
+            }
+            function printSuccessMsg(msg){
+                Swal.fire({
+                title: "Acción sobre vehículos",
+                html: '<h3>'+msg+'</h3>',
+                icon: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Continuar"
+              }).then((result) => {
+ 
+                //si wl formulario se envió correctamente de resetra los campos del formulario
+                document.getElementById('addVehiculoForm').reset();
+                //recargamos la página para actualizar los cambios
+                location.reload();
+              })
             }
 </script>
+
 @endsection

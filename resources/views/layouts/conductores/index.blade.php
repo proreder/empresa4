@@ -471,22 +471,19 @@
 
             //si se pulsa el boton editar candidato se abre el modal con los datos de fila del modal de los candidatos
             $('#tabla_candidatos tbody').on('click','.btn_editarCandidato', function () {
-                console.log('agregarCandidato');
+                
                 $('#modalTablaCandidatos').modal('hide');
                 var nifnie_candidato = $(this).attr('data-nifnie');
                 var nombre = $(this).attr('data-nombre');
                 var apellidos = $(this).attr('data-apellidos');
                 var imagenCandidato=$(this).attr('data-imagen');
-                console.log('imagen candidato: '+imagenCandidato);
+                
                 //mostramos el formulario modal para agregar un conductor candidato
                 $('#editarConductorCandidato').modal('show');
                 $('#nifnie_candidato').val(nifnie_candidato);
                 $('#nombre_candidato').val(nombre+' '+apellidos);
                 $('#imagenCandidato').attr('src', imagenCandidato);
-                
-                //abrimos un modal para mostrar los datos del cadidato a conductor 
-                //$('#editarCandidatosConductor').modal('show');
-                
+                               
             });
          
 
@@ -538,9 +535,7 @@
                 });
                         
                       }else if(data.success == false){
-                        console.log('success=false');
-
-                        printErrorMsg(data.msg);
+                           printErrorMsg(data.msg);
                       }else{
                         console.log('printValidationErrorMsg');
                         $('#btn_guardarCandidato').prop('disabled', false);
@@ -568,24 +563,22 @@
 
         }); 
         
-        //si se pulsa  #updateConductor el botón Actualizar      
+        //si se pulsa el botón Actualizar  enviamos el formulario    
         $('#editConductorForm').submit(function(e){
              e.preventDefault();
             //let formData=$(this).serialize();
             $valor_cap=$('#cap').is(':checked');
             $valor_tarjeta_tacografo=$('#tarjeta_tacografo').is(':checked');
-            console.log('valor_CAP'+$valor_cap);
-            console.log('valor tarjeta Tacografo'+$valor_tarjeta_tacografo);
-            
+           
             var formData=new FormData(this);
 
-            //Camniamos los valores del checkbox cap a 1 o 0
+            //Cambiamos los valores del checkbox cap a 1 o 0
             if($valor_cap){
                 formData.set('cap',1);
             }else{
                 formData.set('cap',0);
             }
-            //Camniamos los valores del checkbox tarjeta de tacógrafo a 1 o 0
+            //Cambiamos los valores del checkbox tarjeta de tacógrafo a 1 o 0
             if($valor_cap){
                 formData.set('tarjeta_tacografo',1);
             }else{

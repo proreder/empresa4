@@ -17,11 +17,8 @@ class ConductoresController extends Controller
     //
 
     public function index(){
-        $html='';
-        echo 'index';
+        
         //obtenemos todos los registros de la tabla Empleado
-        //$datos['conductores']=ConductoresModel::all();
-        //return view('layouts.conductores.index', $datos);
         $conductores=ConductoresModel::paginate(10);
         return view('layouts.conductores.index', compact('conductores'));
        
@@ -29,9 +26,7 @@ class ConductoresController extends Controller
     //obtenemos un solo registro de la tabla conductores
     
     public function show(Request $request){
-
-        echo 'show';
-        $conductores=ConductoresModel::paginate(10);
+         $conductores=ConductoresModel::paginate(10);
         return view('layouts.conductores.index', ['conductores' => $conductores]);
      
     }

@@ -14,20 +14,14 @@ class VehiculosController extends Controller
      */
     public function index()
     {
-        return view('layouts.vehiculos.index');
+        $vehiculos=VehiculoModel::paginate(10);
+        return view('layouts.vehiculos.index', compact('vehiculos'));
     }
 
     public function listarVehiculos(){
         $vehiculos= VehiculoModel::all();
-        echo "listar vehiculos";
-        //dd($vehiculos);
-        $html='';
-        if($vehiculos->count()>0){
-            
-             return view('layouts/vehiculos/index',compact('vehiculos'));
-        }else{
-           echo $html.='<h1 class="text-center text-secundary my-5">No Hay registros en la base de datos</h1>';
-        }
+        return view('layouts/vehiculos/index',compact('vehiculos'));
+       
     }
 
     
@@ -72,10 +66,9 @@ class VehiculosController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 //guardamos el archivo con su nombre y extension en la carpeta imagenes
                 $rutaImagen= Storage::putFileAs('public/imagenes',$file,$name);
-                $addVehiculo->foto = $request->imagen;
                 $addVehiculo->imagen = $rutaImagen;
                 $addVehiculo->save();
-                return response()->json(['success' => true, 'msg' => 'Datos validados correctamente']);    
+                return response()->json(['success' => true, 'msg' => 'Vehículo guardado correctamente']);    
             }catch(\Exception $e){
                 return response()->json(['success' => false, 'msg' => $e->getMessage()]);
             }
@@ -111,16 +104,73 @@ class VehiculosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    public function updateVehiculo(Request $request){
+        $validator=Validator::make($request->all(),[
+             'matricula' => 'required',
+             'num_chasis' => 'required',
+             'potencia' => 'required',
+             'tipo' => 'required',
+             'modelo' => 'required',
+             'km_actuales' => 'required',
+             'km_revision' => 'required',
+             'disponible' => 'required',
+             'imagen' => 'required|image|mimes:png,jpg|max:5000'
+             
+         ]);
+         
+ 
+         //si hay error respondemos con un json y los errores detectados
+         if($validator->fails()){
+             return response()->json(['msg' => $validator->errors()->toArray()]);
+         }else{
+             try{
+                $disponible=true;
+                 //añadimo el vehiculo a la base de datos
+                 
+                 if($request->disponible == "Si"){
+                     $disponible=true;
+                 }else{
+                     $disponible=false;
+                 }
+                 //guardamos las imagenes en store
+                 //$file = $request->file('imagen');
+                 //$name = $file->getClientOriginalName();
+                 //$extension = $file->getClientOriginalExtension();
+                 //guardamos el archivo con su nombre y extension en la carpeta imagenes
+                 //$rutaImagen= Storage::putFileAs('public/imagenes',$file,$name);
+                 //$addVehiculo->imagen = $rutaImagen;
+                 $addVehiculo=VehiculoModel::where('id', $request->id_vehiculo)->update([
+                    'matricula'   => $request->matricula,
+                    'num_chasis'  => $request->num_chasis,
+                    'potencia'    => $request->potencia,
+                    'tipo'        => $request->tipo,
+                    'modelo'      => $request->modelo,
+                    'km_actuales' => $request->km_actuales,
+                    'km_revision' => $request->km_revision,
+                    'disponible'  =>  $disponible,
+                    'imagen'      => $request->imagen
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+                   
+                ]);
+                 return response()->json(['success' => true, 'msg' => 'Vehículo guardado correctamente']);    
+             }catch(\Exception $e){
+                 return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+             }
+         }
+    
+        }
+    
+        //Borra de la tabla un vehículo por el id
+    public function borrarVehiculo($id){
+        try{
+            
+            $conductor_borrado=VehiculoModel::where('id',$id)->delete();
+            return response()->json(['success' => true, 'msg' => 'Vehículo borrado correctamente.']);
+           //return redirect()->back();   
+        }catch(\Exception $e){
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
+       
     }
+    
 }
