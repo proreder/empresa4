@@ -90,6 +90,6 @@ Route::post('conductores/updateconductor', [ConductoresController::class, 'updat
 Route::get('vehiculos/index', [VehiculosController::class, 'listarVehiculos'])->name('listarVehiculos');
 Route::post('vehiculos/create', [VehiculosController::class, 'crearVehiculo'])->name('crearVehiculo');
 Route::get('vehiculos/delete/{id}', [VehiculosController::class, 'borrarVehiculo'])->name('borrarVehiculo');
-Route::post('vehiculo/updatevehiculo', [VehiculosController::class, 'updateVehiculo'])->name('updateVehiculo');
+Route::post('vehiculos/updatevehiculo', [VehiculosController::class, 'updateVehiculo'])->name('updateVehiculo');
 
 

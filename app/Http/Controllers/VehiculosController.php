@@ -105,15 +105,18 @@ class VehiculosController extends Controller
      * Update the specified resource in storage.
      */
     public function updateVehiculo(Request $request){
+        //obtenemos los datos enviados por el formulario de editar usuario y eliminamos el valor del token y method
+        $request->except('_token', '_method');
+        
         $validator=Validator::make($request->all(),[
-             'matricula' => 'required',
-             'num_chasis' => 'required',
-             'potencia' => 'required',
-             'tipo' => 'required',
-             'modelo' => 'required',
-             'km_actuales' => 'required',
-             'km_revision' => 'required',
-             'disponible' => 'required',
+             'matricula_edit' => 'required',
+             'num_chasis_edit' => 'required',
+             'potencia_edit' => 'required',
+             'tipo_edit' => 'required',
+             'modelo_edit' => 'required',
+             'km_actuales_edit' => 'required',
+             'km_revision_edit' => 'required',
+             'disponible_edit' => 'required',
              'imagen' => 'required|image|mimes:png,jpg|max:5000'
              
          ]);

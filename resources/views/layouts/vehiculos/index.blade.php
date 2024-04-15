@@ -194,7 +194,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
         </div>
         <div class="modal-body">
-            <form id="editarVehiculoForm">
+            <form id="editVehiculoForm">
             @csrf
               <input type="hidden" id="id_vehiculo" name="id_vehiculo">
               <div class="row mt-1 mb-3">
@@ -238,7 +238,7 @@
                         <span class='alert text-danger' id='km_revision_error'></span>
                     </div>
                     <div class="form-group ms-2">
-                        <label>Disponible:</label>
+                        <label for="disponible_edit">Disponible:</label>
                         <select class="form-select mb-3" id="disponible_edit" name="disponible_edit">
                             <option value="Si">Si</option>
                             <option value="No">No</option>
@@ -269,7 +269,7 @@
                     <div class="row row justify-content-between col-12">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                     <div id="spinnerVehiculo"></div>
-                                    <button type="submit" id="btn_guardarVehiculo" class="btn btn-danger">Guardar</button>
+                                    <button type="submit" id="btn_guardarVehiculo" class="btn btn-danger">Actualizar</button>
                     </div>
             </div>
         </form>
@@ -455,8 +455,8 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 $('#disponible').val(disponible);
             
 
+                console.log('Url: '+url_imagen)
                 var url="../storage/app/";
-                
                 $('#imagenEditForm').attr('src', url+url_imagen);
                 //Verificamos valor de disponible
                 if(disponible==true){
@@ -469,38 +469,26 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             });
 
             //si se pulsa   el botón Actualizar  enviamos el formulario    
-        $('#editVehiculosForm').submit(function(e){
+        $('#editVehiculoForm').submit(function(e){
+            console.log('pulsado en botón actualizar vehiculo');
              e.preventDefault();
-
-                //guardamos todos los valores de los inputs en valiables
-                var id_vehiculo = $(this).attr('data-id_edit');
-                var matricula = $(this).attr('data-matricula');
-                var chasis = $(this).attr('data-chasis');
-                var potencia = $(this).attr('data-potencia');
+             
+             var url="../storage/app/";
+                
+                var url_imagen=$('#imagenEditForm').attr('src');
                
-                var tipo = $(this).attr('data-tipo');
-                var modelo = $(this).attr('data-modelo');
-                var km_actuales = $(this).attr('data-km_actuales');
-                var km_revision = $(this).attr('data-km_revision');
-                var disponible = $(this).attr('data-disponible');
-                var url_imagen = $(this).attr('data-imagen');
-            
+                $disponible = $(this).attr('disponible_edit');
                 var formData=new FormData(this);
+                formData.set('imagen',url_imagen);
 
-            //Camniamos los valores del checkbox cap a 1 o 0
-            if($valor_cap){
-                formData.set('cap',1);
+            //Camniamos los valores del select  a 1 o 0
+            if($disponible==="Si"){
+                formData.set('disponible_edit',1);
             }else{
-                formData.set('cap',0);
+                formData.set('disponible_edit',0);
             }
-            //Camniamos los valores del checkbox tarjeta de tacógrafo a 1 o 0
-            if($valor_cap){
-                formData.set('tarjeta_tacografo',1);
-            }else{
-                formData.set('tarjeta_tacografo',0);
-            }
-            
-            
+                       
+            console.log(formData);
             $.ajax({
                 type: 'POST',
                 url: '{{ route("updateVehiculo") }}',
@@ -508,44 +496,33 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 contentType: false,
                 processData: false,
                 beforeSend: function(){
-                    //desactivamos el botón actualizar conductor
+                    //desactivamos el botón actualizar vehiculo
                     
-                    $('#btn_updateConductor').prop('disabled', true);
-                    $("#spinnerConductor").busyLoad("show", {
+                    $('#btn_updateVehiculo').prop('disabled', true);
+                    $("#spinnerVehiculo").busyLoad("show", {
                         fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
                     },
                 complete: function(){
-                    console.log('complete:');
+                    
                     //Si se ha completado la operación lo activamos
-                    $('#btn_updateConductor').prop('disabled', false);
+                    $('#btn_updateVehiculo').prop('disabled', false);
                 }, 
                 success: function(data){
-                    console.log('success');
+                    console.log('success updateVehiculo');
                       if(data.success == true){
                         //cerramos el modal agregarCandidato si se ha guardado la informacion en la base de datos correctamente
-                        $('#editarConductorModal').hide();
+                        $('#editVehiculoModal').hide();
                         location.reload();
                         printSuccessMsg(data.msg);
                       }else if(data.success == false){
                         console.log('success=false');
-                        $("#spinnerConductor").hide();
+                        $("#spinnerVehiculo").hide();
                         printErrorMsg(data.msg);
                       }else{
-                        $("#spinnerConductor").hide();
+                        $("#spinnerVehiculo").hide();
                         console.log('printValidationErrorMsg');
-                        if(!data.msg.cap) data.msg.cap="";
-                        if(!data.msg.tarjeta_tacografo) data.msg.tarjeta_tacografo="";
-                        if(!data.msg.imagen) data.msg.imagen="";
-                        //console.log('tamaño: '+Object.keys(data.msg.imagen).length);
-                        Swal.fire({
-                            title: "<h3 style='color:red'>¡¡Errores detectados!!</h3>",
-                            html: '<div style="color:red">'+data.msg.cap+"<br>"+data.msg.tarjeta_tacografo+"<br>"+data.msg.imagen+'</div>',
-                            icon: "warning",
-                            showCancelButton: false,
-                            confirmButtonColor: "#d33",
-                            confirmButtonText: "Continuar"
-                        });
-                        $('#btn_updateConductor').prop('disabled', false);
+                        
+                        $('#btn_updateVehiculo').prop('disabled', false);
                         printValidationErrorMsg(data.msg);
                       }
                 },
