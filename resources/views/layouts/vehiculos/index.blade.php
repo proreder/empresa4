@@ -194,18 +194,18 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
         </div>
         <div class="modal-body">
-            <form id="editVehiculoForm">
+            <form id="editVehiculoForm" method="POST" enctype="multipart/form-data">
             @csrf
               <input type="hidden" id="id_vehiculo" name="id_vehiculo">
               <div class="row mt-1 mb-3">
                     <div class="col-3">
                         <label for="matricula_edit" class="form-label">Matrícula:</label>
-                        <input type="text" class="form-control @error('matricula_error') is-invalid @enderror" id="matricula_edit" name="matricula_edit">
+                        <input type="text" class="form-control @error('matricula_error') is-invalid @enderror" id="matricula_edit" name="matricula_edit" readonly>
                         <small class='alert text-danger' id='matricula_error'></small>
                     </div> 
                     <div class="col-9">
                         <label for="num_chasis_edit" class="form-label">Chasis:</label>
-                        <input type="text" class="form-control" id="num_chasis_edit" name="num_chasis_edit">
+                        <input type="text" class="form-control" id="num_chasis_edit" name="num_chasis_edit" readonly>
                         <small class='alert text-danger' id='num_chasis_error'></small>
                     </div>
                </div> 

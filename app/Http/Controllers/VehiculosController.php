@@ -109,8 +109,8 @@ class VehiculosController extends Controller
         $request->except('_token', '_method');
         
         $validator=Validator::make($request->all(),[
-             'matricula_edit' => 'required',
-             'num_chasis_edit' => 'required',
+            // 'matricula_edit' => 'required',
+            // 'num_chasis_edit' => 'required',
              'potencia_edit' => 'required',
              'tipo_edit' => 'required',
              'modelo_edit' => 'required',
@@ -143,14 +143,14 @@ class VehiculosController extends Controller
                  //$rutaImagen= Storage::putFileAs('public/imagenes',$file,$name);
                  //$addVehiculo->imagen = $rutaImagen;
                  $addVehiculo=VehiculoModel::where('id', $request->id_vehiculo)->update([
-                    'matricula'   => $request->matricula,
-                    'num_chasis'  => $request->num_chasis,
-                    'potencia'    => $request->potencia,
-                    'tipo'        => $request->tipo,
-                    'modelo'      => $request->modelo,
-                    'km_actuales' => $request->km_actuales,
-                    'km_revision' => $request->km_revision,
-                    'disponible'  =>  $disponible,
+                   // 'matricula'   => $request->matricula,
+                   // 'numero_chasis'  => $request->num_chasis,
+                    'potencia'    => $request->potencia_edit,
+                    'tipo'        => $request->tipo_edit,
+                    'modelo'      => $request->modelo_edit,
+                    'km_actuales' => $request->km_actuales_edit,
+                    'km_revision' => $request->km_revision_edit,
+                    'disponible'  => $request->disponible_edit,
                     'imagen'      => $request->imagen
 
                    
