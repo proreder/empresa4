@@ -60,7 +60,7 @@
                                         <td>{{$vehiculo->km_revision}}</td>
                                         <td>{{$vehiculo->disponible}}</td>
                                         <td>@if ($vehiculo->imagen)
-                                                <img src="../storage/app/{{ $vehiculo->imagen }}" width="60">
+                                                <img src="../storage/app/{{ $vehiculo->imagen }}"  width="60">
                                             @endif
                                         </td>
                                         <!--
@@ -156,7 +156,7 @@
             
                     <div class="form_group">
                         <div class="file-select col-5 d-flex col-5 mx-auto" id="src-file1" >
-                            <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" data-imagen-edit="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event, 'imagenEditForm')">
+                            <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" data-imagen-edit="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event, 'imageNVehiculoNuevo')">
                         </div>
                         @error('imagen')
                         <small class="text-danger">
@@ -167,7 +167,7 @@
                     </div>
             
                     <div class="col-9 mx-auto borde_ccc">
-                            <img id="imagenSeleccionada" src="#" alt="" style="width: 300px;height: 175px;">
+                            <img id="imageNVehiculoNuevo" src="#" alt="" style="width: 300px;height: 175px;">
                     </div>
                 </div>     
            
@@ -195,25 +195,27 @@
         </div>
         <div class="modal-body">
             <form id="editVehiculoForm" method="POST" enctype="multipart/form-data">
+            @method('POST')
             @csrf
               <input type="hidden" id="id_vehiculo" name="id_vehiculo">
+              <input type="hidden" id="imagen_anterior" name="imagen_anterior">
               <div class="row mt-1 mb-3">
                     <div class="col-3">
                         <label for="matricula_edit" class="form-label">Matrícula:</label>
                         <input type="text" class="form-control @error('matricula_error') is-invalid @enderror" id="matricula_edit" name="matricula_edit" readonly>
-                        <small class='alert text-danger' id='matricula_error'></small>
+                        <small class='alert text-danger' id='matricula_error_edit'></small>
                     </div> 
                     <div class="col-9">
                         <label for="num_chasis_edit" class="form-label">Chasis:</label>
                         <input type="text" class="form-control" id="num_chasis_edit" name="num_chasis_edit" readonly>
-                        <small class='alert text-danger' id='num_chasis_error'></small>
+                        <small class='alert text-danger' id='num_chasis_error_edit'></small>
                     </div>
                </div> 
                <div class="row mb-3">
                     <div class="col-3">
                         <label for="potencia_edit" class="form-label">Potencia:</label>
                         <input type="text" class="form-control" id="potencia_edit" name="potencia_edit">
-                        <small class='alert text-danger' id='potencia_error'></small>
+                        <small class='alert text-danger' id='potencia_error_edit'></small>
                     </div> 
                     <div class="col-4">
                         <label for="tipo_edit" class="form-label">Tipo:</label>
@@ -249,7 +251,7 @@
             
                     <div class="form_group">
                         <div class="file-select col-5 d-flex col-5 mx-auto" id="src-file1" >
-                            <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" data-imagen-edit="imagen" id="imagen" accept="image/*" value="{{old('imagen')}}" onchange="mostrarImagen(event, 'imagenEditForm')">
+                            <input class="form-control col-12 borde_ccc @error('imagen') is-invalid @enderror" type="file" name="imagen" data-imagen-edit="imagen" id="imagen" accept="image/*" value="" onchange="mostrarImagen(event, 'imagenEditForm')">
                         </div>
                         @error('imagen')
                         <small class="text-danger">
@@ -260,14 +262,14 @@
                     </div>
             
                     <div class="col-9 mx-auto borde_ccc">
-                            <img id="imagenEditForm" src="" alt="" style="width: 300px;height: 175px;">
+                            <img id="imagenEditForm" name="imagenEditForm" src="#" alt="" style="width: 300px;height: 175px;">
                     </div>
                 </div>     
            
             </div>
             <div class="modal-footer">
                     <div class="row row justify-content-between col-12">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-secondary" onclick="history.back()" data-bs-dismiss="modal">Cerrar</button>
                                     <div id="spinnerVehiculo"></div>
                                     <button type="submit" id="btn_guardarVehiculo" class="btn btn-danger">Actualizar</button>
                     </div>
@@ -440,7 +442,9 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 var km_actuales = $(this).attr('data-km_actuales');
                 var km_revision = $(this).attr('data-km_revision');
                 var disponible = $(this).attr('data-disponible');
+                //imagen cargada de la tabla
                 var url_imagen = $(this).attr('data-imagen');
+
                                
                 //rellenamos el formulario modal con los datos de la fila seleccionada
                 $('#editarVehiculo').modal('show');
@@ -453,13 +457,14 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 $('#km_actuales_edit').val(km_actuales);
                 $('#km_revision_edit').val(km_revision);
                 $('#disponible').val(disponible);
-            
-
-                console.log('Url: '+url_imagen)
-                var url="../storage/app/";
-                $('#imagenEditForm').attr('src', url+url_imagen);
+                url_storage="../storage/app/"+url_imagen;
+                console.log(url_storage);
+                //Cambiamos el valor de la src para que se mustre la imagen
+                $('#imagenEditForm').attr('src', url_storage);
+                //guardamos el valor de la imagen anterior en el input imanen_anterior
+                $('#imagen_anterior').val(url_imagen);
                 //Verificamos valor de disponible
-                if(disponible==true){
+                if(disponible==='Si'){
                     $("#disponible").prop('checked',true);
                 }else{
                     $("#disponible").prop('checked',false);
@@ -473,13 +478,13 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             console.log('pulsado en botón actualizar vehiculo');
              e.preventDefault();
              
-             var url="../storage/app/";
+             //var url="../storage/app/";
                 
-                var url_imagen=$('#imagenEditForm').attr('src');
+             //var url_imagen=$('#imagenEditForm').attr('src');
                
                 $disponible = $(this).attr('disponible_edit');
                 var formData=new FormData(this);
-                formData.set('imagen',url_imagen);
+             //   formData.set('imagen',url_imagen);
 
             //Camniamos los valores del select  a 1 o 0
             if($disponible==="Si"){
@@ -495,6 +500,8 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 data: formData,
                 contentType: false,
                 processData: false,
+                cache: false,
+                dataType: 'json',
                 beforeSend: function(){
                     //desactivamos el botón actualizar vehiculo
                     
@@ -508,14 +515,16 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                     $('#btn_updateVehiculo').prop('disabled', false);
                 }, 
                 success: function(data){
-                    console.log('success updateVehiculo');
+                    
                       if(data.success == true){
                         //cerramos el modal agregarCandidato si se ha guardado la informacion en la base de datos correctamente
                         $('#editVehiculoModal').hide();
-                        location.reload();
+                        //$('#editVehiculoForm')[0].reset();
                         printSuccessMsg(data.msg);
+
+                        
                       }else if(data.success == false){
-                        console.log('success=false');
+                        
                         $("#spinnerVehiculo").hide();
                         printErrorMsg(data.msg);
                       }else{
@@ -523,7 +532,9 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                         console.log('printValidationErrorMsg');
                         
                         $('#btn_updateVehiculo').prop('disabled', false);
+						//Se muestran errores de validacion
                         printValidationErrorMsg(data.msg);
+
                       }
                 },
             });
@@ -555,23 +566,66 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
         };
      });
         //Mostramos la imagen seleccionada
-        function mostrarImagen(event, id) {
+        
+        function mostrarImagen(event, id, id_update=null) {
                 var input = event.target;
                 var reader = new FileReader();
                 
                 reader.onload = function() {
                 var imagen = document.getElementById(id);
                 imagen.src = reader.result;
+                $(id).attr('src', imagen.src);
+                if(id_update){
+                    console.log('Imagen de update');
+                    $(id_update).attr('src', imagen.src);
+                }
+                console.log('Mostrar imagen id: '+id);
+                console.log('img.src: '+imagen.src);
                 }
                 
                 reader.readAsDataURL(input.files[0]);
          };
+         
+         /*
+         //Mostramos la imagen seleccionada en un input file
+         function mostrarImagen(input,id) {
+                console.log('Mostrar imagen id: '+id);
+                if (input.files && input.files[0]) { //Revisamos que el input tenga contenido
+                    var reader = new FileReader(); //Leemos el contenido
+                    
+                    reader.onload = function(e) { //Al cargar el contenido lo pasamos como atributo de la imagen de arriba
+                    $(id).attr('src', e.target.result);
+                    console.log("e.target.result.: "+e.target.result);
+                    console.log('Mostrar imagen id: '+id);
+                    }
+                    
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+   
+            //$("#mostra").change(function() { //Cuando el input cambie (se cargue un nuevo archivo) se va a ejecutar de nuevo el cambio de imagen y se verá reflejado.
+            //readURL(this);
+            //});
+
+        */
+
           //Creamos las tres funciones para craer los mensajes
           function printValidationErrorMsg(msg){
+                texto="";
                 $.each(msg, function(field_name, error){
-                    console.log(field_name, error);
+                    console.log("Field_name: "+field_name, error);
+                    texto+=error+"<br>";
                     $(document).find('#'+field_name+'_error').text(error);
+                   
                 });
+                Swal.fire({
+                        title: "Acción sobre vehículos",
+                        html: '<h6 style="color:red">'+texto+'</h6>',
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#d33",
+                        confirmButtonText: "Continuar"
+                })
             }
             function printErrorMsg(msg){
                 Swal.fire({
@@ -583,7 +637,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 confirmButtonText: "Continuar"
               }).then((result) => {
  
-                //si wl formulario se envió correctamente de resetra los campos del formulario
+                //si e formulario se envió correctamente de resetra los campos del formulario
                 document.getElementById('addVehiculoForm').reset();
                 //recargamos la página para actualizar los cambios
                 location.reload();

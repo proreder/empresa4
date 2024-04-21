@@ -46,12 +46,14 @@ class ConductoresController extends Controller
     public function updateConductor(Request $request){
         //obtenemos los datos enviados por el formulario de editar usuario y eliminamos el valor del token y method
         $request->except('_token', '_method');
+        dd($request);
         $validator=Validator::make($request->all(),[
+            'id_conductor' => "required",
             'permisos' => 'required',
             'cap' => 'required',
             'tarjeta_tacografo' => 'required',
             'tipo_ADR' => 'required',
-            'imagen' => 'required|image|mimes:png,jpg|max:5000'
+            'imagen' => 'nullable|image|mimes:png,jpg|max:5000'
             
         ]);
         //si hay error respondemos con un json y los errores detectados
@@ -59,20 +61,34 @@ class ConductoresController extends Controller
             return response()->json(['msg' => $validator->errors()->toArray()]);
         }else{
             try{
+                //obtenemos la ruta de la imagen
+                //guardamos las imágenes en store si hay actualización de imagen
+                if($request->hasFile('imagen')){
+                    
+                    $file = $request->file('imagen');
+                   
+                    $name = $file->getClientOriginalName();
+                    $extension = $file->getClientOriginalExtension();
+                    //guardamos el archivo con su nombre y extension en la carpeta imagenes
+                    $rutaImagen= Storage::putFileAs('public/imagenes',$file,$name);
+                    
+                 }
+
+                //procesamos los datos devueltos de los checkbox cap y tarjeta tacografo, si está activado es 'on'
+                // y cambiamos a true en caso contrario false para que podamos guardar estos valores en los campos
+                if($request->cap=='on'){
+                   $cap=true;
+                 }else{
+                    $cap=false;
+                 }
                 $editarConductor=ConductoresModel::where('id', $request->id_conductor)->update([
                     'permisos'          => $request->permisos,
-                    'cap'               => $request->cap,
+                    'cap'               => $cap,
                     'tarjeta_tacografo' => $request->tarjeta_tacografo,
                     'tipo_ADR'          => $request->tipo_ADR,
                     'imagen'            => $request->imagen
                 ]);
-                //procesamos los datos devueltos de los checkbox cap y tarjeta tacografo, si está activado es 'on'
-                // y cambiamos a true en caso contrario false para que podamos guardar estos valores en los campos
-                //if($request->cap=='on'){
-                //    $request->cap=true;
-                //}else{
-                //    $request->cap=false;
-                //}
+                
                 // Si no hay errores devolvemos un json con el mensaje
                 return response()->json(['success' => true, 'msg' => 'Conductor actualizado correctamente'.$editarConductor]);
             }catch(\Exception $ex){

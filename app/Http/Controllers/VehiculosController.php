@@ -46,6 +46,7 @@ class VehiculosController extends Controller
             return response()->json(['msg' => $validator->errors()->toArray()]);
         }else{
             try{
+
                 //añadimo el vehiculo a la base de datos
                 $addVehiculo = new VehiculoModel;
                 $addVehiculo->matricula = $request->matricula;
@@ -62,7 +63,7 @@ class VehiculosController extends Controller
                 }
                 //guardamos las imagenes en store
                 $file = $request->file('imagen');
-                $name = $file->getClientOriginalName();
+                $name = time() . '.' . $file->getClientOriginalName();
                 $extension = $file->getClientOriginalExtension();
                 //guardamos el archivo con su nombre y extension en la carpeta imagenes
                 $rutaImagen= Storage::putFileAs('public/imagenes',$file,$name);
@@ -117,7 +118,7 @@ class VehiculosController extends Controller
              'km_actuales_edit' => 'required',
              'km_revision_edit' => 'required',
              'disponible_edit' => 'required',
-             'imagen' => 'required|image|mimes:png,jpg|max:5000'
+             'imagen-edit' => 'nullable|image|mimes:png,jpg|max:5000'
              
          ]);
          
@@ -129,18 +130,27 @@ class VehiculosController extends Controller
              try{
                 $disponible=true;
                  //añadimo el vehiculo a la base de datos
-                 
+                 //dd($request);
                  if($request->disponible == "Si"){
                      $disponible=true;
                  }else{
                      $disponible=false;
                  }
-                 //guardamos las imagenes en store
-                 //$file = $request->file('imagen');
-                 //$name = $file->getClientOriginalName();
-                 //$extension = $file->getClientOriginalExtension();
-                 //guardamos el archivo con su nombre y extension en la carpeta imagenes
-                 //$rutaImagen= Storage::putFileAs('public/imagenes',$file,$name);
+                 //dd($request);
+                 $rutaImagen=$request->imagen_anterior;
+                 //guardamos las imagenes en store si hay actualización de imagen
+                 if($request->hasFile('imagen-edit')){
+                    
+                    $file = $request->file('imagen-edit');
+                   
+                    $name = $file->getClientOriginalName();
+                    $extension = $file->getClientOriginalExtension();
+                    //guardamos el archivo con su nombre y extension en la carpeta imagenes
+                    $rutaImagen= Storage::putFileAs('public/imagenes',$file,$name);
+                    //dd($file);
+                 }
+                 
+                 
                  //$addVehiculo->imagen = $rutaImagen;
                  $addVehiculo=VehiculoModel::where('id', $request->id_vehiculo)->update([
                    // 'matricula'   => $request->matricula,
@@ -150,8 +160,8 @@ class VehiculosController extends Controller
                     'modelo'      => $request->modelo_edit,
                     'km_actuales' => $request->km_actuales_edit,
                     'km_revision' => $request->km_revision_edit,
-                    'disponible'  => $request->disponible_edit,
-                    'imagen'      => $request->imagen
+                    'disponible'  => $disponible,
+                    'imagen'      => $rutaImagen
 
                    
                 ]);

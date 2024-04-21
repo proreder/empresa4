@@ -55,7 +55,7 @@
                                 <!-- <a href="" class="btn_edit text-success mx-1 editIcon" id=""data-bs-toggle="modal"  data-bs-target="#editarConductor{{$conductor->nifnie_empleado}}"><i class="bi-pencil-square h4"></i></a>
                                 -->
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn_editar btn btn-link"  data-bs-toggle="modal" data-bs-target="#editarConductorModal" data-id="{{$conductor->id}}" data-nifnie_empleado="{{$conductor->nifnie_empleado}}" data-permisos="{{$conductor->permisos}}" data-cap="{{$conductor->cap}}" data-tarjeta_tacografo="{{$conductor->tarjeta_tacografo}}" data-tipo_ADR="{{$conductor->tipo_ADR}}" data-imagen="../storage/app/{{ $conductor->imagen }}"><i class="bi-pencil-square h4"></i></button>
+                                    <button type="button" class="btn_editar btn btn-link"  data-bs-toggle="modal"  data-bs-config="backdrop:true" data-bs-target="#editarConductorModal" data-id="{{$conductor->id}}" data-nifnie_empleado="{{$conductor->nifnie_empleado}}" data-permisos="{{$conductor->permisos}}" data-cap="{{$conductor->cap}}" data-tarjeta_tacografo="{{$conductor->tarjeta_tacografo}}" data-tipo_ADR="{{$conductor->tipo_ADR}}" data-imagen="{{ $conductor->imagen }}"><i class="bi-pencil-square h4"></i></button>
                                     <button type="button"  data-toggle="popover" id="btn_borrar"  class="btn_borrar btn btn-link text-danger" data-id="{{$conductor->id}}"><i class="bi bi-trash h4"></i></button>
                             </td>
                         </tr>
@@ -83,6 +83,7 @@
                 <form id="editConductorForm" method="POST" enctype="multipart/form-data">
                     @csrf
                         <input type="hidden" id="id_conductor" name="id_conductor">
+                        <input type="hidden" id="imagen_anterior" name="imagen_anterior">
                         <div class="mb-3 col-7">
                             <label for="nombre" class="form-label">Nombre:</label>
                             <input type="text" class="form-control form-control-sm" id="nombre" aria-describedby="nombre" disabled readonly>
@@ -397,6 +398,8 @@
             });
             //si se pulsa el boton editar se abre el modal con los datos de fila de la tabla
             $('#tabla_conductores tbody').on( 'click', '.btn_editar', function () {
+                console.log("Conductor");
+                var id_conductor=$(this).attr('data-id')
                 var nifnie_empleado = $(this).attr('data-nifnie_empleado');
                 var nombre = $(this).closest('tr').find('td:eq(2)').text();
                 var permisos = $(this).attr('data-permisos');
@@ -410,11 +413,14 @@
                 
                 //mostramos el formulario modal
                 $('#editarConductor').modal('show');
+                $('#id_conductor').val(id_conductor);
                 $("#nifnie_empleado").val(nifnie_empleado);
                 $('#nombre').val(nombre);
                 $('#permisos').val(permisos);
-                $('#id_conductor').val(id_conductor);
-                $('#imagenEditForm').attr('src', url_imagen);
+                
+
+                url_storage="../storage/app/"+url_imagen;
+                $('#imagenEditForm').attr('src', url_storage);
                 //Verificamos valor de cap
                 if(cap==true){
                     $("#cap").prop('checked',true);
@@ -482,7 +488,10 @@
                 $('#editarConductorCandidato').modal('show');
                 $('#nifnie_candidato').val(nifnie_candidato);
                 $('#nombre_candidato').val(nombre+' '+apellidos);
-                $('#imagenCandidato').attr('src', imagenCandidato);
+                //url_storage contiene la ruta relativa a sconcatenar con la ruta del archivo
+                var url_storage="../storage/app/"+imagenCandidato;
+                console.log(url_storage);
+                $('#imagenCandidato').attr('src', url_storage);
                                
             });
          
@@ -578,7 +587,7 @@
             }else{
                 formData.set('cap',0);
             }
-            //Cambiamos los valores del checkbox tarjeta de tacógrafo a 1 o 0
+            //Cambiamos los valores del checkbox tarjeta de tacógrafo a 1 ó 0
             if($valor_cap){
                 formData.set('tarjeta_tacografo',1);
             }else{
@@ -600,24 +609,24 @@
                         fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
                     },
                 complete: function(){
-                    console.log('complete:');
+                    
                     //Si se ha completado la operación lo activamos
                     $('#btn_updateConductor').prop('disabled', false);
+                    
                 }, 
                 success: function(data){
-                    console.log('success');
+                    
                       if(data.success == true){
                         //cerramos el modal agregarCandidato si se ha guardado la informacion en la base de datos correctamente
                         $('#editarConductorModal').hide();
-                        location.reload();
-                        printSuccessMsg(data.msg);
+                       printSuccessMsg(data.msg);
                       }else if(data.success == false){
-                        console.log('success=false');
+                        
                         $("#spinnerConductor").hide();
                         printErrorMsg(data.msg);
                       }else{
                         $("#spinnerConductor").hide();
-                        console.log('printValidationErrorMsg');
+                        
                         if(!data.msg.cap) data.msg.cap="";
                         if(!data.msg.tarjeta_tacografo) data.msg.tarjeta_tacografo="";
                         if(!data.msg.imagen) data.msg.imagen="";
@@ -642,59 +651,77 @@
         }); 
             
     });      
-        
-        //Mostramos la imagen seleccionada
-        function mostrarImagen(event, id) {
-            console.log('se muestra imagen');
-                    var input = event.target;
-                    var reader = new FileReader();
-                    
-                    reader.onload = function() {
-                        var imagen = document.getElementById(id);
-                        imagen.src = reader.result;
-                    }
-                    
-                    reader.readAsDataURL(input.files[0]);
-        };
+      
+       
+        //obtenemos la url de la imagen
+        function mostrarImagen(input,id) {
+            var input = event.target;
+                var reader = new FileReader();
+                
+                reader.onload = function() {
+                var imagen = document.getElementById(id);
+                imagen.src = reader.result;
+                $(id).attr('src', imagen.src);
+               
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+        }
+        /*
+        $("#imgInp").change(function() { //Cuando el input cambie (se cargue un nuevo archivo) se va a ejecutar de nuevo el cambio de imagen y se verá reflejado.
+        readURL(this);
+        });
+        */
          //Creamos las tres funciones para los tres tipos de mensajes
          function printValidationErrorMsg(msg){
+            texto="";
                 $.each(msg, function(field_name, error){
-                    console.log(field_name, error);
+                    console.log("Field_name: "+field_name, error);
+                    texto+=error+"<br>";
                     $(document).find('#'+field_name+'_error').text(error);
+                   
                 });
+                Swal.fire({
+                        title: "Acción sobre conductores",
+                        html: '<h6 style="color:red">'+texto+'</h6>',
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#d33",
+                        confirmButtonText: "Continuar"
+                })
             }
             function printErrorMsg(msg){
-                console.log(msg);
-                $('#alerta-error').html('');
-                $('#alerta-error').css('display','block');
-                $('#alerta-error').append(''+msg+'');
+                Swal.fire({
+                title: "Acción sobre conductores",
+                html: '<h3>'+msg+'</h3>',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Continuar"
+              }).then((result) => {
+ 
+                //si e formulario se envió correctamente de resetra los campos del formulario
+                document.getElementById('addVehiculoForm').reset();
+                //recargamos la página para actualizar los cambios
+                location.reload();
+              })
             }
             function printSuccessMsg(msg){
-                console.log(msg);
-                $('#alerta-success').html('');
-                $('#alerta-success').css('display','block');
-                $('#alerta-success').append(''+msg+'');
+                Swal.fire({
+                title: "Acción sobre conductores",
+                html: '<h3>'+msg+'</h3>',
+                icon: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Continuar"
+              }).then((result) => {
+ 
                 //si wl formulario se envió correctamente de resetra los campos del formulario
-                //document.getElementById('addVehiculoForm').reset();
+                document.getElementById('editConductorForm').reset();
+                //recargamos la página para actualizar los cambios
+                location.reload();
+              })
             }
     </script>
-    @if (Session::has('success'))
-        <script>
-            Swal.fire({
-                title: "Borrado",
-                text: "El conductor se ha borrado corectamente",
-                icon: "question"
-            });
-        </script>
-        Session::flush());
-    @else
-    <script>
-            Swal.fire({
-                title: "Borrado",
-                text: "Se ha producido un error en el borrado",
-                icon: "error"
-            });
-        </script>
-        Session::flush();
-    @endif
+   
 @endsection
