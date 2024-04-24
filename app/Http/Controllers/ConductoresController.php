@@ -46,9 +46,9 @@ class ConductoresController extends Controller
     public function updateConductor(Request $request){
         //obtenemos los datos enviados por el formulario de editar usuario y eliminamos el valor del token y method
         $request->except('_token', '_method');
-        dd($request);
+        // dd($request);
         $validator=Validator::make($request->all(),[
-            'id_conductor' => "required",
+           
             'permisos' => 'required',
             'cap' => 'required',
             'tarjeta_tacografo' => 'required',
@@ -61,6 +61,7 @@ class ConductoresController extends Controller
             return response()->json(['msg' => $validator->errors()->toArray()]);
         }else{
             try{
+                $rutaImagen=$request->imagen_anterior;
                 //obtenemos la ruta de la imagen
                 //guardamos las imágenes en store si hay actualización de imagen
                 if($request->hasFile('imagen')){
@@ -74,43 +75,25 @@ class ConductoresController extends Controller
                     
                  }
 
-                //procesamos los datos devueltos de los checkbox cap y tarjeta tacografo, si está activado es 'on'
-                // y cambiamos a true en caso contrario false para que podamos guardar estos valores en los campos
-                if($request->cap=='on'){
-                   $cap=true;
-                 }else{
-                    $cap=false;
-                 }
+                
+                 //dd($request);
                 $editarConductor=ConductoresModel::where('id', $request->id_conductor)->update([
                     'permisos'          => $request->permisos,
-                    'cap'               => $cap,
+                    'cap'               => $request->cap,
                     'tarjeta_tacografo' => $request->tarjeta_tacografo,
                     'tipo_ADR'          => $request->tipo_ADR,
-                    'imagen'            => $request->imagen
+                    'imagen'            => $rutaImagen,
                 ]);
                 
                 // Si no hay errores devolvemos un json con el mensaje
-                return response()->json(['success' => true, 'msg' => 'Conductor actualizado correctamente'.$editarConductor]);
+                return response()->json(['success' => true, 'msg' => 'Conductor actualizado correctamente']);
             }catch(\Exception $ex){
                 return response()->json(['success' => false, 'msg' => $ex->getMessage()]);   
             } 
         }    
     }
 
-    /*
-    //actualizamos un conductor
-    public function update(Request $request, $nifnie_empleado){
-        dd($request);
-        echo("update: ".$nifnie_empleado);
-        $conductores=ConductoresModel::find($nifnie_empleado);
-        $conductores->permisos=$request->input('permisos');
-        $conductores->cap=$request->input('cap');
-        $conductores->tarjeta_tacofrafo=$request->input('tarjeta_tacografo');
-        $conductores->tipo_ADR=$reques->input('tipo_ADR');
-        $conductores->save();
-        return redirect()->back();
-    }
-*/
+    
     //Borra de la tabla un conductor
     public function delete($id){
         try{
@@ -133,7 +116,7 @@ class ConductoresController extends Controller
             'cap' => 'required',
             'tarjeta_tacografo' => 'required',
             'tipo_ADR' => 'required',
-            'imagen' => 'required|image|mimes:png,jpg|max:5000'
+            'imagen' => 'nullable|image|mimes:png,jpg|max:5000'
             
         ]);
         //si hay error respondemos con un json y los errores detectados
@@ -141,56 +124,45 @@ class ConductoresController extends Controller
             return response()->json(['msg' => $validator->errors()->toArray()]);
         }else{
             try{
+                
                 //añadimo el conductor a la base de datos
                 $addConductor = new ConductoresModel;
                 $addConductor->nifnie_empleado = $request->nifnie_candidato;
                 $addConductor->permisos = $request->permisos;
-                if($request->cap==="on") {
-                    $addConductor->cap = 1;
-                }else{
-                    $addConductor->cap = 0;
-                }
-                if($request->tarjeta_tacografo==="on") {
-                    $addConductor->tarjeta_tacografo = 1;
-                }else{
-                    $addConductor->tarjeta_tacografo = 0;
-                }
+                $addConductor->cap = $request->cap;
+                $addConductor->tarjeta_tacografo = $request->tarjeta_tacografo;
                 
                 $addConductor->tipo_ADR = $request->tipo_ADR;
+                $rutaImagen=$request->imagen_candidato_anterior;
                 
                 //guardamos las imagenes en store
-                $file = $request->file('imagen');
-                $name = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                //guardamos el archivo con su nombre y extension en la carpeta imagenes
-                $rutaImagen= Storage::putFileAs('public/imagenes',$file,$name);
+                if ($request->hasFile('imagen')){
+                    
+                    $file = $request->file('imagen');
+                    $name = $file->getClientOriginalName();
+                    $extension = $file->getClientOriginalExtension();
+                    //guardamos el archivo con su nombre y extension en la carpeta imagenes
+                    $rutaImagen= Storage::putFileAs('public/imagenes',$file,$name);    
+                }
+               
                 //$addConductor->foto = $request->imagen;
                 $addConductor->imagen = $rutaImagen;
                 
                 $addConductor->save();
-                return response()->json(['success' => true, 'msg' => 'Datos validados correctamente']);    
+                return response()->json(['success' => true, 'msg' => 'Conductor añadido correctamente']);    
             }catch(\Exception $e){
                 return response()->json(['success' => false, 'msg' => $e->getMessage()]);
             }
         }
 
     }
-        /*
-        $conductores=ConductoresModel::find($nifnie_empleado);
-        $conductores->permisos=$request->input('permisos');
-        $conductores->cap=$request->input('cap');
-        $conductores->tarjeta_tacofrafo=$request->input('tarjeta_tacografo');
-        $conductores->tipo_ADR=$request->input('tipo_ADR');
-        $conductores->save();
-        return redirect()->back();
-        */
 
     
     //obtener el listado de empleados candidatos a conductor
     function obtenerCandidatos(Request $request){
         
 
-        $candidatos = DB::table("empleado")->select('nifnie', 'nombre','apellidos', 'imagen')
+        $candidatos = DB::table("empleado")->select('id','nifnie', 'nombre','apellidos', 'imagen')
                         ->where('tipo','=','Conductor')
                         ->whereNOTIn('nifnie',function($query){
                                                                 $query->select('nifnie_empleado')->from('conductor');

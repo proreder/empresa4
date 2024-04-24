@@ -20,7 +20,7 @@
         <!--data-bs-target="#agregarConductor"-->
         <button class="btn btn-success btn-sm" data-bs-toggle="modal" id="agregarCandidato" data-bs-target="#modalTablaCandidatos"><i class="bi-plus-circle me-2"></i>Añadir conductor</button>
         <br><br>
-        <div  id="spinner"></div>
+        
         <table id="tabla_conductores" class="table table-striped border">
             <thead class="thead-light">
                 <tr>
@@ -65,6 +65,7 @@
                     <td class="flex mx-auto col-12"><h2>No hay datos que mostrar</h2></td>
                 @endif
             </tbody>
+            <div  id="spinner"></div>
         </table>
         
         <!--End card-->
@@ -205,8 +206,11 @@
                 <small class='alert alert-danger' id='alerta-error' style='display: none;'></small> 
                 <div class="modal-body">
                 
-                <form id="guardarCandidatoForm" enctype="multipart/form-data">
+                <form id="guardarCandidatoForm" method="post" enctype="multipart/form-data">
+                
                 @csrf
+                        <input type="hidden" name="id_candidato" id="id_candidato">
+                        <input type="hidden" name="imagen_candidato_anterior" id="imagen_candidato_anterior">
                         <div class="mb-3 col-7">
                             <label for="nombre" class="form-label">Nombre:</label>
                             <input type="text" class="form-control form-control-sm" id="nombre_candidato" aria-describedby="nombre_candidato" readonly>
@@ -228,11 +232,11 @@
                                 </select>
                             </div> 
                             <div class="mb-2 col-4 form-check">
-                                        <input type="checkbox" class="form-check-input" id="cap" name="cap">
+                                        <input type="checkbox" class="form-check-input" id="cap_edit" name="cap" value="off">
                                         <label class="form-check-label" for="cap">Permiso CAP</label>
                             </div>
                             <div class="mb-2 col-5 form-check">
-                                      <input type="checkbox" class="form-check-input" id="tarjeta_tacografo" name="tarjeta_tacografo">
+                                      <input type="checkbox" class="form-check-input" id="tarjeta_tacografo_edit" name="tarjeta_tacografo">
                                       <label class="form-check-label" for="tarjeta_tacografo">Tarjeta de Tacógrafo</label>
                             </div>
                     </div> 
@@ -368,7 +372,7 @@
                                 $('.btn_borrar').prop('disabled', false);
                             }, 
                             success: function(data){
-                                console.log('success');
+                                
                                 if(data.success == true){
                                     Swal.fire({
                                         title: "Borrado",
@@ -398,7 +402,7 @@
             });
             //si se pulsa el boton editar se abre el modal con los datos de fila de la tabla
             $('#tabla_conductores tbody').on( 'click', '.btn_editar', function () {
-                console.log("Conductor");
+                
                 var id_conductor=$(this).attr('data-id')
                 var nifnie_empleado = $(this).attr('data-nifnie_empleado');
                 var nombre = $(this).closest('tr').find('td:eq(2)').text();
@@ -421,6 +425,7 @@
 
                 url_storage="../storage/app/"+url_imagen;
                 $('#imagenEditForm').attr('src', url_storage);
+                $('#imagen_anterior').val(url_imagen);
                 //Verificamos valor de cap
                 if(cap==true){
                     $("#cap").prop('checked',true);
@@ -440,7 +445,7 @@
             //si se pulsa el botón añadir conductor mostramos una tabla de los empleados que tienen
             //el tipo=conductor y no estan en la tabla conductor
             $('#agregarCandidato').on('click', function(){
-                console.log('boton pulsado agregar conductores');
+                
                     //mostramos el formulario modal
                 $('#modalTablaCandidatos').modal('show');
                 $.ajax({
@@ -453,12 +458,13 @@
                         //variable para alpacear el contenido del tbody
                         var html="";
                         var url="../storage/app";
+                        
                         response.forEach(function(candidato){
                             if(candidato.imagen===null) candidato.imagen='\\public\\imagenes\\anonimo.png';
                             html+="<tr>";
                             html+='<td><img width="30" src="'+url.concat("/",candidato.imagen)+'"></td><td>'+candidato.nifnie+'</td>"'                          
                             +"<td>"+candidato.nombre+"</td>"+"<td>"+candidato.apellidos+"</td>"+
-                            '<td><button type="button" class="btn_editarCandidato btn btn-link" data-nifnie="'+candidato.nifnie+'" data-nombre="'+candidato.nombre+'" data-apellidos="'+candidato.apellidos+'"  data-imagen="'+url.concat("/",candidato.imagen)+'"><i class="bi-pencil-square h4"></i></button>';
+                            '<td><button type="button" class="btn_editarCandidato btn btn-link" data-id="'+candidato.id+'" data-nifnie="'+candidato.nifnie+'" data-nombre="'+candidato.nombre+'" data-apellidos="'+candidato.apellidos+'"  data-imagen="'+candidato.imagen+'" data-cap="'+candidato.cap+'" data-tarjeta-tacografo="'+candidato.tarjeta_tacografo+'"><i class="bi-pencil-square h4"></i></button>';
                             +"</td>";
                             html+="</tr>";
                             
@@ -479,19 +485,23 @@
             $('#tabla_candidatos tbody').on('click','.btn_editarCandidato', function () {
                 
                 $('#modalTablaCandidatos').modal('hide');
+                var id_candidato= $(this).attr('data-id');
                 var nifnie_candidato = $(this).attr('data-nifnie');
                 var nombre = $(this).attr('data-nombre');
                 var apellidos = $(this).attr('data-apellidos');
                 var imagenCandidato=$(this).attr('data-imagen');
                 
+                
                 //mostramos el formulario modal para agregar un conductor candidato
                 $('#editarConductorCandidato').modal('show');
+                $('#id_candidato').val(id_candidato);
                 $('#nifnie_candidato').val(nifnie_candidato);
                 $('#nombre_candidato').val(nombre+' '+apellidos);
                 //url_storage contiene la ruta relativa a sconcatenar con la ruta del archivo
                 var url_storage="../storage/app/"+imagenCandidato;
-                console.log(url_storage);
+                
                 $('#imagenCandidato').attr('src', url_storage);
+                $('#imagen_candidato_anterior').val(imagenCandidato);
                                
             });
          
@@ -499,9 +509,29 @@
          //si se pulsa  #btn_guardarCandidato       
          $('#guardarCandidatoForm').submit(function(e){
              e.preventDefault();
-            //let formData=$(this).serialize();
-            var formData=new FormData(this);
             
+             //verificamos los estados de los checkbox
+            var formData=new FormData(this);
+
+            //verificamos si estan presentes cap
+            if(formData.get('cap')){
+
+                
+                formData.set('cap',1);
+            }else{
+               
+                formData.set('cap',0);
+            }
+
+            //verificamos si estan presentes cap y tacografo
+            if(formData.get('tarjeta_tacografo')){
+
+                formData.set('tarjeta_tacografo',1);
+                }else{
+                
+                formData.set('tarjeta_tacografo',0);
+            }
+             //enviamos la petición ajax para añadir un nuevo conductor
             $.ajax({
                 type: 'POST',
                 url: '{{ route("agregarConductor") }}',
@@ -516,42 +546,29 @@
                         fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
                     },
                 complete: function(){
-                    console.log('complete:');
+                    
                     //Si se ha completado la operación lo activamos
                     $('#btn_guardarCandidato').prop('disabled', false);
                 }, 
                 success: function(data){
-                    console.log('success');
+                    
                       if(data.success == true){
                         //cerramos el modal agregarCandidato si se ha guardado la informacion en la base de datos correctamente
                         $('#editarConductorCandidato').hide();
                         
                         printSuccessMsg(data.msg);
-                        Swal.fire({
-                            title: "<h3 style='color:red'>¡¡Errores detectados!!</h3>",
-                            text: 'Conductor actualizado correctamente',
-                            icon: "success",
-                            showCancelButton: false,
-                            confirmButtonColor: "#d33",
-                            confirmButtonText: "Continuar"
-
-                        }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
-                        if (result.isConfirmed) {
-                            $("#spinnerCandidato").hide();
-                            location.reload();
-                        }
-                });
-                        
+                         
                       }else if(data.success == false){
+                        $("#spinnerCandidato").hide();
                            printErrorMsg(data.msg);
                       }else{
-                        console.log('printValidationErrorMsg');
+                        
+                        $("#spinnerCandidato").hide();
                         $('#btn_guardarCandidato').prop('disabled', false);
                         if(!data.msg.cap) data.msg.cap="";
                         if(!data.msg.tarjeta_tacografo) data.msg.tarjeta_tacografo="";
                         if(!data.msg.imagen) data.msg.imagen="";
-                        //console.log('tamaño: '+Object.keys(data.msg.imagen).length);
+                        
                         
                         Swal.fire({
                             title: "<h3 style='color:red'>¡¡Errores detectados!!</h3>",
@@ -588,13 +605,13 @@
                 formData.set('cap',0);
             }
             //Cambiamos los valores del checkbox tarjeta de tacógrafo a 1 ó 0
-            if($valor_cap){
+            if($valor_tarjeta_tacografo){
                 formData.set('tarjeta_tacografo',1);
             }else{
                 formData.set('tarjeta_tacografo',0);
             }
             
-            
+            //enviamos la petición ajax para actualizar los cambios del conductor
             $.ajax({
                 type: 'POST',
                 url: '{{ route("updateConductor") }}',
@@ -626,20 +643,9 @@
                         printErrorMsg(data.msg);
                       }else{
                         $("#spinnerConductor").hide();
-                        
-                        if(!data.msg.cap) data.msg.cap="";
-                        if(!data.msg.tarjeta_tacografo) data.msg.tarjeta_tacografo="";
-                        if(!data.msg.imagen) data.msg.imagen="";
-                        //console.log('tamaño: '+Object.keys(data.msg.imagen).length);
-                        Swal.fire({
-                            title: "<h3 style='color:red'>¡¡Errores detectados!!</h3>",
-                            html: '<div style="color:red">'+data.msg.cap+"<br>"+data.msg.tarjeta_tacografo+"<br>"+data.msg.imagen+'</div>',
-                            icon: "warning",
-                            showCancelButton: false,
-                            confirmButtonColor: "#d33",
-                            confirmButtonText: "Continuar"
-                        });
                         $('#btn_updateConductor').prop('disabled', false);
+                        
+                        
                         printValidationErrorMsg(data.msg);
                       }
                 },
@@ -667,16 +673,12 @@
                 
                 reader.readAsDataURL(input.files[0]);
         }
-        /*
-        $("#imgInp").change(function() { //Cuando el input cambie (se cargue un nuevo archivo) se va a ejecutar de nuevo el cambio de imagen y se verá reflejado.
-        readURL(this);
-        });
-        */
+        
          //Creamos las tres funciones para los tres tipos de mensajes
          function printValidationErrorMsg(msg){
             texto="";
                 $.each(msg, function(field_name, error){
-                    console.log("Field_name: "+field_name, error);
+                    
                     texto+=error+"<br>";
                     $(document).find('#'+field_name+'_error').text(error);
                    
@@ -688,8 +690,16 @@
                         showCancelButton: false,
                         confirmButtonColor: "#d33",
                         confirmButtonText: "Continuar"
-                })
+                }).then((result) => {
+                
+                //si e formulario se envió correctamente de resetra los campos del formulario
+                document.getElementById('addVehiculoForm').reset();
+                //recargamos la página para actualizar los cambios
+                location.reload();
+              })
+               
             }
+            
             function printErrorMsg(msg){
                 Swal.fire({
                 title: "Acción sobre conductores",
@@ -699,13 +709,15 @@
                 confirmButtonColor: "#d33",
                 confirmButtonText: "Continuar"
               }).then((result) => {
- 
+                
                 //si e formulario se envió correctamente de resetra los campos del formulario
                 document.getElementById('addVehiculoForm').reset();
                 //recargamos la página para actualizar los cambios
                 location.reload();
               })
             }
+
+            
             function printSuccessMsg(msg){
                 Swal.fire({
                 title: "Acción sobre conductores",
@@ -715,7 +727,7 @@
                 confirmButtonColor: "#d33",
                 confirmButtonText: "Continuar"
               }).then((result) => {
- 
+               
                 //si wl formulario se envió correctamente de resetra los campos del formulario
                 document.getElementById('editConductorForm').reset();
                 //recargamos la página para actualizar los cambios

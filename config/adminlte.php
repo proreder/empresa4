@@ -350,11 +350,18 @@ return [
                 ],
             ],
         ],
+        [
+            'text'        => 'Rutas',
+            'url'         => 'rutas/index',
+            'icon'        => 'fas fa-fw fa-road',
+            'label'       => 4,
+            'label_color' => 'success',
+        ],
         ['header' => 'account_settings'],
         [
-            'text' => 'profile',
+            'text' => 'Administrar Usuarios',
             'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-shield',
         ],
         [
             'text' => 'change_password',

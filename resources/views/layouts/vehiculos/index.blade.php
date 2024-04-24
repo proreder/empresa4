@@ -529,7 +529,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                         printErrorMsg(data.msg);
                       }else{
                         $("#spinnerVehiculo").hide();
-                        console.log('printValidationErrorMsg');
+                        
                         
                         $('#btn_updateVehiculo').prop('disabled', false);
 						//Se muestran errores de validacion
