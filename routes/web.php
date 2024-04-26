@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\ConductoresController;
 use App\Http\Controllers\VehiculosController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -61,9 +62,10 @@ Route::get('/errors/bd_conexion_error', function () {
         '/conductores' => ConductoresController::class]);
         */
 //});
+
+//Route::get('empleados/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
+Route::resource('/usuarios', UserController::class);
 /*
-Route::get('empleados/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
-Route::get('empleados/index', [EmpleadosController::class, 'show'])->name('index');
 Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
 Route::get('empleados/{id}/edit/', [EmpleadosController::class, 'edit'])->name('edit');
 */

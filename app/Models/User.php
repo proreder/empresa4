@@ -66,4 +66,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    //obtenemos los registros de los roles
+    /* 
+    public function roles(){
+        return $this->hasOne(EmpleadosModel::class, 'nifnie', 'nifnie_empleado');
+      
+      }
+    */
 }

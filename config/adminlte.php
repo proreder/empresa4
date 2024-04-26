@@ -361,7 +361,7 @@ return [
         [
             'text' => 'Administrar Usuarios',
             'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-shield',
+            'icon' => 'fas fa-fw fa-users',
         ],
         [
             'text' => 'change_password',
