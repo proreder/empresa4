@@ -26,6 +26,13 @@ class User extends Authenticatable
     //linea añadida para uso básico de Permission
 
     use HasRoles;
+
+
+    //constantes para definir los roles
+
+    const ROLE_ADMINISTRADOR = 1;
+
+    const ROLE_USUARIO = 2;
     /**
      * The attributes that are mass assignable.
      *
