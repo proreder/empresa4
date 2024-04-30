@@ -360,8 +360,9 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'Administrar Usuarios',
-            'url'  => 'admin/settings',
+            'url'  => 'usuarios/index',
             'icon' => 'fas fa-fw fa-users',
+            'can'   => 'usuarios/index'
         ],
         [
             'text' => 'change_password',

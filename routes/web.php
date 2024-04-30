@@ -64,7 +64,7 @@ Route::get('/errors/bd_conexion_error', function () {
 //});
 
 //Route::get('empleados/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
-Route::resource('/usuarios', UserController::class);
+Route::resource('/usuarios', UserController::class)->middleware('auth');
 /*
 Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
 Route::get('empleados/{id}/edit/', [EmpleadosController::class, 'edit'])->name('edit');
