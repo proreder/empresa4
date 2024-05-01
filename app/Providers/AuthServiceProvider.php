@@ -22,8 +22,15 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //Registyramos el rol para administrador quer puede realizar la administración de usuarios
-        Gate::define('usuarios/index', function(User $user){
-            return $user->role = User::ROLE_ADMINISTRADOR;
+        Gate::define('admin-users', function(User $user){
+            if($user->name==='juan'){
+                
+                return true;
+            }else{
+
+                return false;
+            }
+            //return $user->role = User::has('roles');
         });
 
         //registramos el rol para un usuario que puede tener acceso a todo excepto la administración de ususarios

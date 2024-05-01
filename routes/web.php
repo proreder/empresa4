@@ -27,13 +27,9 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+         return view('dashboard');
     })->name('dashboard');
 });
 
@@ -64,7 +60,9 @@ Route::get('/errors/bd_conexion_error', function () {
 //});
 
 //Route::get('empleados/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
-Route::resource('/usuarios', UserController::class)->middleware('auth');
+//Route::resource('/usuarios', UserController::class)->middleware('auth');
+Route::post('usuarios/create', [UserController::class, 'crearUsuario'])->name('crearUsuario');
+Route::get('usuarios', [UserController::class, 'index'])->middleware('can:admin-users');
 /*
 Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
 Route::get('empleados/{id}/edit/', [EmpleadosController::class, 'edit'])->name('edit');

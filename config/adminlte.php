@@ -365,9 +365,15 @@ return [
             'can'   => 'usuarios/index'
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
+            'text' => 'Administrar usuarios',
+            'url'  => 'usuarios',
+            'icon' => 'fas fa-fw fa-users',
+        ],
+        [
+            'text' => 'Administrar cuentas',
+            'url'  => 'usuarios',
             'icon' => 'fas fa-fw fa-lock',
+            'can'  => 'admin-users'
         ],
         [
             'text'    => 'multilevel',

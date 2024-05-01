@@ -281,7 +281,7 @@
             //enviamos la petición ajax para añadir un nuevo conductor
             $.ajax({
                 type: 'POST',
-                url: '{{ route("agregarUsuario") }}',
+                url: '{{ route("crearUsuario") }}',
                 data: formData,
                 contentType: false,
                 processData: false,
