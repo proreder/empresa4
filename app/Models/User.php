@@ -24,7 +24,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     //linea añadida para uso básico de Permission
-
+    //relacionamos los dos modelos user y roles
     use HasRoles;
 
 

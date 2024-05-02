@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('empleado', function (Blueprint $table) {
             $table->id();
-            $table->string('nifnie', 11)->unique()->index();
+            $table->comment('tabla de empleados');
+            $table->string('nifnie', 11)->unique();
             $table->string('tipo_doc',10);
             $table->string('nss', 14)->comment('Número de la seguridad social');
             $table->string('sexo', 10);
@@ -32,12 +33,12 @@ return new class extends Migration
             $table->integer('cp')->nullable();
             $table->string('email', 100)->nullable();
             $table->string('puesto', 100);
-            $table->enum('tipo', ['Oficina', 'Conductor','Taller']);
+            $table->enum('tipo', ['Oficina', 'Conductor', 'Taller']);
             $table->string('situacion_laboral', 100);
             $table->date('fecha_alta');
             $table->date('fecha_baja')->nullable(); 
             $table->string('comentarios', 300)->nullable();
-            $table->string('imagen',250)->nullable();
+            $table->string('imagen', 250)->nullable();
             $table->timestamps();
         });
     }

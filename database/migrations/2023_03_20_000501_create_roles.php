@@ -16,7 +16,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-       //creamos tres roles
+       /*
+        //creamos tres roles
        $role1=Role::create(['name' => 'admin']);
        $role2=Role::create(['name' => 'usuario']);
        $role3=Role::create(['name' => 'super']);
@@ -28,7 +29,7 @@ return new class extends Migration
 
        $user2 =  User::find(3);
        $user2->assignRole($role3);
-       
+       */
     }
 
     /**

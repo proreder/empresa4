@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('km_actuales');
             $table->integer('km_revision');
             $table->boolean('disponible');
-            $table->string('imagen',250)->nullable();
+            $table->string('imagen', 250)->nullable();
             $table->timestamps();
         });
     }
