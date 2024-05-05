@@ -56,7 +56,8 @@
                             
                             <td>
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn_editar btn btn-link"  data-bs-toggle="modal"  data-bs-config="backdrop:true" data-bs-target="#editarUsuarioModal" data-id="{{$usuario->id}}" data-nombre="{{$usuario->name}}" data-email="{{$usuario->email}}" data-password="{{$usuario->password}}" data-rol="{{$role->name}}"><i class="bi-pencil-square h4"></i></button>
+                                    <!--<button type="button" class="btn_editar btn btn-link"  data-bs-toggle="modal"  data-bs-config="backdrop:true" data-bs-target="#editarUsuarioModal" data-id="{{$usuario->id}}" data-nombre="{{$usuario->name}}" data-email="{{$usuario->email}}" data-password="{{$usuario->password}}" data-rol="{{$role->name}}"><i class="bi-pencil-square h4"></i></button>-->
+                                    <a class="btn_editar btn btn-link" href="{{ route('usuarios.edit', $usuario) }}"><i class="bi-pencil-square h4"></i></a>
                                     <button type="button"  data-toggle="popover" id="btn_borrar"  class="btn_borrar btn btn-link text-danger" data-id-delele="{{$usuario->id}}"><i class="bi bi-trash h4"></i></button>
                             </td>
                         </tr>

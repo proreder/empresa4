@@ -475,7 +475,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
 
             //si se pulsa   el botón Actualizar  enviamos el formulario    
         $('#editVehiculoForm').submit(function(e){
-            console.log('pulsado en botón actualizar vehiculo');
+            
              e.preventDefault();
              
              //var url="../storage/app/";

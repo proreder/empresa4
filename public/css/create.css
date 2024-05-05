@@ -78,3 +78,7 @@
         .icon_edit{
             padding-top: 7px !important;
         }
+
+        .input_rol{
+            transform: scale(1.2);
+        }

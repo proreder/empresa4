@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -62,5 +63,26 @@ class UserController extends Controller
              }
          }
  
+     }
+
+     //editamos el usuario y obtenemos el id mediante una instancia de  User, mostramos todos los permisos
+
+
+     public function edit($id){
+        //recuperamos el usuario
+        $usuario=User::findOrFail($id);
+        
+        //recuperamos todos los roles
+        $roles=Role::all();
+        
+        //devolvemos  la vista usuarios.index el ususario y los roles
+        return view('layouts.usuarios.edit' , compact('usuario', 'roles'));
+     }
+
+
+     //se actualiza registro de usuario con los roles
+     public function update(Request $request, User $user){
+        return $user;
+
      }
 }
