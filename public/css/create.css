@@ -82,3 +82,9 @@
         .input_rol{
             transform: scale(1.2);
         }
+        .cancel_button{
+            background-color: red;
+            color: red;
+            padding: 15px 25px;
+            text-decoration: none;
+        }

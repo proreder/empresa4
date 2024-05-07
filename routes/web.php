@@ -65,6 +65,7 @@ Route::get('/errors/bd_conexion_error', function () {
 Route::post('usuarios/create', [UserController::class, 'crearUsuario'])->name('crearUsuario');
 Route::get('usuarios', [UserController::class, 'index'])->name('usuarios');
 Route::get('usuarios/edit/{id}', [UserController::class, 'edit'])->name('usuarios.edit');
+Route::post('usarios/update/{id}', [UserController::class, 'update'])->name('usuarios.update');
 /*
 Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
 Route::get('empleados/{id}/edit/', [EmpleadosController::class, 'edit'])->name('edit');
@@ -95,3 +96,7 @@ Route::get('vehiculos/delete/{id}', [VehiculosController::class, 'borrarVehiculo
 Route::post('vehiculos/updatevehiculo', [VehiculosController::class, 'updateVehiculo'])->name('updateVehiculo');
 
 
+//rutas para los botones de cancelación
+Route::get('cancelar/{ruta}', function($ruta){
+    return redirect()->route($ruta);
+})->name('cancelar');

@@ -74,7 +74,7 @@ class UserController extends Controller
         
         //recuperamos todos los roles
         $roles=Role::all();
-        
+        //return $roles;
         //devolvemos  la vista usuarios.index el ususario y los roles
         return view('layouts.usuarios.edit' , compact('usuario', 'roles'));
      }

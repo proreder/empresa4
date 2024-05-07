@@ -178,7 +178,7 @@
                 
                 <div class="modal-footer">
                         <div class="row row justify-content-between col-12">
-                                        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-secondary" onclick="history.back()" data-bs-dismiss="modal">Cerrar</button>
                                         <div id="spinnerUsuario"></div>
                                         <button type="submit" id="btn_guardarUsuario" class="btn btn-danger">Guardar</button>
                         </div>

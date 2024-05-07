@@ -22,35 +22,26 @@
                 @csrf
                 
                     @foreach ($usuario->roles as $rol)
-                    
-                            <div class="row d-flex mt-3">
-                                <div class="col-4">
-                                    @php($hayRol=($rol->name))
-                                   
-                                    @if($rol->name=='Admin')
-                                        <input class="input_rol" type="checkbox" name="rol_admin" value="Admin" @if($hayRol) checked @endif />
-                                        <label  for="rol_name">Admin</label>                           
-                                    @else
-                                        <input class="input_rol" type="checkbox" name="rol_admin" value="Admin"/>
-                                        <label  for="rol_name">Admin</label>
-                                    @endif
-                                    <br>
-                                    
-                                    @if($rol->name=='Usuario')
-                                        <input class="input_rol" type="checkbox" name="rol_usuario" value="Usuario" @if($hayRol) checked @endif />
-                                        <label  for="rol_name">Usuario</label>
-                                    @else
-                                        <input class="input_rol" type="checkbox" name="rol_usuario" value="Usuario"/>
-                                        <label  for="rol_name">Usuario</label>
-                                    @endif
+                    @endforeach
+                            <div class="row d-flex mt-3 justify-content-start">
+                                <div class="col-4 col-md-3">
+                                <input class="input_rol" type="checkbox" name="rol_admin" id="rol_admin"/>
+                                <label  for="rol_name">Admin</label>
+                                <br>
+                                <input class="input_rol" type="checkbox" name="rol_usuario" id="rol_usuario"/>
+                                <label  for="rol_name">Usuario</label>
+                                
                                 </div>
                             </div>
                            
-                    @endforeach
-                
                     
-                    <button type="submit" id="btn_updateRolesForm" class="btn btn-success mt-3">Actualizar</button>
-               
+                
+                    <div class="row justify-content-around align-items-center mt-5 border">
+                        <button type="submit" id="btn_updateRolesForm" class="btn btn-success col-3">Actualizar</button>
+                        <div id="spinnerVehiculo"></div>
+                        <a class="col-3 btn btn-danger form-control" style="height: 36px;" href=" {{ route ('cancelar', 'usuarios') }}">Cancelar</a>
+                        
+                    </div>
             </form>
            
             </div>
@@ -75,39 +66,33 @@
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
     <script src="/empresa4/public/build/assets/sweetalert2.all.min.js"></script>
     <script>
+        
+           
         $(document).ready(function(){
-            $('#empleados').DataTable({
-                responsive : true,
-            "language" : {
-                "search" :          "Buscar",
-                "lengthMenu" :      "Mostrar _MENU_ registros por página",
-                "info"  :           "Página _PAGE_ de _PAGES_",
-                "zeroRecords" :    "No hay registros",
-                "infoEmpty" :     "",
-                "paginate" :        {
-                                        "previous":  "Anterior  ",
-                                        "next":       "  Siguiente",
-                                        "first":       "Primero",
-                                        "last":        "último"
-                }   
-            }  
+            var user = @json($usuario);
+            
+           //obtenemos los roles asignados al usuario logeado
+            roles=user.roles;
+            rol_usuario=[];
+            for (var i=0, len=roles.length; i < len; i++) {
+                
+                rol_usuario.push(roles[i].name);
+            }
+            
+            if(roles.length>0){
+                for(var i=0, len=rol_usuario.length; i<len; i++){
+                    if(rol_usuario[i]==="Admin"){
+                        $('#rol_admin').prop("checked", true);
+                        console.log("admin")
+                    }
+                    if(rol_usuario[i]==="Usuario"){
+                        $('#rol_usuario').prop("checked", true);
+                    }
+                    
+                }
+            }
 
-            });
-
-            $('#btnEliminar').on('submit', function(e){
-                e.preventDefault();
-                Swal.fire({
-                    title: "¿Estás seguro?",
-                    text: "¡El borrado no se podrá trevertir!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "¡Confirmar borrado!"
-                }).then((result) => {
-                    this.submit()
-                });
-            });
+            
             
             //si se pulsa el botón de actualizar roles se envia el formulario
             $('#updateRolesForm').submit(function(e){
@@ -143,42 +128,41 @@
            console.log(formData);
            $.ajax({
                type: 'POST',
-               url: '{{ route("updateVehiculo") }}',
+               url: '{{ route("updateUsuario") }}',
                data: formData,
                contentType: false,
                processData: false,
                cache: false,
                dataType: 'json',
                beforeSend: function(){
-                   //desactivamos el botón actualizar vehiculo
+                   //desactivamos el botón actualizar usuario
                    
-                   $('#btn_updateVehiculo').prop('disabled', true);
-                   $("#spinnerVehiculo").busyLoad("show", {
+                   $('#btn_updateUsuario').prop('disabled', true);
+                   $("#spinnerUsuario").busyLoad("show", {
                        fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
                    },
                complete: function(){
                    
                    //Si se ha completado la operación lo activamos
-                   $('#btn_updateVehiculo').prop('disabled', false);
+                   $('#btn_updateUsuario').prop('disabled', false);
                }, 
                success: function(data){
                    
                      if(data.success == true){
-                       //cerramos el modal agregarCandidato si se ha guardado la informacion en la base de datos correctamente
-                       $('#editVehiculoModal').hide();
-                       //$('#editVehiculoForm')[0].reset();
+                       //si se ha guardado la informacion en la base de datos correctamente
+                       
                        printSuccessMsg(data.msg);
 
                        
                      }else if(data.success == false){
                        
-                       $("#spinnerVehiculo").hide();
+                       $("#spinnerUsuario").hide();
                        printErrorMsg(data.msg);
                      }else{
-                       $("#spinnerVehiculo").hide();
+                       $("#spinnerUsuario").hide();
                        
                        
-                       $('#btn_updateVehiculo').prop('disabled', false);
+                       $('#btn_updateUsuario').prop('disabled', false);
                        //Se muestran errores de validacion
                        printValidationErrorMsg(data.msg);
 
