@@ -7,8 +7,7 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
-
+    
     @role('super')
         <p>Hola SuperAdministrador</p>
     @endrole
@@ -119,9 +118,9 @@
                 
                 <div class="modal-footer">
                         <div class="row row justify-content-between col-12">
-                                        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">Cerrar</button>
                                         <div id="spinnerVehiculo"></div>
-                                        <button type="submit" id="btn_guardarVehiculo" class="btn btn-danger">Actualizar</button>
+                                        <button type="submit" id="btn_guardarVehiculo" class="btn btn-primary">Actualizar</button>
                         </div>
                 </div>
             </form>
@@ -145,32 +144,34 @@
                 
                 <div class="row mt-4 mb-3 d-flex justify-content-center">
                         <div class="col-10">
-                            <label for="nombre_nuevo" class="form-label">Nombre</label>
-                            <input type="text" class="form-control @error('nombre_error') is-invalid @enderror" id="nombre_nuevo" name="nombre_nuevo">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control @error('nombre_error') is-invalid @enderror" id="nombre_nuevo" name="nombre">
                             <small class='alert text-danger' id='nombre_error_nuevo'></small>
                         </div> 
                         <div class="col-10">
-                            <label for="email_nuevo" class="form-label">Email:</label>
-                            <input type="text" class="form-control" id="email_nuevo" name="email_nuevo">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="text" class="form-control" id="email_nuevo" name="email">
                             <small class='alert text-danger' id='email_error_nuevo'></small>
                         </div>
                 
                         <div class="col-10">
-                            <label for="password_nuevo" class="form-label">Contraseña:</label>
-                            <input type="text" class="form-control" id="password_nuevo" name="password_nuevo">
+                            <label for="password" class="form-label">Contraseña:</label>
+                            <input type="password" class="form-control" id="password_nuevo" name="password">
                             <small class='alert text-danger' id='password_error_nuevo'></small>
                         </div> 
                         <div class="col-10">
-                            <label for="re_password_nuevo" class="form-label">Repite contraseña:</label>
-                            <input type="text" class="form-control" id="re_password_nuevo" name="re_password_nuevo">
+                            <label for="repite_password" class="form-label">Repite contraseña:</label>
+                            <input type="password" class="form-control" id="re_password_nuevo" name="password_confirmation">
                             <small class='alert text-danger' id='re_password_error_nuevo'></small>
                         </div>
                         <div class="form-group ms-2">
-                        <label for="rol_nuevo" class="form-label">Tipo de Rol:</label>
-                        <select class="form-select mb-3" id="rol_nuevo" name="rol_nuevo">
-                            <option value="Administrador">Administrador</option>
-                            <option value="Usuario">Usuario</option>
-                        </select>
+                        <h4>Tipo de Rol:</h4>
+
+                        <input type="checkbox"  name="create_rol_admin" id="rol_admin">
+                        <label for="rol_admin">Administrador</label>
+                        <br>
+                        <input type="checkbox"  name="create_rol_usuario" id="rol_usuario">
+                        <label  for="rol_usuario">Usuario</label>
                     </div>
                        
                 </div> 
@@ -178,9 +179,9 @@
                 
                 <div class="modal-footer">
                         <div class="row row justify-content-between col-12">
-                                        <button type="button" class="btn btn-secondary" onclick="history.back()" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">Cerrar</button>
                                         <div id="spinnerUsuario"></div>
-                                        <button type="submit" id="btn_guardarUsuario" class="btn btn-danger">Guardar</button>
+                                        <button type="submit" id="btn_guardarUsuario" class="btn btn-primary">Guardar</button>
                         </div>
                 </div>
             </form>
@@ -249,13 +250,7 @@
                 var email = $(this).attr('data-email');
                 var password = $(this).attr('data-password');
                 var rol=$(this).attr('data-rol');
-                console.log('id:')+id_usuario;
-
-                console.log('nombre:')+nombre;
-                console.log('email:')+email;
-                console.log('rol:')+rol;
-                               
-                               
+               
                 //rellenamos el formulario modal con los datos de la fila seleccionada
                 $('#editarUsuario').modal('show');
                 $('#id_usuario_edit').val(id_usuario)
@@ -273,16 +268,35 @@
         });
 
         //si se pulsa  #btn_guardarUsuario       
-        $('#guardarUsuarioForm').submit(function(e){
+        $('#nuevoUsuarioForm').submit(function(e){
              e.preventDefault();
             
              //verificamos los estados de los checkbox
             var formData=new FormData(this);
 
+            roles=[];
+           //Camniamos los valores del select  a 1 o 0
+           if($('#rol_admin').prop('checked')){
+               formData.set('rol_admin',1);
+               formData.append('roles[0]',1);
+           }else{
+            formData.set('rol_admin',0);
+                
+           }
+           
+           //Camniamos los valores del select  a 1 o 0
+           if($('#rol_usuario').prop('checked')){
+               formData.set('rol_usuario',2);
+               formData.append('roles[1]',2);
+           }else{
+               formData.set('rol_usuario',0);
+               
+           }
+           console.log(Array.from(formData.entries()));
             //enviamos la petición ajax para añadir un nuevo conductor
             $.ajax({
                 type: 'POST',
-                url: '{{ route("crearUsuario") }}',
+                url: '{{ route("usuarios.create") }}',
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -335,6 +349,58 @@
            
 
         }); 
+
+        
+       //Creamos las tres funciones para craer los mensajes
+       function printValidationErrorMsg(msg){
+                texto="";
+                $.each(msg, function(field_name, error){
+                    console.log("Field_name: "+field_name, error);
+                    texto+=error+"<br>";
+                    $(document).find('#'+field_name+'_error').text(error);
+                   
+                });
+                Swal.fire({
+                        title: "Acción sobre Usuarios",
+                        html: '<h6 style="color:red">'+texto+'</h6>',
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#d33",
+                        confirmButtonText: "Continuar"
+                })
+            }
+            function printErrorMsg(msg){
+                Swal.fire({
+                title: "Acción sobre Usuarios",
+                html: '<h3>'+msg+'</h3>',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Continuar"
+              }).then((result) => {
+ 
+                //si e formulario se envió correctamente de resetra los campos del formulario
+                document.getElementById('updateRolesForm').reset();
+                //recargamos la página para actualizar los cambios
+                location.reload();
+              })
+            }
+            function printSuccessMsg(msg){
+                Swal.fire({
+                title: "Acción sobre Usuarios",
+                html: '<h3>'+msg+'</h3>',
+                icon: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Continuar"
+              }).then((result) => {
+ 
+                //si wl formulario se envió correctamente de resetra los campos del formulario
+                document.getElementById('updateRolesForm').reset();
+                //recargamos la página para actualizar los cambios
+                location.reload();
+              })
+            }
         
     </script>
     

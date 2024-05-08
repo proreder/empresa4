@@ -62,10 +62,11 @@ Route::get('/errors/bd_conexion_error', function () {
 //Route::get('empleados/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
 //Route::resource('/usuarios', UserController::class)->middleware('auth');
 //Route::get('usuarios', [UserController::class, 'index'])->middleware('can:admin-users')->name('usuarios');
-Route::post('usuarios/create', [UserController::class, 'crearUsuario'])->name('crearUsuario');
+Route::post('usuarios/create', [UserController::class, 'create'])->name('usuarios.create');
 Route::get('usuarios', [UserController::class, 'index'])->name('usuarios');
 Route::get('usuarios/edit/{id}', [UserController::class, 'edit'])->name('usuarios.edit');
-Route::post('usarios/update/{id}', [UserController::class, 'update'])->name('usuarios.update');
+Route::post('usuarios/update', [UserController::class, 'update'])->name('usuarios.update');
+Route::get('usuarios/delete', [UserController::class, 'delete'])->name('usuarios.delete');
 /*
 Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
 Route::get('empleados/{id}/edit/', [EmpleadosController::class, 'edit'])->name('edit');

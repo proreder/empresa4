@@ -20,7 +20,7 @@
                 <h2>Lita de Roles</h2>
              <form method="POST" id="updateRolesForm">
                 @csrf
-                
+                    <input type="hidden" name="id_usuario" value="{{ $usuario->id }}">
                     @foreach ($usuario->roles as $rol)
                     @endforeach
                             <div class="row d-flex mt-3 justify-content-start">
@@ -36,8 +36,8 @@
                            
                     
                 
-                    <div class="row justify-content-around align-items-center mt-5 border">
-                        <button type="submit" id="btn_updateRolesForm" class="btn btn-success col-3">Actualizar</button>
+                    <div class="row justify-content-around align-items-center my-4">
+                        <button type="submit" id="btn_updateRolesForm" class="btn btn-success col-3" >Actualizar</button>
                         <div id="spinnerVehiculo"></div>
                         <a class="col-3 btn btn-danger form-control" style="height: 36px;" href=" {{ route ('cancelar', 'usuarios') }}">Cancelar</a>
                         
@@ -55,6 +55,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
   <link rel="stylesheet" href="/empresa4/public/css/create.css">
   <link rel="stylesheet" href="/empresa4/public/css/sweetalert2.min.css">
 @endsection
@@ -64,6 +65,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
     <script src="/empresa4/public/build/assets/sweetalert2.all.min.js"></script>
     <script>
         
@@ -94,7 +96,7 @@
 
             
             
-            //si se pulsa el botón de actualizar roles se envia el formulario
+            //si se pulsa el botón de actualizar roles se envian el formulario
             $('#updateRolesForm').submit(function(e){
             
             e.preventDefault();
@@ -103,32 +105,32 @@
                
             //var url_imagen=$('#imagenEditForm').attr('src');
               var formData=new FormData(this);
-              console.log(Array.from(formData.entries()));
-               
-               var formData=new FormData(this);
-            //   formData.set('imagen',url_imagen);
-
+              //Obtenemos los datos del formulario
+              //console.log(Array.from(formData.entries()));
+              //Declaramos variable para verificar el estado de los checkbos de los roles
+           
+            roles=[];
            //Camniamos los valores del select  a 1 o 0
-           if(formData.get('Admin')==="on"){
-               formData.set('admin',1);
-               console.log("Administrador");
+           if($('#rol_admin').prop('checked')){
+               formData.set('rol_admin',1);
+               formData.append('roles[0]',1);
            }else{
-            formData.set('Admin',0);
-               console.log("Administrador no");  
+            formData.set('rol_admin',0);
+                
            }
            
            //Camniamos los valores del select  a 1 o 0
-           if(formData.get('Usuario')==="on"){
-               formData.set('Usuario',1);
-               console.log("Usuario");
+           if($('#rol_usuario').prop('checked')){
+               formData.set('rol_usuario',2);
+               formData.append('roles[1]',2);
            }else{
-               formData.set('Usuario',0);
-               console.log("Usuario no")
+               formData.set('rol_usuario',0);
+               
            }
-           console.log(formData);
+           //console.log(Array.from(formData.entries()));
            $.ajax({
                type: 'POST',
-               url: '{{ route("updateUsuario") }}',
+               url: '{{ route("usuarios.update") }}',
                data: formData,
                contentType: false,
                processData: false,
@@ -137,14 +139,14 @@
                beforeSend: function(){
                    //desactivamos el botón actualizar usuario
                    
-                   $('#btn_updateUsuario').prop('disabled', true);
+                   $('#btn_updateRolesForm').prop('disabled', true);
                    $("#spinnerUsuario").busyLoad("show", {
                        fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
                    },
                complete: function(){
                    
                    //Si se ha completado la operación lo activamos
-                   $('#btn_updateUsuario').prop('disabled', false);
+                   $('#btn_updateRolesForm').prop('disabled', false);
                }, 
                success: function(data){
                    
@@ -153,7 +155,6 @@
                        
                        printSuccessMsg(data.msg);
 
-                       
                      }else if(data.success == false){
                        
                        $("#spinnerUsuario").hide();
@@ -162,7 +163,7 @@
                        $("#spinnerUsuario").hide();
                        
                        
-                       $('#btn_updateUsuario').prop('disabled', false);
+                       $('#btn_updateRolesForm').prop('disabled', false);
                        //Se muestran errores de validacion
                        printValidationErrorMsg(data.msg);
 
@@ -174,6 +175,57 @@
         });
 
        });
+
+       //Creamos las tres funciones para craer los mensajes
+       function printValidationErrorMsg(msg){
+                texto="";
+                $.each(msg, function(field_name, error){
+                    console.log("Field_name: "+field_name, error);
+                    texto+=error+"<br>";
+                    $(document).find('#'+field_name+'_error').text(error);
+                   
+                });
+                Swal.fire({
+                        title: "Acción sobre Usuarios",
+                        html: '<h6 style="color:red">'+texto+'</h6>',
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#d33",
+                        confirmButtonText: "Continuar"
+                })
+            }
+            function printErrorMsg(msg){
+                Swal.fire({
+                title: "Acción sobre Usuarios",
+                html: '<h3>'+msg+'</h3>',
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Continuar"
+              }).then((result) => {
+ 
+                //si e formulario se envió correctamente de resetra los campos del formulario
+                document.getElementById('updateRolesForm').reset();
+                //recargamos la página para actualizar los cambios
+                location.reload();
+              })
+            }
+            function printSuccessMsg(msg){
+                Swal.fire({
+                title: "Acción sobre Usuarios",
+                html: '<h3>'+msg+'</h3>',
+                icon: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Continuar"
+              }).then((result) => {
+ 
+                //si wl formulario se envió correctamente de resetra los campos del formulario
+                document.getElementById('updateRolesForm').reset();
+                //recargamos la página para actualizar los cambios
+                location.reload();
+              })
+            }
     </script>
     
 @endsection
