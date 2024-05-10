@@ -57,7 +57,7 @@
                                     <!-- Button trigger modal -->
                                     <!--<button type="button" class="btn_editar btn btn-link"  data-bs-toggle="modal"  data-bs-config="backdrop:true" data-bs-target="#editarUsuarioModal" data-id="{{$usuario->id}}" data-nombre="{{$usuario->name}}" data-email="{{$usuario->email}}" data-password="{{$usuario->password}}" data-rol="{{$role->name}}"><i class="bi-pencil-square h4"></i></button>-->
                                     <a class="btn_editar btn btn-link" href="{{ route('usuarios.edit', $usuario) }}"><i class="bi-pencil-square h4"></i></a>
-                                    <button type="button"  data-toggle="popover" id="btn_borrar"  class="btn_borrar btn btn-link text-danger" data-id-delele="{{$usuario->id}}"><i class="bi bi-trash h4"></i></button>
+                                    <button type="button"  data-toggle="popover" id="btn_borrar"  class="btn_borrar btn btn-link text-danger" data-id-delete="{{$usuario->id}}"><i class="bi bi-trash h4"></i></button>
                             </td>
                         </tr>
                 
@@ -167,12 +167,14 @@
                         <div class="form-group ms-2">
                         <h4>Tipo de Rol:</h4>
 
-                        <input type="checkbox"  name="create_rol_admin" id="rol_admin">
+                        <input type="checkbox"  name="create_rol_admin" id="rol_admin" checked >
                         <label for="rol_admin">Administrador</label>
                         <br>
-                        <input type="checkbox"  name="create_rol_usuario" id="rol_usuario">
+                        <input type="checkbox"  name="create_rol_usuario" id="rol_usuario" checked>
                         <label  for="rol_usuario">Usuario</label>
                     </div>
+
+                    <small class='alert text-danger' id='error_roles'></small>
                        
                 </div> 
                 
@@ -243,23 +245,7 @@
                 }
             });
 
-            //si se pulsa el boton editar se abre el modal con los datos de fila que se ha seleccionado
-         $('#tabla_usuarios tbody').on( 'click', '.btn_editar', function () {
-                var id_usuario = $(this).attr('data-id');
-                var nombre = $(this).attr('data-nombre');
-                var email = $(this).attr('data-email');
-                var password = $(this).attr('data-password');
-                var rol=$(this).attr('data-rol');
-               
-                //rellenamos el formulario modal con los datos de la fila seleccionada
-                $('#editarUsuario').modal('show');
-                $('#id_usuario_edit').val(id_usuario)
-                $("#nombre_edit").val(nombre);
-                $('#email_edit').val(email);
-                $('#password_edit').val(password);
-                          
-                
-            });
+          
 
            $('#nuevoUsuarioModal').on('click', function(){
               $('#nuevoUsuarioModal').modal('show');
@@ -267,33 +253,94 @@
 
         });
 
+        //script para BORRAR un usuario si se pulsa el botón de borrado
+        $('.btn_borrar').on('click', function(e) {
+                console.log('Se ha pulsado borrar');
+                var id_usuario= $(this).attr('data-id-delete');
+                console.log('Id usuario: '+id_usuario);
+                e.preventDefault();
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "¡El borrado no se podrá revertir!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "¡Confirmar borrado!"
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        var url= "{{ route('usuarios.delete','id_usuario') }}";
+                        url=url.replace('id_usuario',id_usuario);
+                        console.log(url);
+                        $.ajax({
+                            type: 'GET',
+                            url: url,
+                            contentType: false,
+                            processData: false,
+                            beforeSend: function(){
+                                //desactivamos el botón añadir vehículos
+                                
+                                $('.btn_borrar').prop('disabled', true);
+                                $("#spinner").busyLoad("show", {
+                                    fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
+                                },
+                            complete: function(){
+                                //Si se ha comppletado la operación lo activamos
+                                $('.btn_borrar').prop('disabled', false);
+                            }, 
+                            success: function(data){
+                                console.log('success');
+                                if(data.success == true){
+                                    Swal.fire({
+                                        title: "Borrado",
+                                        text: "El usuario se ha borrado corectamente",
+                                        icon: "question"
+                                    }).then((result) => {
+                                            if(result.isConfirmed){
+                                                $("#spinner").hide();
+                                                location.reload();    
+                                            }
+                                    });
+                                    
+                                    
+                                }else if(data.success == false){
+                                    Swal.fire({
+                                        title: "Borrado",
+                                        text: data.msg,
+                                        icon: "question"
+                                    });
+                                    
+                                }
+                            },
+                        });    
+                    }
+                    
+                });
+            });
+
         //si se pulsa  #btn_guardarUsuario       
         $('#nuevoUsuarioForm').submit(function(e){
              e.preventDefault();
             
              //verificamos los estados de los checkbox
             var formData=new FormData(this);
-
+            
+            //array que contendrá los roles marcados
             roles=[];
            //Camniamos los valores del select  a 1 o 0
            if($('#rol_admin').prop('checked')){
                formData.set('rol_admin',1);
                formData.append('roles[0]',1);
-           }else{
-            formData.set('rol_admin',0);
-                
            }
            
            //Camniamos los valores del select  a 1 o 0
            if($('#rol_usuario').prop('checked')){
                formData.set('rol_usuario',2);
                formData.append('roles[1]',2);
-           }else{
-               formData.set('rol_usuario',0);
-               
            }
+           //
            console.log(Array.from(formData.entries()));
-            //enviamos la petición ajax para añadir un nuevo conductor
+            //enviamos la petición ajax para añadir un nuevo usuario
             $.ajax({
                 type: 'POST',
                 url: '{{ route("usuarios.create") }}',
@@ -301,7 +348,7 @@
                 contentType: false,
                 processData: false,
                 beforeSend: function(){
-                    //desactivamos el botón guardar conductor
+                    //desactivamos el botón guardar usuario
                     
                     $('#btn_guardarUsuario').prop('disabled', true);
                     $("#spinnerUsuario").busyLoad("show", {
@@ -326,14 +373,15 @@
                         
                         $("#spinnerUsuario").hide();
                         $('#btn_guardarUsuario').prop('disabled', false);
-                        if(!data.msg.cap) data.msg.cap="";
-                        if(!data.msg.tarjeta_tacografo) data.msg.tarjeta_tacografo="";
-                        if(!data.msg.imagen) data.msg.imagen="";
+                        if(!data.msg.nombre) data.msg.nombre="";
+                        if(!data.msg.email) data.msg.email="";
+                        if(!data.msg.password) data.msg.password="";
+                        console.log(data.msg);
                         
                         
                         Swal.fire({
                             title: "<h3 style='color:red'>¡¡Errores detectados!!</h3>",
-                            html: '<div style="color:red">'+data.msg.cap+"<br>"+data.msg.tarjeta_tacografo+"<br>"+data.msg.imagen+'</div>',
+                            html: '<div style="color:red">'+data.msg.nombre+"<br>"+data.msg.email+"<br>"+data.msg.password+"<br>"+data.msg.rol_admin+'</div>',
                             icon: "warning",
                             showCancelButton: false,
                             confirmButtonColor: "#d33",
@@ -355,7 +403,7 @@
        function printValidationErrorMsg(msg){
                 texto="";
                 $.each(msg, function(field_name, error){
-                    console.log("Field_name: "+field_name, error);
+                    //console.log("Field_name: "+field_name, error);
                     texto+=error+"<br>";
                     $(document).find('#'+field_name+'_error').text(error);
                    
@@ -396,11 +444,27 @@
               }).then((result) => {
  
                 //si wl formulario se envió correctamente de resetra los campos del formulario
-                document.getElementById('updateRolesForm').reset();
+                //document.getElementById('updateRolesForm').reset();
                 //recargamos la página para actualizar los cambios
-                location.reload();
+                location.href( "{{ route('usuarios') }}");
               })
             }
+
+           
+        
+            $('#rol_admin').on('change', function() {
+                console.log("pulsado checkbos rol_admin");
+                if(($('#rol_admin').prop("checked") == false) && ($('#rol_usuario').prop("checked") == false)){
+                   
+                    $('#rol_usuario').prop("checked", true);
+                 }
+            });
+            $('#rol_usuario').on('change', function() {
+                if(($('#rol_admin').prop("checked") == false) && ($('#rol_usuario').prop("checked") == false)){
+                    
+                    $('#rol_admin').prop("checked", true);
+                 }
+            });
         
     </script>
     

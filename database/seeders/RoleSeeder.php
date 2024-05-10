@@ -21,9 +21,9 @@ class RoleSeeder extends Seeder
 
         //Creamos los permisos de acceso a las rutas
         //permisos para usuarios
-        Permission::create(['name' => 'crearUsuario'])->syncRoles([$role1]);
-        Permission::create(['name' => 'editarUsuario'])->syncRoles([$role1]);
-        Permission::create(['name' => 'borrarUsuario'])->syncRoles([$role1]);
+        Permission::create(['name' => 'usuario.create'])->syncRoles([$role1]);
+        Permission::create(['name' => 'usuario.edit'])->syncRoles([$role1]);
+        Permission::create(['name' => 'usuario.delete'])->syncRoles([$role1]);
         Permission::create(['name' => 'usuarios'])->syncRoles([$role1]);;
         //permisos para conductores
         Permission::create(['name' => 'conductores.index'])->syncRoles([$role1,$role2]);;

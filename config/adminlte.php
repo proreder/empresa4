@@ -360,20 +360,16 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'Administrar Usuarios',
-            'url'  => 'usuarios/index',
-            'icon' => 'fas fa-fw fa-users',
-            'can'   => 'usuarios/index'
-        ],
-        [
-            'text' => 'Administrar usuarios',
             'url'  => 'usuarios',
             'icon' => 'fas fa-fw fa-users',
+            'can'   => 'usuarios'
         ],
+        
         [
             'text' => 'Administrar cuentas',
             'url'  => 'usuarios',
             'icon' => 'fas fa-fw fa-lock',
-            'can'  => 'admin-users'
+            'can'  => 'usuarios'
         ],
         [
             'text'    => 'multilevel',
@@ -413,9 +409,9 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        ['header' => 'SESIONES'],
         [
-            'text'       => 'important',
+            'text'       => 'Logout',
             'icon_color' => 'red',
             'url'        => '#',
         ],

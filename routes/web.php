@@ -66,7 +66,7 @@ Route::post('usuarios/create', [UserController::class, 'create'])->name('usuario
 Route::get('usuarios', [UserController::class, 'index'])->name('usuarios');
 Route::get('usuarios/edit/{id}', [UserController::class, 'edit'])->name('usuarios.edit');
 Route::post('usuarios/update', [UserController::class, 'update'])->name('usuarios.update');
-Route::get('usuarios/delete', [UserController::class, 'delete'])->name('usuarios.delete');
+Route::get('usuarios/delete/{id}', [UserController::class, 'delete'])->name('usuarios.delete');
 /*
 Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
 Route::get('empleados/{id}/edit/', [EmpleadosController::class, 'edit'])->name('edit');

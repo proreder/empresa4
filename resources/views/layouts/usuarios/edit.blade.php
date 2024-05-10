@@ -28,7 +28,7 @@
                                 <input class="input_rol" type="checkbox" name="rol_admin" id="rol_admin"/>
                                 <label  for="rol_name">Admin</label>
                                 <br>
-                                <input class="input_rol" type="checkbox" name="rol_usuario" id="rol_usuario"/>
+                                <input class="input_rol" type="checkbox" name="rol_usuario" id="rol_usuario" checked/>
                                 <label  for="rol_name">Usuario</label>
                                 
                                 </div>
@@ -85,7 +85,7 @@
                 for(var i=0, len=rol_usuario.length; i<len; i++){
                     if(rol_usuario[i]==="Admin"){
                         $('#rol_admin').prop("checked", true);
-                        console.log("admin")
+                        
                     }
                     if(rol_usuario[i]==="Usuario"){
                         $('#rol_usuario').prop("checked", true);
@@ -114,18 +114,12 @@
            if($('#rol_admin').prop('checked')){
                formData.set('rol_admin',1);
                formData.append('roles[0]',1);
-           }else{
-            formData.set('rol_admin',0);
-                
            }
            
            //Camniamos los valores del select  a 1 o 0
            if($('#rol_usuario').prop('checked')){
                formData.set('rol_usuario',2);
                formData.append('roles[1]',2);
-           }else{
-               formData.set('rol_usuario',0);
-               
            }
            //console.log(Array.from(formData.entries()));
            $.ajax({
@@ -220,12 +214,26 @@
                 confirmButtonText: "Continuar"
               }).then((result) => {
  
-                //si wl formulario se envió correctamente de resetra los campos del formulario
-                document.getElementById('updateRolesForm').reset();
+                
                 //recargamos la página para actualizar los cambios
-                location.reload();
+                window.location.href= "{{ route('usuarios') }}";
               })
             }
+
+            //cambiamos los estados de los checkbox para evitar que se envíe sin marcar los dos
+            $('#rol_admin').on('change', function() {
+                
+                if(($('#rol_admin').prop("checked") == false) && ($('#rol_usuario').prop("checked") == false)){
+                   
+                    $('#rol_usuario').prop("checked", true);
+                 }
+            });
+            $('#rol_usuario').on('change', function() {
+                if(($('#rol_admin').prop("checked") == false) && ($('#rol_usuario').prop("checked") == false)){
+                    
+                    $('#rol_admin').prop("checked", true);
+                 }
+            });
     </script>
     
 @endsection
