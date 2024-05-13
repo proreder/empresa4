@@ -6,6 +6,7 @@ use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\ConductoresController;
 use App\Http\Controllers\VehiculosController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\JornadasController;
 
 
 /*
@@ -62,17 +63,17 @@ Route::get('/errors/bd_conexion_error', function () {
 //Route::get('empleados/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
 //Route::resource('/usuarios', UserController::class)->middleware('auth');
 //Route::get('usuarios', [UserController::class, 'index'])->middleware('can:admin-users')->name('usuarios');
-Route::post('usuarios/create', [UserController::class, 'create'])->name('usuarios.create');
-Route::get('usuarios', [UserController::class, 'index'])->name('usuarios');
-Route::get('usuarios/edit/{id}', [UserController::class, 'edit'])->name('usuarios.edit');
-Route::post('usuarios/update', [UserController::class, 'update'])->name('usuarios.update');
-Route::get('usuarios/delete/{id}', [UserController::class, 'delete'])->name('usuarios.delete');
+Route::post('usuarios/create', [UserController::class, 'create'])->name('usuarios.create')->middleware('auth');
+Route::get('usuarios', [UserController::class, 'index'])->name('usuarios')->middleware('auth');
+Route::get('usuarios/edit/{id}', [UserController::class, 'edit'])->name('usuarios.edit')->middleware('auth');
+Route::post('usuarios/update', [UserController::class, 'update'])->name('usuarios.update')->middleware('auth');
+Route::get('usuarios/delete/{id}', [UserController::class, 'delete'])->name('usuarios.delete')->middleware('auth');
 /*
 Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
 Route::get('empleados/{id}/edit/', [EmpleadosController::class, 'edit'])->name('edit');
 */
 //Route::put('empleados/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
-Route::resource('/empleados', EmpleadosController::class);
+Route::resource('/empleados', EmpleadosController::class)->middleware('auth');;
 
 /*
 Route::get('empleados/index', [empleadosController::class, 'show'])->name('index');
@@ -82,22 +83,26 @@ Route::get('empleados/edit/{id}', [empleadosController::class, 'edit'])->name('e
 
 
 //rutas para conductores
-Route::get('conductores/index', [ConductoresController::class, 'index'])->name('index');
+Route::get('conductores/index', [ConductoresController::class, 'index'])->name('index')->middleware('auth');
 
-Route::get('conductores/listarconductores', [ConductoresController::class, 'listarConductores'])->name('listarConductores');
-Route::get('conductores/delete/{id}', [ConductoresController::class, 'delete'])->name('borrarConductor');
-Route::get('conductores/candidatos', [ConductoresController::class, 'obtenerCandidatos'])->name('obtenerCandidatos');
-Route::post('conductores/agregarconductor', [ConductoresController::class, 'agregarConductor'])->name('agregarConductor');
-Route::post('conductores/updateconductor', [ConductoresController::class, 'updateConductor'])->name('updateConductor');
+Route::get('conductores/listarconductores', [ConductoresController::class, 'listarConductores'])->name('listarConductores')->middleware('auth');
+Route::get('conductores/delete/{id}', [ConductoresController::class, 'delete'])->name('borrarConductor')->middleware('auth');
+Route::get('conductores/candidatos', [ConductoresController::class, 'obtenerCandidatos'])->name('obtenerCandidatos')->middleware('auth');
+Route::post('conductores/agregarconductor', [ConductoresController::class, 'agregarConductor'])->name('agregarConductor')->middleware('auth');
+Route::post('conductores/updateconductor', [ConductoresController::class, 'updateConductor'])->name('updateConductor')->middleware('auth');
 
 //rutas para vehiculos
-Route::get('vehiculos/index', [VehiculosController::class, 'listarVehiculos'])->name('listarVehiculos');
-Route::post('vehiculos/create', [VehiculosController::class, 'crearVehiculo'])->name('crearVehiculo');
-Route::get('vehiculos/delete/{id}', [VehiculosController::class, 'borrarVehiculo'])->name('borrarVehiculo');
-Route::post('vehiculos/updatevehiculo', [VehiculosController::class, 'updateVehiculo'])->name('updateVehiculo');
+Route::get('vehiculos/index', [VehiculosController::class, 'listarVehiculos'])->name('listarVehiculos')->middleware('auth');
+Route::post('vehiculos/create', [VehiculosController::class, 'crearVehiculo'])->name('crearVehiculo')->middleware('auth');
+Route::get('vehiculos/delete/{id}', [VehiculosController::class, 'borrarVehiculo'])->name('borrarVehiculo')->middleware('auth');
+Route::post('vehiculos/updatevehiculo', [VehiculosController::class, 'updateVehiculo'])->name('updateVehiculo')->middleware('auth');
 
+//Rutas para jornadas
+
+Route::get('jornadas/index', [JornadasController::class, 'index'])->name('jornadas.index')->middleware('auth');
+Route::get('jornadas/show/{id}', [JornadasController::class, 'show'])->name('jornadas.show')->middleware('auth');
 
 //rutas para los botones de cancelación
 Route::get('cancelar/{ruta}', function($ruta){
     return redirect()->route($ruta);
-})->name('cancelar');
+})->name('cancelar')->middleware('auth');

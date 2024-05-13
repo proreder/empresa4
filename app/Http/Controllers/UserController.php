@@ -10,6 +10,8 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    
+    
     public function index(){
         
         //obtenemos todos los registros de la tabla usuario

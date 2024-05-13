@@ -357,6 +357,14 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Jornadas',
+            'url'         => 'jornadas/index',
+            'icon'        => 'fas fa-fw fa-thumbs-up',
+            
+            
+            'label_color' => 'success',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'Administrar Usuarios',
@@ -413,7 +421,7 @@ return [
         [
             'text'       => 'Logout',
             'icon_color' => 'red',
-            'url'        => '#',
+            'url'        => 'login',
         ],
         [
             'text'       => 'warning',
