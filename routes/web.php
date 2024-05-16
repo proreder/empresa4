@@ -20,11 +20,7 @@ use App\Http\Controllers\JornadasController;
 |
 */
 
-/*
-Route::get('/', function () {
-    return view('auth.login');
-});
-*/
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -39,47 +35,19 @@ Route::get('/errors/bd_conexion_error', function () {
    return view('layouts.errors.bd_conexion_error');
 });
 
-//vista para listar los empleados
-//Route::get("/empleados/index", [EmpleadosController::class, 'read']);
 
-//Ruta para la creación de un nuevo empleado
-//route::get('/empleados/create', [EmpleadosController::class, 'create']);
 
-//Obtenemos las rutas de los metodos de conductoresController
-//Route::resource('/conductores', ConductoresController::class);
-
-//Obtenemos las rutas de los metodos de empleadoController
-//Route::resource('/empleados', EmpleadosController::class);
-//Route::group(['prefix' =>'admin', 'as' => 'admin'], function(){
- //   Route::post('/conductores/listar','ConductoresController@listarConductores');
-
-    
-  /*  Route::resources([
-        '/empleados'   =>EmpleadosController::class,
-        '/conductores' => ConductoresController::class]);
-        */
-//});
-
-//Route::get('empleados/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
-//Route::resource('/usuarios', UserController::class)->middleware('auth');
-//Route::get('usuarios', [UserController::class, 'index'])->middleware('can:admin-users')->name('usuarios');
+//rutas para usuarios
 Route::post('usuarios/create', [UserController::class, 'create'])->name('usuarios.create')->middleware('auth');
 Route::get('usuarios', [UserController::class, 'index'])->name('usuarios')->middleware('auth');
 Route::get('usuarios/edit/{id}', [UserController::class, 'edit'])->name('usuarios.edit')->middleware('auth');
 Route::post('usuarios/update', [UserController::class, 'update'])->name('usuarios.update')->middleware('auth');
 Route::get('usuarios/delete/{id}', [UserController::class, 'delete'])->name('usuarios.delete')->middleware('auth');
-/*
-Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
-Route::get('empleados/{id}/edit/', [EmpleadosController::class, 'edit'])->name('edit');
-*/
-//Route::put('empleados/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
+
+
 Route::resource('/empleados', EmpleadosController::class)->middleware('auth');;
 
-/*
-Route::get('empleados/index', [empleadosController::class, 'show'])->name('index');
-Route::get('empleados/create', [empleadosController::class, 'create'])->name('create');
-Route::get('empleados/edit/{id}', [empleadosController::class, 'edit'])->name('edit');
-*/
+
 
 
 //rutas para conductores

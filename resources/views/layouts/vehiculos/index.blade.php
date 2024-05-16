@@ -242,8 +242,8 @@
                     <div class="form-group ms-2">
                         <label for="disponible_edit">Disponible:</label>
                         <select class="form-select mb-3" id="disponible_edit" name="disponible_edit">
-                            <option value="Si">Si</option>
-                            <option value="No">No</option>
+                            <option value="1">Si</option>
+                            <option value="0">No</option>
                         </select>
                     </div>
                </div> 
@@ -269,7 +269,7 @@
             </div>
             <div class="modal-footer">
                     <div class="row row justify-content-between col-12">
-                                    <button type="button" class="btn btn-secondary" onclick="history.back()" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cerrar</button>
                                     <div id="spinnerVehiculo"></div>
                                     <button type="submit" id="btn_guardarVehiculo" class="btn btn-danger">Actualizar</button>
                     </div>
@@ -401,7 +401,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 processData: false,
                 beforeSend: function(){
                     //desactivamos el botón añadir vehículos
-                    //$('#')('beforeSend');
+                    
                     $('#addBtn').prop('disabled', true);
                     $("#spinner").busyLoad("show", {
                         fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw" });
@@ -444,7 +444,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 var disponible = $(this).attr('data-disponible');
                 //imagen cargada de la tabla
                 var url_imagen = $(this).attr('data-imagen');
-
+                
                                
                 //rellenamos el formulario modal con los datos de la fila seleccionada
                 $('#editarVehiculo').modal('show');
@@ -456,24 +456,42 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 $('#modelo_edit').val(modelo);
                 $('#km_actuales_edit').val(km_actuales);
                 $('#km_revision_edit').val(km_revision);
-                $('#disponible').val(disponible);
-                url_storage="../storage/app/"+url_imagen;
-                console.log(url_storage);
-                //Cambiamos el valor de la src para que se mustre la imagen
-                $('#imagenEditForm').attr('src', url_storage);
-                //guardamos el valor de la imagen anterior en el input imanen_anterior
-                $('#imagen_anterior').val(url_imagen);
-                //Verificamos valor de disponible
-                if(disponible==='Si'){
-                    $("#disponible").prop('checked',true);
+                $('#disponible_edit').val(disponible);
+                url_storage="../storage/app/";
+                //si hay imagen la mostramos en caso contrario mostramosun anónimo
+                if(!url_imagen.length==0){
+                    
+                      //Cambiamos el valor de la src para que se mustre la imagen
+                    $('#imagenEditForm').attr('src', url_storage+url_imagen);   
                 }else{
-                    $("#disponible").prop('checked',false);
+                    
+                    url_imagen="public/imagenes/camion_anonimo.png";
+                    $('#imagenEditForm').attr('src', url_storage+url_imagen);
+                    
+                }
+               
+                //guardamos el valor de la imagen anterior en el input imagen_anterior
+                valor_imagen=$('#imagen_anterior').val(url_imagen);
+                
+                //Verificamos valor de disponible
+                if(disponible===1){
+                    $("#disponible_edit").prop('checked',true);
+                }else{
+                    $("#disponible_edit").prop('checked',false);
                 }
                 
                 
             });
 
-            //si se pulsa   el botón Actualizar  enviamos el formulario    
+            
+      });
+
+        //borramos los dados del formulario modal
+        $('#editarVehiculo').on('hidden.bs.modal', function () {
+            $(this).find('form').trigger('reset');
+        });
+
+         //si se pulsa   el botón Actualizar  enviamos el formulario    
         $('#editVehiculoForm').submit(function(e){
             
              e.preventDefault();
@@ -484,16 +502,9 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                
                 $disponible = $(this).attr('disponible_edit');
                 var formData=new FormData(this);
-             //   formData.set('imagen',url_imagen);
-
-            //Camniamos los valores del select  a 1 o 0
-            if($disponible==="Si"){
-                formData.set('disponible_edit',1);
-            }else{
-                formData.set('disponible_edit',0);
-            }
-                       
-            console.log(formData);
+            
+            //console.log(Array.from(formData.entries()));          
+            
             $.ajax({
                 type: 'POST',
                 url: '{{ route("updateVehiculo") }}',
@@ -519,7 +530,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                       if(data.success == true){
                         //cerramos el modal agregarCandidato si se ha guardado la informacion en la base de datos correctamente
                         $('#editVehiculoModal').hide();
-                        //$('#editVehiculoForm')[0].reset();
+                        
                         printSuccessMsg(data.msg);
 
                         
@@ -543,15 +554,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
            
 
         }); 
-        /*
-        $('[data-toggle="popover"]').hover(function(){
-                console.log('mouseHover');
-            $(this).css("background-color", "yellow");
-            }, function(){
-            $(this).css("background-color", "red");
-        });
-        $('[data-toggle="popover"]').popover();
-        */
+      
         mostrarVehiculos();
         //funcion para motras los vehiculos de la base de datos
         function mostrarVehiculos(){
@@ -559,12 +562,11 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 type: 'get',
                 url: "{{ route('listarVehiculos') }}",
                 success: function(response){
-                    //$('#mostrarTodosVehiculos').html($html);
-                    //console.log('listarVehiculos');
+                    
                 }
             });
         };
-     });
+    
         //Mostramos la imagen seleccionada
         
         function mostrarImagen(event, id, id_update=null) {
@@ -575,12 +577,11 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 var imagen = document.getElementById(id);
                 imagen.src = reader.result;
                 $(id).attr('src', imagen.src);
-                if(id_update){
-                    console.log('Imagen de update');
-                    $(id_update).attr('src', imagen.src);
-                }
-                console.log('Mostrar imagen id: '+id);
-                console.log('img.src: '+imagen.src);
+                    if(id_update){
+                        
+                        $(id_update).attr('src', imagen.src);
+                    }
+                
                 }
                 
                 reader.readAsDataURL(input.files[0]);

@@ -110,15 +110,14 @@ class VehiculosController extends Controller
         $request->except('_token', '_method');
         
         $validator=Validator::make($request->all(),[
-            // 'matricula_edit' => 'required',
-            // 'num_chasis_edit' => 'required',
+            
              'potencia_edit' => 'required',
              'tipo_edit' => 'required',
              'modelo_edit' => 'required',
              'km_actuales_edit' => 'required',
              'km_revision_edit' => 'required',
              'disponible_edit' => 'required',
-             'imagen-edit' => 'nullable|image|mimes:png,jpg|max:5000'
+             'imagen' => 'nullable|image|mimes:png,jpg|max:5000'
              
          ]);
          
@@ -128,20 +127,12 @@ class VehiculosController extends Controller
              return response()->json(['msg' => $validator->errors()->toArray()]);
          }else{
              try{
-                $disponible=true;
-                 //añadimo el vehiculo a la base de datos
-                 //dd($request);
-                 if($request->disponible == "Si"){
-                     $disponible=true;
-                 }else{
-                     $disponible=false;
-                 }
-                 //dd($request);
+               
                  $rutaImagen=$request->imagen_anterior;
                  //guardamos las imagenes en store si hay actualización de imagen
-                 if($request->hasFile('imagen-edit')){
+                 if($request->hasFile('imagen')){
                     
-                    $file = $request->file('imagen-edit');
+                    $file = $request->file('imagen');
                    
                     $name = $file->getClientOriginalName();
                     $extension = $file->getClientOriginalExtension();
@@ -150,17 +141,15 @@ class VehiculosController extends Controller
                     //dd($file);
                  }
                  
-                 
-                 //$addVehiculo->imagen = $rutaImagen;
+                 //actualizamos el registro con id en la tabla vehiculos
                  $addVehiculo=VehiculoModel::where('id', $request->id_vehiculo)->update([
-                   // 'matricula'   => $request->matricula,
-                   // 'numero_chasis'  => $request->num_chasis,
+                 
                     'potencia'    => $request->potencia_edit,
                     'tipo'        => $request->tipo_edit,
                     'modelo'      => $request->modelo_edit,
                     'km_actuales' => $request->km_actuales_edit,
                     'km_revision' => $request->km_revision_edit,
-                    'disponible'  => $disponible,
+                    'disponible'  => $request->disponible_edit,
                     'imagen'      => $rutaImagen
 
                    

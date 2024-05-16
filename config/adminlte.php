@@ -316,21 +316,21 @@ return [
             'text'        => 'Empleados',
             'url'         => 'empleados/index',
             'icon'        => 'far fa-fw fa-user',
-            'label'       => 4,
+            'label'       => 1,
             'label_color' => 'success',
         ],
         [
             'text'        => 'Conductores',
             'url'         => 'conductores/index',
             'icon'        => 'far fa-fw fa-user',
-            'label'       => 4,
+            'label'       => 1,
             'label_color' => 'success',
         ],
         [
             'text'        => 'Vehículos',
             'url'         => 'admin/vehiculos',
             'icon'        => 'fas fa-fw fa-car',
-            'label'       => 4,
+            'label'       => 1,
             'label_color' => 'success',
             'submenu' => [
                 [
@@ -338,25 +338,10 @@ return [
                     'url'  => 'vehiculos/index',
                     'icon'        => 'fas fa-caret-up fa-rotate-90',
                 ],
-                [
-                    'text' => 'Activos',
-                    'url'  => '#',
-                    'icon'        => 'fas fa-caret-up fa-rotate-90',
-                ],
-                [
-                    'text' => 'De baja',
-                    'url'  => '#',
-                    'icon'        => 'fas fa fa-ban fa-rotate-90',
-                ],
+                
             ],
         ],
-        [
-            'text'        => 'Rutas',
-            'url'         => 'rutas/index',
-            'icon'        => 'fas fa-fw fa-road',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
+       
         [
             'text'        => 'Jornadas',
             'url'         => 'jornadas/index',
@@ -379,60 +364,8 @@ return [
             'icon' => 'fas fa-fw fa-lock',
             'can'  => 'usuarios'
         ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        ['header' => 'SESIONES'],
-        [
-            'text'       => 'Logout',
-            'icon_color' => 'red',
-            'url'        => 'login',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+        
+       
     ],
 
     /*

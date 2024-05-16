@@ -46,7 +46,7 @@ class ConductoresController extends Controller
     public function updateConductor(Request $request){
         //obtenemos los datos enviados por el formulario de editar usuario y eliminamos el valor del token y method
         $request->except('_token', '_method');
-        // dd($request);
+        //dd($request);
         $validator=Validator::make($request->all(),[
            
             'permisos' => 'required',

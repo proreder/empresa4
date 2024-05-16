@@ -94,7 +94,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./public/css/create.css">
+    <link rel="stylesheet" href="../public/css/create.css">
 @endsection
 
 @section('js')
@@ -104,7 +104,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
-<script src="./public/build/assets/sweetalert2.all.min.js"></script>
+<script src="../public/build/assets/sweetalert2.all.min.js"></script>
 <script>
     //CSRF
     $.ajaxSetup({
@@ -129,6 +129,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                     }
                 }
             });
+        });
         
         //script para BORRAR un conductor si se pulsa el botón de borrado
         $('.btn_borrar').on('click', function(e) {

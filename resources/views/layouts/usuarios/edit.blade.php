@@ -94,8 +94,6 @@
                 }
             }
 
-            
-            
             //si se pulsa el botón de actualizar roles se envian el formulario
             $('#updateRolesForm').submit(function(e){
             
@@ -107,7 +105,7 @@
               var formData=new FormData(this);
               //Obtenemos los datos del formulario
               //console.log(Array.from(formData.entries()));
-              //Declaramos variable para verificar el estado de los checkbos de los roles
+              //Declaramos variable para verificar el estado de los checkbox de los roles
            
             roles=[];
            //Camniamos los valores del select  a 1 o 0
