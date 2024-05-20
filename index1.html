@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        #miParrafo {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="miParrafo">@Juan Vico</p>
+
+    <script>
+        $(document).ready(function(){
+            $("#miParrafo").mouseenter(function(){
+                $(this).text("joanfvico@gmail.com");
+            });
+
+            $("#miParrafo").mouseleave(function(){
+                $(this).text("@Juan Vico");
+            });
+        });
+    </script>
+</body>
+</html>

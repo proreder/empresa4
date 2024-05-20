@@ -342,7 +342,7 @@
 
       <div class="container my-5">
               <div class="row row justify-content-between col-12">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-secondary" onclick="history.back()">Cancelar</button>
                                 <div id="spinnerCandidato"></div>
                                 <button type="submit" id="btn_guardarCandidato" class="btn btn-danger">Guardar</button>
               </div>

@@ -102,6 +102,9 @@
                            <!--   <img class="wh-auto mx-3 mt-3 border border-dark boder-3"  src="/empresa4/storage/app/public/imagenes/maps.png"  alt="imagen anonima"/> -->
 
                         </div>
+                        <div class="col-12 mt-3 d-flex mx-auto justify-content-center" ">
+                        <button type="button" class="btn btn-secondary" onclick="history.back()">Cancelar</button>
+                        </div>
                     </div>
                   
 

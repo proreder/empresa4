@@ -358,12 +358,7 @@ return [
             'can'   => 'usuarios'
         ],
         
-        [
-            'text' => 'Administrar cuentas',
-            'url'  => 'usuarios',
-            'icon' => 'fas fa-fw fa-lock',
-            'can'  => 'usuarios'
-        ],
+       
         
        
     ],
